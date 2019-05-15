@@ -1,0 +1,299 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-color:#e4f1fe;
+}
+
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #1c3763;
+  height: 75px;
+  padding: 10px;
+  color: white;
+
+}
+.App-links {
+  textDecoration: 'none';
+  color:'white';
+}
+
+.App-routes {
+  padding: 5px;
+  margin:5px;
+  color:'white';
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+html, body {
+    height: 100%;
+}
+
+.dashboard {
+  background-color: #e4f1fe;
+  padding: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 75px;
+  height:100%;
+  flex:1;
+}
+
+.main {
+  display: flex;
+  flex:1;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #e4f1fe;
+  padding: 20px;
+  margin-top: 10%;
+
+}
+
+.header {
+  background-color: #21385b;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height:75px;
+  padding:10px;
+  color:blue;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+  z-index: 10000;
+  -webkit-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.75);
+}
+
+.header1 {
+  background-color: #21385b;
+  height:75px;
+  padding:15px;
+  color:blue;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+  z-index: 10000;
+  -webkit-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 3px 13px -1px rgba(0,0,0,0.75);
+}
+
+.signin{
+  margin-left: 15%;
+  margin-right: 15%;
+  height:100%;
+}
+
+.footer{
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40;
+  height:75px;
+  color:white
+}
+
+.error{
+  background-color: #343a40;
+  color:red;
+}
+.dropdown{
+  position: relative;
+  z-index: 10000;
+}
+.container_upper{
+  background-color: #e4f1fe;
+  padding: 20px;
+  height:300px;
+}
+.container_lower{
+  background-color: #F5F5F5;
+  padding: 20px;
+  height:300px;
+}
+
+.container{
+  margin-top: 75px;
+  flex:1;
+  background-color: #e4f1fe;
+  margin: 20px;
+  height:100%;
+  width:100%;
+  color: #21385b;
+}
+
+.panelcontainer{
+  background-color: #e4f1fe;
+  padding: 10px;
+  height:1500px;
+  color: #21385b;
+}
+
+.course_row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.course_cell{
+  width:25%;
+  text-align: left;
+}
+.coursecontainer{
+  padding: 20px;
+  height: 100%;
+  background-color: #e4f1fe;
+}
+
+.card{
+  margin: 10px;
+}
+
+.smallcard{
+  margin: 10px;
+  height:400px;
+}
+
+.dashboard-button{
+  width:250px;
+  align:"left";
+}
+
+.sign-button{
+  width:200px;
+  align:"right";
+}
+
+.testselect{
+  width:100px;
+}
+
+.dropzone{
+  align-self: center;
+}
+.upload{
+  padding:10px;
+}
+/* Cells that can be interacted with */
+.table-drag-select td.cell-enabled {
+  color: #806E52;
+  background-color: #FBF1E8;
+}
+
+/* Cells that cannot be interacted with */
+.table-drag-select td.cell-disabled {
+  /* Put yer css here */
+}
+
+/* Cells that have been selected */
+.table-drag-select td.cell-selected {
+  background-color: #e4f1fe;
+}
+
+/* Cells that are in the process of being selected */
+.table-drag-select td.cell-being-selected {
+  background-color: #EACA96;
+}
+
+/* Cells in first row */
+.table-drag-select tr:first-child td {
+  /* Remove empty space at top of table */
+  border-top: 0;
+  line-height: 1rem;
+}
+
+/* Cells in first column */
+.table-drag-select td:first-child {
+  /* Consume less whitespace */
+  width: 3rem;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.alert-shown {
+  opacity: 1;
+  transition: all 350ms linear;
+}
+
+.alert-hidden {
+  opacity: 0;
+  transition: all 350ms linear;
+}
+
+.show-image {
+    position: relative;
+    float:left;
+    margin:5px;
+}
+.show-image:hover img{
+    opacity:0.5;
+}
+.show-image:hover input {
+    display: block;
+}
+.show-image input {
+    position:absolute;
+    display:none;
+}
+.show-image input.update {
+    top:0;
+    left:0;
+}
+.show-image input.delete {
+    top:0;
+    left:79%;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

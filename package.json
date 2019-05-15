@@ -1,0 +1,77 @@
+{
+  "name": "qpwa",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.4",
+    "@fortawesome/free-solid-svg-icons": "^5.3.1",
+    "@fortawesome/react-fontawesome": "^0.1.3",
+    "@livechat/ui-kit": "^0.3.0-2",
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "@trainline/react-skeletor": "^1.0.2",
+    "apollo-boost": "^0.1.22",
+    "apollo-link": "^1.2.6",
+    "apollo-link-context": "^1.0.12",
+    "apollo-link-http": "^1.5.9",
+    "apollo-link-ws": "^1.0.12",
+    "apollo-utilities": "^1.0.27",
+    "array.prototype.flat": "^1.2.1",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.1.3",
+    "caniuse-lite": "^1.0.30000951",
+    "dateformat": "^3.0.3",
+    "dotenv": "^6.2.0",
+    "graphql": "^14.0.2",
+    "i": "^0.3.6",
+    "js-cookie": "^2.2.0",
+    "npm": "^6.4.1",
+    "react": "^16.6.3",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-transition-group": "^15.6.2",
+    "react-apollo": "^2.3.1",
+    "react-checkbox-group": "^4.0.1",
+    "react-data-grid": "^4.0.8",
+    "react-dom": "^16.6.3",
+    "react-dropzone": "^8.0.3",
+    "react-dropzone-component": "^3.2.0",
+    "react-fine-uploader": "^1.1.1",
+    "react-loading-skeleton": "^1.0.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "react-scripts": "2.1.1",
+    "react-scroll-box": "^0.3.5",
+    "react-table-drag-select": "^0.3.1",
+    "react-transition-group": "^1.2.1",
+    "reactstrap": "^6.4.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-calendar-react": "^0.12.1",
+    "semantic-ui-react": "^0.84.0",
+    "subscriptions-transport-ws": "^0.9.15",
+    "uuid": "^3.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
