@@ -38,9 +38,10 @@ import PersonnelDashboard from './screens/PersonnelDashboard'
 import InstitutionCourse from './screens/InstitutionCourse'
 import InstitutionStudents from './screens/InstitutionStudents'
 import ChallengeDashboardStudent from './screens/ChallengeDashboardStudent'
-
-
-//import CourseDashboard from './screens/CourseDashboard2'
+import CreateQuestion from './screens/CreateQuestion'
+import AnswerQuestion from './screens/AnswerQuestion'
+import ReviewQuestion from './screens/ReviewQuestion'
+import EditQuestion from './screens/EditQuestion'
 
 import Nav1 from './components/Nav1'
 import Footer from './components/Footer'
@@ -95,6 +96,10 @@ class App extends Component {
           <Route path="/institution_course" component={InstitutionCourse}/>
           <Route path="/institution_students" component={InstitutionStudents}/>
           <Route path="/challenge_student_dashboard" component={ChallengeDashboardStudent}/>
+          <Route path="/create_question" component={CreateQuestion}/>
+          <Route path="/answer_question" component={AnswerQuestion}/>
+          <Route path="/review_question" component={ReviewQuestion}/>
+          <Route path="/edit_question" component={EditQuestion}/>
         </Switch>
         </div>
       </div>

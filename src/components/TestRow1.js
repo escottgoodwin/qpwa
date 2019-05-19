@@ -6,6 +6,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import BookIcon from '@material-ui/icons/Book';
+
+import { Microscope } from 'mdi-material-ui'
 import Typography from '@material-ui/core/Typography';
 import teal from '@material-ui/core/colors/teal';
 import cyan from '@material-ui/core/colors/cyan';
@@ -39,7 +42,7 @@ const TestRow1 = (props) =>
 
       {props.test.testType==="CLASS" &&
       <CardContent style={{ backgroundColor:cyan[100]}}>
-      <h5 style={{color:cyan[700]}}>
+      <BookIcon style={{ color:cyan[700]}} /> <h5 style={{color:cyan[700]}}>
       Lecture
       </h5>
       </CardContent>
@@ -47,7 +50,7 @@ const TestRow1 = (props) =>
 
       {props.test.testType==="LAB" &&
       <CardContent style={{ backgroundColor:teal[100]}}>
-      <h5 style={{color:teal[700]}}>
+      <Microscope style={{color:teal[700]}}/><h5 style={{color:teal[700]}}>
       Lab
       </h5>
       </CardContent>
@@ -93,7 +96,7 @@ const TestRow1 = (props) =>
                }} >
 
            <Button  color="primary"  variant="outlined">
-           Questions: {props.test.questionsCount} 
+           Questions: {props.test.questionsCount}
           </Button>
 
           <Button  color="primary"  variant="outlined">

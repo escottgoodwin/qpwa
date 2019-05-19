@@ -1604,3 +1604,215 @@ mutation EditPersonnel($userId: ID!,
       }
     }
   `
+
+export const CREATE_QUESTION_QUERY = gql`
+query CreateQuestionQuery($questionId:ID!){
+  question(id:$questionId){
+    id
+    question
+    sentPanel{
+      link
+      id
+    }
+    test{
+      id
+      subject
+      testDate
+      testNumber
+      course{
+        id
+        name
+        institution{
+          id
+          name
+        }
+      }
+    }
+  }
+}
+`
+
+export const CREATE_QUESTION_MUTATION = gql`
+mutation CreateQuestion(
+  $question: String!,
+  $testId:ID!,
+  $panelId:ID!,
+  $choice1:String!,
+  $choiceCorrect1: Boolean!,
+  $choice2:String!,
+  $choiceCorrect2: Boolean!,
+  $choice3:String!,
+  $choiceCorrect3: Boolean!,
+  $choice4:String!,
+  $choiceCorrect4: Boolean!,
+  ){
+    createQuestion(
+      question: $question,
+      testId:$testId,
+      panelId:$panelId,
+      choice1: $choice1,
+      choiceCorrect1: $choiceCorrect1,
+      choice2: $choice2,
+      choiceCorrect2: $choiceCorrect2,
+      choice3: $choice3,
+      choiceCorrect3: $choiceCorrect3,
+      choice4: $choice4,
+      choiceCorrect4: $choiceCorrect4,
+    ){
+        id
+        test{
+          id
+        }
+      }
+    }
+  `
+
+export const ANSWER_QUESTION_QUERY = gql`
+  query AnswerQuestionQuery($questionId:ID!){
+    question(id:$questionId){
+      id
+      question
+      choices {
+        id
+        choice
+        correct
+      }
+      test{
+        id
+        subject
+        testNumber
+        course{
+          id
+          name
+          institution{
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
+export const ANSWER_QUESTION_MUTATION = gql`
+  mutation AnswerQuestionMutation(
+    $questionId:ID!,
+  	$answerChoiceId:ID!){
+    addAnswer(
+      questionId:$questionId,
+      answerChoiceId:$answerChoiceId
+    ){
+      id
+    }
+  }
+`
+
+export const QUESTION_QUERY = gql`
+  query CreateReviewQuery($questionId:ID!){
+    question(id:$questionId){
+      id
+      question
+      choices {
+        id
+        choice
+        correct
+      }
+      panel{
+        link
+        id
+      }
+      test{
+        id
+        subject
+        course{
+          id
+          name
+          institution{
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
+export const SEND_QUESTION_MUTATION = gql`
+  mutation SendQuestion($testId: ID!, $questionId:ID! ){
+    sendQuestion(testId:$testId, questionId:$questionId){
+      question
+      id
+    }
+  }
+`
+
+export const EDIT_QUESTION_QUERY = gql`
+query EditQuestionQuery($questionId:ID!){
+  question(id:$questionId){
+    id
+    question
+    choices{
+      id
+      choice
+      correct
+    }
+    panel{
+      id
+      link
+    }
+    test{
+      id
+      subject
+      testDate
+      testNumber
+      course{
+        id
+        name
+        institution{
+          id
+          name
+        }
+      }
+    }
+  }
+}
+`
+
+export const EDIT_QUESTION_MUTATION = gql`
+mutation EditQuestion(
+    $id:ID!,
+    $question:String,
+  	$choice1:String,
+  	$choice2:String,
+  	$choice3:String,
+  	$choice4:String,
+  	$choiceCorrect1:Boolean,
+  	$choiceCorrect2:Boolean,
+  	$choiceCorrect3:Boolean,
+  	$choiceCorrect4:Boolean,
+  	$choice1Id:ID,
+  	$choice2Id:ID,
+  	$choice3Id:ID,
+  	$choice4Id:ID){
+  updateQuestion(
+    id:$id,
+    question:$question,
+    choice1:$choice1,
+    choice2:$choice2,
+  	choice3:$choice3,
+  	choice4:$choice4,
+  	choiceCorrect1:$choiceCorrect1,
+  	choiceCorrect2:$choiceCorrect2,
+  	choiceCorrect3:$choiceCorrect3,
+  	choiceCorrect4:$choiceCorrect4,
+  	choice1Id:$choice1Id,
+  	choice2Id:$choice2Id,
+  	choice3Id:$choice3Id,
+  	choice4Id:$choice4Id,){
+    question
+    choices{
+      choice
+    }
+  }
+}
+`

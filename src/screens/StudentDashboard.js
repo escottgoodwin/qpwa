@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 
 import '../css/App.css'
 import { Query } from "react-apollo"
+import { Link } from 'react-router-dom'
 
 import InvitationList from '../components/InvitationList'
 import StudentCourseList from '../components/StudentCourseList'
@@ -15,7 +16,10 @@ class StudentDashboard extends Component {
 
   render() {
     const userid = sessionStorage.getItem('userid')
+    const questionId = 'cjud8494k008m0707mjy2in3f'
 
+    const answerId = 'cjud63yu6002e0707tr5x7tgs'
+    const testId = 'cjtpbr85h005v0832erfms8ce'
     return (
 
         <Query query={STUDENT_COURSE_QUERY} variables={{ userid: userid }}>
@@ -37,6 +41,42 @@ class StudentDashboard extends Component {
                       <InvitationList userid={userToRender.id} invites={userToRender.invitesSentTo}/>
                       </div>
                     }
+                    <div>
+                    <Link  to={{
+                      pathname: "/create_question",
+                      state:
+                        { questionId: questionId }
+                      }} >
+
+                      Create Question
+
+                    </Link>
+                     </div>
+
+                     <div>
+                     <Link  to={{
+                       pathname: "/answer_question",
+                       state:
+                         { questionId: answerId }
+                       }} >
+
+                       Answer Question
+
+                     </Link>
+                      </div>
+
+                      <div>
+                      <Link  to={{
+                        pathname: "/review_question",
+                        state:
+                          { newQuestionId: answerId,
+                            testId: testId}
+                        }} >
+
+                        Review Question
+
+                      </Link>
+                       </div>
 
                       <StudentCourseList  {...studentCourses} />
 

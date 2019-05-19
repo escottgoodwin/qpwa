@@ -46,14 +46,12 @@ const StudentCourseRow1 = (props) =>
     { course_id: props.id }
   }} >
   <div style={{margin:15}}>
-<Card className={styles.card}>
+  <Card style={styles.card}>
 
       <CardMedia
           height="140"
           src={props.image}
-
           component="img"
-
       />
 
       <CardContent>
