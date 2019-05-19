@@ -42,6 +42,7 @@ import CreateQuestion from './screens/CreateQuestion'
 import AnswerQuestion from './screens/AnswerQuestion'
 import ReviewQuestion from './screens/ReviewQuestion'
 import EditQuestion from './screens/EditQuestion'
+import QuestionAnswered from './screens/QuestionAnswered'
 
 import Nav1 from './components/Nav1'
 import Footer from './components/Footer'
@@ -100,6 +101,8 @@ class App extends Component {
           <Route path="/answer_question" component={AnswerQuestion}/>
           <Route path="/review_question" component={ReviewQuestion}/>
           <Route path="/edit_question" component={EditQuestion}/>
+          <Route path="/question_answered" component={QuestionAnswered}/>
+\
         </Switch>
         </div>
       </div>

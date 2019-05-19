@@ -1816,3 +1816,38 @@ mutation EditQuestion(
   }
 }
 `
+
+export const ANSWERED_QUESTION_QUERY = gql`
+query AnswerQuery($answerId:ID!){
+  answer(id:$answerId){
+    id
+    answer{
+      id
+      choice
+      correct
+    }
+    question{
+      id
+      question
+      choices{
+        id
+        choice
+        correct
+      }
+      test{
+        id
+        subject
+        testNumber
+        course{
+          id
+          name
+          institution{
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+`

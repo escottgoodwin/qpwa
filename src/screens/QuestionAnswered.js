@@ -15,7 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -30,7 +31,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import { Mutation, Query } from "react-apollo"
-import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
+import { ANSWERED_QUESTION_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -67,7 +68,8 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main,
+    //backgroundColor: theme.palette.primary.main,
+
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -89,30 +91,12 @@ const styles = theme => ({
   },
 });
 
-class ReviewQuestion extends Component {
-
-  state = {
-          value:'',
-          answerChoiceId: '',
-          chosenLabel:'',
-          graphQLError: '',
-          isVisibleGraph:false,
-          networkError:'',
-          isVisibleNet:false,
-      }
-
-      handleChange = event => {
-          this.setState({ value: event.target.value });
-        };
-
+class QuestionAnswered extends Component {
 
     render() {
 
-
-      const {value, answerChoiceId, chosenLabel, graphQLError, networkError, isVisibleNet, isVisibleGraph} = this.state
-
       const { classes } = this.props
-      const { newQuestionId, oldQuestionId, testId } = this.props.location.state
+      const { answerId } = this.props.location.state
 
       return (
       <div style={{height:'100%',backgroundColor:'#e4f1fe'}}>
@@ -120,111 +104,109 @@ class ReviewQuestion extends Component {
       <CssBaseline />
       <div style={{marginBottom:50}}>
       <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <QuestionAnswerIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Review Question
-        </Typography>
 
 
-        <Query query={QUESTION_QUERY} variables={{ questionId: newQuestionId }} fetchPolicy="cache-and-network">
+        <Query query={ANSWERED_QUESTION_QUERY} variables={{ answerId: answerId }} fetchPolicy="cache-and-network">
               {({ loading, error, data }) => {
                 if (loading) return <div>Loading... </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, question, panel, choices, sentPanel } = data.question
-                const currValue = choices.filter(choice => choice.correct)[0].id
+                const { id, answer, question } = data.answer
+                console.log(question.test.id)
+                const currValue = question.choices.filter(choice => choice.correct)[0].id
 
             return (
 
-        <div style={{marginTop:20}}>
+            <div style={{marginTop:20}}>
+            <div style={{marginBottom:20}}>
+            {answer.correct ?
+              <div >
+              <center>
 
-        <div style={{marginBottom:20}}>
-        <Card className={styles.card}>
+                <ThumbUpAltIcon fontSize='large' style={{color:'green'}}/>
 
-              <CardMedia
-                  src={panel.link}
-                  component="img"
-              />
+              </center>
+              <Typography style={{color:'green'}} component="h4" variant="h4">
+                You got it right!
+              </Typography>
+              <div style={{margin:10}} >
+              <Typography  component="h5" variant="h5">
+                {answer.choice}
+              </Typography>
+              </div>
+              </div>
+              :
+              <div >
+              <center>
 
-          </Card>
-          </div>
+                <ThumbDownAltIcon fontSize='large' style={{color:'red'}}/>
 
-          <Typography component="h4" variant="h4">
-            {question}
-          </Typography>
+              </center>
+              <Typography style={{color:'red'}} component="h4" variant="h4">
+                You got it wrong!
+              </Typography>
+              <div style={{margin:10}} >
+              <Typography  component="h5" variant="h5">
+                {answer.choice}
+              </Typography>
+              </div>
+              </div>
+            }
+            </div>
+            <hr />
+              <Typography component="h4" variant="h4">
+                {question.question}
+              </Typography>
 
-        <FormControl component="fieldset" className={classes.formControl}>
+            <FormControl component="fieldset" className={classes.formControl}>
 
-          <RadioGroup
-            aria-label="Choices"
-            name="choices"
-            className={classes.group}
-            value={currValue}
-            onChange={this.handleChange}
-          >
+              <RadioGroup
+                aria-label="Choices"
+                name="choices"
+                className={classes.group}
+                value={currValue}
+                onChange={this.handleChange}
+              >
 
-          {choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
+              {question.choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
 
-        </RadioGroup>
-        </FormControl>
+            </RadioGroup>
+            </FormControl>
 
-        <div style={{margin:10}}>
-        <Button
-        fullWidth
-        variant="contained"
-        color="primary"
-        size='large'
-        className={classes.submit}
-        onClick={() => this.props.history.push({
-          pathname: `/edit_question`,
-          state: { newQuestionId: newQuestionId, oldQuestionId: oldQuestionId, testId: testId }
-        })}>Edit Question</Button>
-        </div>
+            <div style={{margin:10}}>
+            <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            size='large'
+            className={classes.submit}
+            onClick={() => this.props.history.push({
+              pathname: `/challenge_question`,
+              state: { answerId: answerId }
+            })}>Challenge Question</Button>
+            </div>
 
-        <div style={{margin:10}}>
-        <Mutation
-            mutation={SEND_QUESTION_MUTATION}
-            variables={{
-              questionId: newQuestionId,
-              testId: testId
-            }}
-            onCompleted={data => this._confirm(data)}
-            onError={error => this._error (error)}
-          >
-            {mutation => (
-              <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              size='large'
-              className={classes.submit}
-              onClick={mutation}>Send Question</Button>
-            )}
-        </Mutation>
-        </div>
+            <div style={{margin:10}}>
+            <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            size='large'
+            className={classes.submit}
+            onClick={() => this.props.history.push({
+              pathname: `/student_test_dashboard`,
+              state: { test_id: question.test.id }
+            })}>Test Dashboard</Button>
+            </div>
 
-        </div>
+            </div>
           )
-          }}
-          </Query>
+        }}
+        </Query>
 
         </Paper>
         </div>
       </main>
-
-        {isVisibleGraph &&
-          <Message negative>
-            <p><b>{graphQLError}</b></p>
-          </Message>
-        }
-
-        {isVisibleNet &&
-          <Message negative>
-            <p><b>{networkError}</b></p>
-          </Message>
-        }
 
       </div>
 
@@ -252,4 +234,4 @@ _error = async error => {
 
   }
 
-export default withStyles(styles)(ReviewQuestion)
+export default withStyles(styles)(QuestionAnswered)

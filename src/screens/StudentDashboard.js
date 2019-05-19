@@ -16,10 +16,11 @@ class StudentDashboard extends Component {
 
   render() {
     const userid = sessionStorage.getItem('userid')
-    const questionId = 'cjud8494k008m0707mjy2in3f'
+    const questionId = 'cjuub450n01bb0751keow7kjv'
 
-    const answerId = 'cjud63yu6002e0707tr5x7tgs'
-    const testId = 'cjtpbr85h005v0832erfms8ce'
+    const answerId = 'cjunbxcu800dx0734t8cq9arz'
+    const testId = 'cjuub0c8j00x707512cybsukb'
+
     return (
 
         <Query query={STUDENT_COURSE_QUERY} variables={{ userid: userid }}>
@@ -57,7 +58,7 @@ class StudentDashboard extends Component {
                      <Link  to={{
                        pathname: "/answer_question",
                        state:
-                         { questionId: answerId }
+                         { questionId: questionId }
                        }} >
 
                        Answer Question
@@ -69,7 +70,7 @@ class StudentDashboard extends Component {
                       <Link  to={{
                         pathname: "/review_question",
                         state:
-                          { newQuestionId: answerId,
+                          { newQuestionId: questionId,
                             testId: testId}
                         }} >
 
@@ -77,6 +78,18 @@ class StudentDashboard extends Component {
 
                       </Link>
                        </div>
+
+                       <div>
+                       <Link  to={{
+                         pathname: "/question_answered",
+                         state:
+                           { answerId: answerId }
+                         }} >
+
+                         Question Answered
+
+                       </Link>
+                        </div>
 
                       <StudentCourseList  {...studentCourses} />
 
