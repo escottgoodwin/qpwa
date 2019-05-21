@@ -42,9 +42,7 @@ class StudentCourseDashboard extends Component {
     </Query>
     )
   }
-  _confirm = async data => {
-    this.props.history.push(`/teacher_dashboard`)
-  }
+
 }
 
 export default StudentCourseDashboard

@@ -35,8 +35,13 @@ const styles = {
 };
 
 
-const TestRow1 = (props) =>
+const StudentTestRow1 = (props) =>
   <div style={{margin:15}}>
+  <Link  to={{
+    pathname: "/student_test_dashboard",
+    state:
+      { test_id: props.test.id }
+    }} >
   <Card className={props.classes.card}>
 
       {props.test.testType==="CLASS" &&
@@ -55,55 +60,39 @@ const TestRow1 = (props) =>
       </CardContent>
       }
 
-
       <CardContent>
       <Typography className={props.classes.title} color="textSecondary" gutterBottom>
         { dateFormat(props.test.testDate, "dddd, mmmm dS, yyyy") }
       </Typography>
-      <Link  to={{
-        pathname: "/test_dashboard",
-        state:
-          { test_id: props.test.id }
-        }} >
 
-        <Typography variant="h5" component="h5">
-        {props.test.testNumber} - {props.test.subject}
+      <Typography variant="h5" component="h5">
+      {props.test.testNumber}
+      </Typography>
+
+        <Typography variant="h4" component="h4">
+        {props.test.subject}
         </Typography>
 
-        </Link>
-
         <div style={{margin:10}}>
-        <Link  to={{
-          pathname: "/challenge_dashboard",
-          state:
-            {
-              test_id: props.test.id }
-          }} >
+        <Grid container justify="center" spacing={24}>
+        <Grid key='Questions' item>
+        <Typography variant="h6" component="h6">
+          Questions: {props.test.questions.length}
+        </Typography>
+        </Grid>
+        <Grid key='Answers' item>
+        <Typography variant="h6" component="h6">
+          Answers: {props.test.questions.map(q => q.questionAnswers.length).reduce((a,b) => a + b, 0)}
+          </Typography>
+        </Grid>
+        <Grid key='Panels' item>
+        <Typography variant="h6" component="h6">
+          Panels: { props.test.panels.length }
+        </Typography>
+        </Grid>
+        </Grid>
 
-        <Button  color="primary" variant="outlined">
-        {props.test.challengeCount} Challenges
-        </Button>
-
-        </Link>
-
-           <Link  to={{
-               pathname: "/student_performance",
-               state:
-                 {
-                   test_id: props.test.id,
-                 course_id:props.courseId }
-               }} >
-
-           <Button  color="primary"  variant="outlined">
-           Questions: {props.test.questionsCount}
-          </Button>
-
-          <Button  color="primary"  variant="outlined">
-          Answers: {props.test.answersCount}
-         </Button>
-
-          </Link>
-          </div>
+        </div>
 
           <hr/>
 
@@ -113,13 +102,14 @@ const TestRow1 = (props) =>
 
           <Button disabled={!props.test.published} variant="outlined">Published</Button>
 
-
         </div>
 
       </CardContent>
+
     </Card>
+    </Link>
     </div>
 
 
 
-export default withStyles(styles)(TestRow1)
+export default withStyles(styles)(StudentTestRow1)

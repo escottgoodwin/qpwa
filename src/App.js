@@ -15,7 +15,7 @@ import SignUp from './screens/SignUp'
 import SignedUp from './screens/SignedUp'
 import SignUpConfirmation from './screens/SignUpConfirmation'
 import CourseDashboard from './screens/CourseDashboard'
-import StudentCourseDashboard from './screens/StudentCourseDashboard'
+import StudentCourseDashboard from './screens/StudentCourseDashboard1'
 import CourseInvitation from './screens/CourseInvitation'
 import AddCourse from './screens/AddCourse'
 import EditCourse from './screens/EditCourse'
@@ -110,7 +110,7 @@ class App extends Component {
           <Route path="/challenge_question" component={ChallengeQuestion}/>
           <Route path="/challenge" component={Challenge}/>
           <Route path="/edit_challenge" component={EditChallenge}/>
-          
+
         </Switch>
 
         </div>

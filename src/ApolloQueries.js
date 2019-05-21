@@ -378,6 +378,7 @@ query CourseQuery($courseid:ID!){
       release
       published
       testDate
+      testType
       questions{
         id
         questionAnswers{
