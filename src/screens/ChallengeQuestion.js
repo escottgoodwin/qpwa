@@ -32,9 +32,10 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
+import StudentChallengeList from '../components/StudentChallengeList';
 
 import { Mutation, Query } from "react-apollo"
-import { ANSWERED_QUESTION_QUERY } from '../ApolloQueries'
+import { ANSWERED_QUESTION_QUERY, CREATE_CHALLENGE_MUTATION } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -94,12 +95,22 @@ const styles = theme => ({
   },
 });
 
-class QuestionAnswered extends Component {
+class ChallengeQuestion extends Component {
+
+  state = {
+        challenge:'',
+        graphQLError:'',
+        isVisibleGraph:false,
+        networkError:'',
+        isVisibleNet:false,
+      }
 
     render() {
 
       const { classes } = this.props
-      const { answerId } = this.props.location.state
+      const { answerId, questionId } = this.props.location.state
+
+      const { challenge, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
       return (
       <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
@@ -107,8 +118,8 @@ class QuestionAnswered extends Component {
       <CssBaseline />
       <div style={{marginBottom:50}}>
 
-        <Query query={ANSWERED_QUESTION_QUERY} variables={{ answerId: answerId }} fetchPolicy="cache-and-network">
-              {({ loading, error, data }) => {
+      <Query query={ANSWERED_QUESTION_QUERY} variables={{ answerId }} fetchPolicy="cache-and-network">
+            {({ loading, error, data }) => {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
@@ -117,7 +128,9 @@ class QuestionAnswered extends Component {
                 const currValue = question.choices.filter(choice => choice.correct)[0].id
 
             return (
+
               <Fade in={!loading}>
+              <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
               <Paper className={classes.paper}>
             <div style={{marginTop:20}}>
             <div style={{marginBottom:20}}>
@@ -156,6 +169,18 @@ class QuestionAnswered extends Component {
             }
             </div>
             <hr />
+
+            <div style={{marginBottom:20}}>
+            <Card className={styles.card}>
+
+                  <CardMedia
+                      src={question.panel.link}
+                      component="img"
+                  />
+
+              </Card>
+              </div>
+
               <Typography component="h4" variant="h4">
                 {question.question}
               </Typography>
@@ -175,20 +200,46 @@ class QuestionAnswered extends Component {
             </RadioGroup>
             </FormControl>
 
-            <div style={{margin:10}}>
-            <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            size='large'
-            className={classes.submit}
-            onClick={() => this.props.history.push({
-              pathname: `/challenge_question`,
-              state: { answerId: answerId, questionId: question.id }
-            })}>
-            Challenge Question
-            </Button>
-            </div>
+            <StudentChallengeList  questionId={questionId} />
+
+            <Paper className={classes.paper}>
+            <TextField
+                id="filled-multiline-flexible"
+                label="Challenge"
+                multiline
+                rows="4"
+                fullWidth
+                className={classes.textField}
+                value={challenge}
+                onChange={e => this.setState({ challenge: e.target.value })}
+                margin="normal"
+              />
+
+            <Mutation
+                mutation={CREATE_CHALLENGE_MUTATION}
+                variables={{
+                  challenge: challenge,
+                  answerId: answerId
+                }}
+                onCompleted={data => this._confirm(data)}
+                onError={error => this._error (error)}
+              >
+                {mutation => (
+
+                  <div style={{margin:10}}>
+                  <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  size='large'
+                  className={classes.submit}
+                  onClick={mutation}>Submit Challenge
+                  </Button>
+                  </div>
+
+                )}
+              </Mutation>
+              </Paper>
 
             <div style={{margin:10}}>
             <Button
@@ -205,6 +256,7 @@ class QuestionAnswered extends Component {
 
             </div>
             </Paper>
+            </div>
             </Fade>
           )
         }}
@@ -228,16 +280,16 @@ _error = async error => {
       this.setState({ isVisibleNet: true, networkError: error.networkError.message})
 
 }
-  _confirm = async data => {
 
-    const { oldQuestionId } = this.props.location.state
+_confirm = (data) => {
+  const { id } = data.addChallenge
 
-    this.props.history.push({
-      pathname: `/answer_question`,
-      state: { questionId: oldQuestionId }
-      })
-    }
+  this.props.history.push({
+    pathname: `/challenge`,
+    state: { challengeId: id }
+    })
+  }
 
   }
 
-export default withStyles(styles)(QuestionAnswered)
+export default withStyles(styles)(ChallengeQuestion)

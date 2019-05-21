@@ -2,6 +2,8 @@ import React,{Component }from 'react';
 import { Route, Switch} from 'react-router-dom'
 import './css/App.css';
 import { withStyles } from '@material-ui/core/styles';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+
 
 import TeacherDashboard from './screens/TeacherDashboard'
 import StudentDashboard from './screens/StudentDashboard'
@@ -43,6 +45,9 @@ import AnswerQuestion from './screens/AnswerQuestion'
 import ReviewQuestion from './screens/ReviewQuestion'
 import EditQuestion from './screens/EditQuestion'
 import QuestionAnswered from './screens/QuestionAnswered'
+import ChallengeQuestion from './screens/ChallengeQuestion'
+import Challenge from './screens/Challenge'
+import EditChallenge from './screens/EditChallenge'
 
 import Nav1 from './components/Nav1'
 import Footer from './components/Footer'
@@ -102,8 +107,12 @@ class App extends Component {
           <Route path="/review_question" component={ReviewQuestion}/>
           <Route path="/edit_question" component={EditQuestion}/>
           <Route path="/question_answered" component={QuestionAnswered}/>
-\
+          <Route path="/challenge_question" component={ChallengeQuestion}/>
+          <Route path="/challenge" component={Challenge}/>
+          <Route path="/edit_challenge" component={EditChallenge}/>
+          
         </Switch>
+
         </div>
       </div>
       )

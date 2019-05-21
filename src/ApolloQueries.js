@@ -296,7 +296,7 @@ query TestChallenges($test_id:ID!){
 }
 `
 
-export const CHALLENGE_QUERY = gql`
+export const NEW_CHALLENGE_QUERY = gql`
 query TestChallenges($test_id:ID!){
   test(id:$test_id){
       id
@@ -1829,6 +1829,10 @@ query AnswerQuery($answerId:ID!){
     question{
       id
       question
+      panel{
+        id
+        link
+      }
       choices{
         id
         choice
@@ -1848,6 +1852,118 @@ query AnswerQuery($answerId:ID!){
         }
       }
     }
+  }
+}
+`
+
+export const CREATE_CHALLENGE_MUTATION = gql`
+  mutation CreateChallenge($answerId:ID!,$challenge:String!){
+    addChallenge(challenge:$challenge,answerId:$answerId){
+      id
+    }
+  }
+`
+
+export const CHALLENGE_ANSWER_QUERY = gql`
+query ChallengeAnswerQuery($questionId:ID!){
+  answers(where:{question:{id:$questionId}}){
+    answers{
+    id
+    answer{
+      id
+      choice
+      correct
+    }
+    question{
+      id
+      question
+      panel{
+        id
+        link
+      }
+      choices{
+        id
+        choice
+        correct
+      }
+      challenges{
+        id
+        challenge
+      }
+      test{
+        id
+        subject
+        testNumber
+        course
+        {
+          id
+          name
+          institution{
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+}
+`
+
+export const CHALLENGE_QUERY = gql`
+query ChallengeQuery($challengeId:ID!){
+    challenge(id:$challengeId){
+   	 	id
+      challenge
+    	answer{
+      	id
+    		answer{
+          id
+          choice
+          correct
+          question{
+            question
+            panel{
+              id
+              link
+            }
+            test{
+              id
+            }
+            choices{
+              id
+              choice
+              correct
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const CHALLENGE_QUESTION_QUERY = gql`
+  query ChallengesQuestionQuery($questionId:ID!){
+    challenges(where:{answer:{question:{id:$questionId}}}){
+      challenges{
+        id
+        challenge
+        addedDate
+        addedBy{
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`
+export const EDIT_CHALLENGE_MUTATION = gql`
+mutation EditChallenge($challengeiId:ID!,
+  $challenge:String){
+  updateChallenge(id:$challengeiId,
+  challenge:$challenge){
+    id
+    challenge
   }
 }
 `

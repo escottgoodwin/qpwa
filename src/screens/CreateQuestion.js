@@ -24,6 +24,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Checkbox from '@material-ui/core/Checkbox';
+import Fade from '@material-ui/core/Fade';
 
 import { Mutation, Query } from "react-apollo"
 import {CREATE_QUESTION_QUERY,CREATE_QUESTION_MUTATION} from '../ApolloQueries'
@@ -104,7 +105,6 @@ class CreateQuestion extends Component {
     this.setState({ [name]: event.target.checked });
   };
 
-
     render() {
 
       const { question,
@@ -129,22 +129,14 @@ class CreateQuestion extends Component {
       const { questionId } = this.props.location.state
 
       return (
-      <div style={{height:'100%',backgroundColor:'#e4f1fe'}}>
+      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <QuestionAnswerIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Create Question
-        </Typography>
-
 
         <Query query={CREATE_QUESTION_QUERY} variables={{ questionId: questionId }} fetchPolicy="cache-and-network">
               {({ loading, error, data }) => {
-                if (loading) return <div>Loading...</div>
+                if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div> {JSON.stringify(error)} </div>
 
                 const questionToRender = data.question
@@ -152,6 +144,14 @@ class CreateQuestion extends Component {
                 const {id, sentPanel, test } = data.question
 
             return (
+              <Fade in={!loading}>
+              <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <QuestionAnswerIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Create Question
+                </Typography>
 
         <div>
 
@@ -168,7 +168,7 @@ class CreateQuestion extends Component {
 
         <form className={classes.form}>
 
-
+      <Paper className={classes.paper}>
       <TextField
           id="filled-multiline-flexible"
           label="Question"
@@ -180,9 +180,10 @@ class CreateQuestion extends Component {
           onChange={e => this.setState({ question: e.target.value })}
           margin="normal"
         />
+        </Paper>
 
 
-
+      <Paper className={classes.paper}>
       <TextField
           id="outlined-full-width"
           label="Choice 1"
@@ -192,6 +193,7 @@ class CreateQuestion extends Component {
           onChange={e => this.setState({ choice1: e.target.value })}
           margin="normal"
         />
+
 
         <Button
         fullWidth
@@ -208,10 +210,10 @@ class CreateQuestion extends Component {
           button3:'outlined',
           button4:'outlined'
         })}>Correct</Button>
+        </Paper>
 
 
-
-
+      <Paper className={classes.paper}>
       <TextField
           id="outlined-full-width"
           label="Choice 2"
@@ -239,7 +241,9 @@ class CreateQuestion extends Component {
         })}>
         Correct
         </Button>
+        </Paper>
 
+        <Paper className={classes.paper}>
         <TextField
             id="outlined-full-width"
             label="Choice 3"
@@ -267,7 +271,9 @@ class CreateQuestion extends Component {
           })}>
           Correct
           </Button>
+          </Paper>
 
+        <Paper className={classes.paper}>
         <TextField
             id="outlined-full-width"
             label="Choice 4"
@@ -295,6 +301,7 @@ class CreateQuestion extends Component {
           })}>
           Correct
           </Button>
+          </Paper>
 
         <div style={{margin:10}}>
         <Mutation
@@ -330,25 +337,30 @@ class CreateQuestion extends Component {
 
         </form>
         </div>
+        </Paper>
+
+        </Fade>
+
           )
           }}
           </Query>
+          <div>
+          {isVisibleGraph &&
+            <Message negative>
+              <p><b>{graphQLError}</b></p>
+            </Message>
+          }
 
-        </Paper>
+          {isVisibleNet &&
+            <Message negative>
+              <p><b>{networkError}</b></p>
+            </Message>
+          }
+          </div>
         </div>
       </main>
 
-        {isVisibleGraph &&
-          <Message negative>
-            <p><b>{graphQLError}</b></p>
-          </Message>
-        }
 
-        {isVisibleNet &&
-          <Message negative>
-            <p><b>{networkError}</b></p>
-          </Message>
-        }
 
       </div>
 

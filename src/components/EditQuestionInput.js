@@ -151,7 +151,7 @@ render() {
     <div>
 
     <form className={classes.form}>
-
+  <Paper className={classes.paper}>
   <TextField
       id="filled-multiline-flexible"
       label="Question"
@@ -164,6 +164,10 @@ render() {
       margin="normal"
     />
 
+    </Paper>
+
+
+  <Paper className={classes.paper}>
   <TextField
       id="outlined-full-width"
       label="Choice 1"
@@ -189,6 +193,10 @@ render() {
       button3:'outlined',
       button4:'outlined'
     })}>Correct</Button>
+    </Paper>
+
+
+  <Paper className={classes.paper}>
 
   <TextField
       id="outlined-full-width"
@@ -217,6 +225,10 @@ render() {
     })}>
     Correct
     </Button>
+    </Paper>
+
+
+  <Paper className={classes.paper}>
 
     <TextField
         id="outlined-full-width"
@@ -245,7 +257,10 @@ render() {
       })}>
       Correct
       </Button>
+      </Paper>
 
+
+    <Paper className={classes.paper}>
     <TextField
         id="outlined-full-width"
         label="Choice 4"
@@ -273,6 +288,7 @@ render() {
       })}>
       Correct
       </Button>
+      </Paper>
 
       <div style={{margin:10}}>
       <Button

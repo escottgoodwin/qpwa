@@ -28,6 +28,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Fade from '@material-ui/core/Fade';
 
 import { Mutation, Query } from "react-apollo"
 import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
@@ -115,28 +116,31 @@ class ReviewQuestion extends Component {
       const { newQuestionId, oldQuestionId, testId } = this.props.location.state
 
       return (
-      <div style={{height:'100%',backgroundColor:'#e4f1fe'}}>
+      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
+
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <QuestionAnswerIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Review Question
-        </Typography>
+
 
 
         <Query query={QUESTION_QUERY} variables={{ questionId: newQuestionId }} fetchPolicy="cache-and-network">
               {({ loading, error, data }) => {
-                if (loading) return <div>Loading... </div>
+                if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { id, question, panel, choices, sentPanel } = data.question
                 const currValue = choices.filter(choice => choice.correct)[0].id
 
             return (
+            <Fade in={!loading}>
+              <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <QuestionAnswerIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Review Question
+                </Typography>
 
         <div style={{marginTop:20}}>
 
@@ -206,11 +210,13 @@ class ReviewQuestion extends Component {
         </div>
 
         </div>
+        </Paper>
+          </Fade>
           )
           }}
           </Query>
 
-        </Paper>
+
         </div>
       </main>
 

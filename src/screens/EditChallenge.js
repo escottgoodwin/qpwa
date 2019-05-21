@@ -33,8 +33,12 @@ import Fade from '@material-ui/core/Fade';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
-import { Mutation, Query } from "react-apollo"
-import { ANSWERED_QUESTION_QUERY } from '../ApolloQueries'
+import EditChallengeInput from '../components/EditChallengeInput';
+import StudentChallengeList from '../components/StudentChallengeList';
+
+import {Query } from "react-apollo"
+
+import { CHALLENGE_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -94,12 +98,20 @@ const styles = theme => ({
   },
 });
 
-class QuestionAnswered extends Component {
+class EditChallenge extends Component {
+
+  state = {
+        challenge:'',
+        graphQLError:'',
+        isVisibleGraph:false,
+        networkError:'',
+        isVisibleNet:false,
+      }
 
     render() {
 
       const { classes } = this.props
-      const { answerId } = this.props.location.state
+      const { challengeId } = this.props.location.state
 
       return (
       <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
@@ -107,17 +119,21 @@ class QuestionAnswered extends Component {
       <CssBaseline />
       <div style={{marginBottom:50}}>
 
-        <Query query={ANSWERED_QUESTION_QUERY} variables={{ answerId: answerId }} fetchPolicy="cache-and-network">
-              {({ loading, error, data }) => {
+      <Query query={CHALLENGE_QUERY} variables={{ challengeId }} fetchPolicy="cache-and-network">
+            {({ loading, error, data }) => {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, answer, question } = data.answer
+                const { id, challenge, answer } = data.challenge
+
+                const question  = answer.answer.question
 
                 const currValue = question.choices.filter(choice => choice.correct)[0].id
 
             return (
+
               <Fade in={!loading}>
+              <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
               <Paper className={classes.paper}>
             <div style={{marginTop:20}}>
             <div style={{marginBottom:20}}>
@@ -156,6 +172,18 @@ class QuestionAnswered extends Component {
             }
             </div>
             <hr />
+
+            <div style={{marginBottom:20}}>
+            <Card className={styles.card}>
+
+                  <CardMedia
+                      src={question.panel.link}
+                      component="img"
+                  />
+
+              </Card>
+              </div>
+
               <Typography component="h4" variant="h4">
                 {question.question}
               </Typography>
@@ -173,22 +201,10 @@ class QuestionAnswered extends Component {
               {question.choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
 
             </RadioGroup>
+
             </FormControl>
 
-            <div style={{margin:10}}>
-            <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            size='large'
-            className={classes.submit}
-            onClick={() => this.props.history.push({
-              pathname: `/challenge_question`,
-              state: { answerId: answerId, questionId: question.id }
-            })}>
-            Challenge Question
-            </Button>
-            </div>
+            <EditChallengeInput classes={classes} {...data.challenge}/>
 
             <div style={{margin:10}}>
             <Button
@@ -198,13 +214,14 @@ class QuestionAnswered extends Component {
             size='large'
             className={classes.submit}
             onClick={() => this.props.history.push({
-              pathname: `/student_test_dashboard`,
-              state: { test_id: question.test.id }
-            })}>Test Dashboard</Button>
+              pathname: `/challenge`,
+              state: { challengeId: challengeId }
+            })}>Cancel</Button>
             </div>
 
             </div>
             </Paper>
+            </div>
             </Fade>
           )
         }}
@@ -218,26 +235,6 @@ class QuestionAnswered extends Component {
 
   )
 }
-
-_error = async error => {
-
-    const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
-    this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
-
-    error.networkError &&
-      this.setState({ isVisibleNet: true, networkError: error.networkError.message})
-
 }
-  _confirm = async data => {
 
-    const { oldQuestionId } = this.props.location.state
-
-    this.props.history.push({
-      pathname: `/answer_question`,
-      state: { questionId: oldQuestionId }
-      })
-    }
-
-  }
-
-export default withStyles(styles)(QuestionAnswered)
+export default withStyles(styles)(EditChallenge)

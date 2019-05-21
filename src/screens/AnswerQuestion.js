@@ -28,6 +28,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Fade from '@material-ui/core/Fade';
 
 import { Mutation, Query } from "react-apollo"
 import {ANSWER_QUESTION_QUERY, ANSWER_QUESTION_MUTATION} from '../ApolloQueries'
@@ -115,24 +116,26 @@ class AnswerQuestion extends Component {
       const { questionId } = this.props.location.state
 
       return (
-      <div style={{height:'100%',backgroundColor:'#e4f1fe'}}>
+      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <QuestionAnswerIcon />
-        </Avatar>
 
 
         <Query query={ANSWER_QUESTION_QUERY} variables={{ questionId: questionId }} fetchPolicy="cache-and-network">
               {({ loading, error, data }) => {
-                if (loading) return <div>Loading... </div>
+                if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { id, question, panel, choices } = data.question
 
             return (
+              <Fade in={!loading}>
+              <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <QuestionAnswerIcon />
+                </Avatar>
+
 
         <div style={{marginTop:20}}>
 
@@ -178,11 +181,13 @@ class AnswerQuestion extends Component {
         </div>
 
         </div>
+        </Paper>
+        </Fade>
           )
           }}
           </Query>
 
-        </Paper>
+
         </div>
       </main>
 
