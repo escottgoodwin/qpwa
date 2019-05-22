@@ -29,6 +29,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
+import teal from '@material-ui/core/colors/teal';
 
 import { Mutation, Query } from "react-apollo"
 import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
@@ -115,6 +116,10 @@ class ReviewQuestion extends Component {
       const { classes } = this.props
       const { newQuestionId, oldQuestionId, testId } = this.props.location.state
 
+      const selectedColor = teal[200]
+
+
+
       return (
 
       <main className={classes.main}>
@@ -129,14 +134,20 @@ class ReviewQuestion extends Component {
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { id, question, panel, choices, sentPanel } = data.question
-                const currValue = choices.filter(choice => choice.correct)[0].id
+
+                const button1 = choices[0].correct ? selectedColor : 'white'
+                const button2 = choices[1].correct ? selectedColor : 'white'
+                const button3 = choices[2].correct ? selectedColor : 'white'
+                const button4 = choices[3].correct ? selectedColor : 'white'
 
             return (
             <Fade in={!loading}>
               <Paper className={classes.paper}>
+
                 <Avatar className={classes.avatar}>
                   <QuestionAnswerIcon />
                 </Avatar>
+
                 <Typography component="h1" variant="h5">
                   Review Question
                 </Typography>
@@ -158,20 +169,73 @@ class ReviewQuestion extends Component {
             {question}
           </Typography>
 
-        <FormControl component="fieldset" className={classes.formControl}>
+          <div style={{marginTop:20}}>
+          <Card style={{backgroundColor:button1,
+            minWidth: 275,
+            position: 'relative',
+          }} >
 
-          <RadioGroup
-            aria-label="Choices"
-            name="choices"
-            className={classes.group}
-            value={currValue}
-            onChange={this.handleChange}
-          >
+            <CardContent>
 
-          {choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
+              <Typography  component="h6" variant="h6">
+                {choices[0].choice}
+              </Typography>
 
-        </RadioGroup>
-        </FormControl>
+              </CardContent>
+
+          </Card>
+          </div>
+
+          <div style={{marginTop:20}}>
+          <Card style={{backgroundColor:button2,
+          minWidth: 275,
+          position: 'relative',
+          }}  >
+
+          <CardContent>
+
+            <Typography  component="h6" variant="h6">
+              {choices[1].choice}
+            </Typography>
+
+            </CardContent>
+
+          </Card>
+          </div>
+
+          <div style={{marginTop:20}}>
+          <Card style={{backgroundColor:button3,
+          minWidth: 275,
+          position: 'relative',
+          }} >
+
+          <CardContent>
+
+          <Typography  component="h6" variant="h6">
+            {choices[2].choice}
+          </Typography>
+
+          </CardContent>
+
+          </Card>
+          </div>
+
+          <div style={{marginTop:20}}>
+          <Card style={{backgroundColor:button4,
+          minWidth: 275,
+          position: 'relative',
+          }} >
+
+          <CardContent>
+
+          <Typography  component="h6" variant="h6">
+          {choices[3].choice}
+          </Typography>
+
+          </CardContent>
+
+          </Card>
+          </div>
 
         <div style={{margin:10}}>
         <Button

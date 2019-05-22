@@ -27,7 +27,7 @@ class PanelList extends Component {
               <div className="coursecontainer">
               <Card.Group centered>
               {panelStats.map(panel =>
-                <PanelRow  key={panel.panelLink} {...panel} />
+                <PanelRow  classes={this.props.classes} key={panel.panelLink} {...panel} />
                 )}
                 </Card.Group>
               </div>

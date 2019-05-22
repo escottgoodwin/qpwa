@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Fade from '@material-ui/core/Fade';
+
 import classNames from 'classnames';
 import { Query } from "react-apollo";
 import { Link } from 'react-router-dom'
@@ -80,33 +82,33 @@ class StudentTestDashboard extends Component {
     const userId = Cookies.get('userid')
     const { classes } = this.props
     return (
-
-      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
 
       <Query query={TEST_QUERY} variables={{ test_id: test_id }}>
             {({ loading, error, data }) => {
-              if (loading) return <Loading />
-              if (error) return <Error error={error} />
+              if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
+              if (error) return <div> {JSON.stringify(error)} </div>
 
               const testToRender = data.test
               const { panels, id } = data.test
-          return (
-            <>
-              <TestHeaderStudent classes={classes} {...testToRender} />
 
-              <StudentTestButtons userId={userId} {...data.test}/>
+          return (
+            <Fade in={!loading}>
+            <>
+            <TestHeaderStudent classes={classes} {...testToRender} />
+
+            <StudentTestButtons userId={userId} {...data.test}/>
 
             <TestStats classes={classes} test_id={test_id}  {...data.test} />
 
-            <UserQuestionStats classes={classes} test_id={test_id}/>
+            <UserQuestionStats classes={classes} testId={test_id}/>
 
-            <UserAnswerStats classes={classes} test_id={test_id} />
+            <UserAnswerStats classes={classes} testId={test_id} />
 
             </>
-
+            </Fade>
           )
         }}
       </Query>
@@ -114,9 +116,6 @@ class StudentTestDashboard extends Component {
     </div>
   </main>
 
-
-
-  </div>
       )
     }
   }

@@ -1969,3 +1969,24 @@ mutation EditChallenge($challengeiId:ID!,
   }
 }
 `
+
+export const USER_QUESTION_QUERY = gql`
+    query UserQuestionStats($testId:ID!){
+      userQuestionStats(testId:$testId){
+        totalQuestions
+        totalCorrect
+        percentCorrect
+        answers
+      }
+    }
+    `
+
+export const USER_ANSWERED_QUERY = gql`
+  query UserAnsweredStats($testId:ID!){
+    userAnsweredStats(testId:$testId){
+      total
+      totalCorrect
+      percentCorrect
+    }
+  }
+  `

@@ -5,7 +5,7 @@ import { Query } from "react-apollo"
 import {PANEL_QUERY} from '../ApolloQueries'
 
 import TestHeaderStudent from '../components/TestHeaderStudent'
-import PanelList from '../components/PanelList2'
+import PanelList from '../components/PanelList1'
 import Error from '../components/Error'
 import Loading from './Loading'
 import { withStyles } from '@material-ui/core/styles';
@@ -79,14 +79,12 @@ class StudentTestPanels extends Component {
               if (loading) return <Loading />
               if (error) return <Error {...error} />
 
-              const testToRender = data.test
-
           return (
 
       <>
-      <TestHeaderStudent classes={classes} {...testToRender}/>
+      <TestHeaderStudent classes={classes} {...data.test}/>
 
-      <PanelList classes={classes} {...testToRender}/>
+      <PanelList classes={classes} {...data.test}/>
 
       </>
 

@@ -114,7 +114,6 @@ class EditChallenge extends Component {
       const { challengeId } = this.props.location.state
 
       return (
-      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
@@ -133,7 +132,7 @@ class EditChallenge extends Component {
             return (
 
               <Fade in={!loading}>
-              <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
+
               <Paper className={classes.paper}>
             <div style={{marginTop:20}}>
             <div style={{marginBottom:20}}>
@@ -221,7 +220,7 @@ class EditChallenge extends Component {
 
             </div>
             </Paper>
-            </div>
+
             </Fade>
           )
         }}
@@ -231,7 +230,6 @@ class EditChallenge extends Component {
         </div>
       </main>
 
-      </div>
 
   )
 }

@@ -9,10 +9,14 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import orange from '@material-ui/core/colors/orange';
+import deepPurple from '@material-ui/core/colors/deepPurple';
+import indigo from '@material-ui/core/colors/indigo';
+import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import Error from './Error'
 
-import {TEST_STATS_PERFORMANCE_QUERY} from '../ApolloQueries'
+import {USER_QUESTION_QUERY} from '../ApolloQueries'
 
 class UserQuestionStats extends Component {
 
@@ -20,18 +24,19 @@ class UserQuestionStats extends Component {
     const { classes, test_id } = this.props
     return (
 
-      <Query query={TEST_STATS_PERFORMANCE_QUERY} variables={{ testId: test_id }}>
+      <Query query={USER_QUESTION_QUERY} variables={{ testId: this.props.testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
-              if (loading) return <div>Loading</div>
-              if (error) return <div>{JSON.stringify(error)}</div>
+              if (loading) return <div>Loading...</div>
+              if (error) return <div> {JSON.stringify(error)} </div>
 
-              const stats = data.testStats
+              const { totalQuestions, answers, totalCorrect, percentCorrect } = data.userQuestionStats
 
           return (
+
             <div style={{paddingTop:20,paddingBottom:20}}>
             <Card className={classes.card}>
-            <CardContent >
-            <Typography variant="h5" component="h5">
+            <CardContent style={{ backgroundColor:indigo[100]}}>
+            <Typography style={{color:indigo[800]}} variant="h5" component="h5">
               Your Questions
             </Typography>
 
@@ -41,13 +46,27 @@ class UserQuestionStats extends Component {
 
             <CardContent >
 
-            Question Stats
+            <Typography variant="h6" component="h6">
+            Total Questions : {totalQuestions}
+            </Typography>
+            <Typography variant="h6" component="h6">
+            Total Answers: {answers}
+            </Typography>
+            <Typography variant="h6" component="h6">
+            Answers Correct: {totalCorrect}
+            </Typography>
+
+            <Typography variant="h6" component="h6">
+            Percent: {Math.round(percentCorrect*100)}%
+            </Typography>
+
             </CardContent >
             </Card>
             </div>
-            )
-          }}
-          </Query>
+
+      )
+    }}
+    </Query>
 
     )
   }

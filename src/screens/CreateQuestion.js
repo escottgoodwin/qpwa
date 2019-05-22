@@ -23,8 +23,15 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea'
 import Checkbox from '@material-ui/core/Checkbox';
 import Fade from '@material-ui/core/Fade';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import Magnifier from "react-magnifier";
 
 import { Mutation, Query } from "react-apollo"
 import {CREATE_QUESTION_QUERY,CREATE_QUESTION_MUTATION} from '../ApolloQueries'
@@ -79,6 +86,10 @@ const styles = theme => ({
   },
 });
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
+
 class CreateQuestion extends Component {
 
   state = {
@@ -99,10 +110,19 @@ class CreateQuestion extends Component {
         isVisibleGraph:false,
         networkError:'',
         isVisibleNet:false,
+        open: false
       }
 
       handleChange = name => event => {
     this.setState({ [name]: event.target.checked });
+  };
+
+  handleClickOpen = () => {
+  this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
     render() {
@@ -129,7 +149,7 @@ class CreateQuestion extends Component {
       const { questionId } = this.props.location.state
 
       return (
-      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
+
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
@@ -142,6 +162,8 @@ class CreateQuestion extends Component {
                 const questionToRender = data.question
 
                 const {id, sentPanel, test } = data.question
+
+                const { subject, testNumber } = test
 
             return (
               <Fade in={!loading}>
@@ -156,15 +178,39 @@ class CreateQuestion extends Component {
         <div>
 
         <div style={{marginTop:10}}>
-        <Card className={styles.card}>
+        <Card onClick={this.handleClickOpen} className={styles.card}>
+        <CardActionArea>
 
               <CardMedia
                   src={sentPanel.link}
                   component="img"
               />
-
+              </CardActionArea>
           </Card>
           </div>
+          <Dialog
+        fullScreen
+        open={this.state.open}
+        onClose={this.handleClose}
+        TransitionComponent={Transition}
+        >
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.flex}>
+          {testNumber} - {subject}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <div style={{marginTop:100}}>
+        <Card style={styles.card}>
+            <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={sentPanel.link}  />;
+        </Card>
+        </div>
+        </Dialog>
 
         <form className={classes.form}>
 
@@ -360,9 +406,6 @@ class CreateQuestion extends Component {
         </div>
       </main>
 
-
-
-      </div>
 
   )
 }

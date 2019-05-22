@@ -27,7 +27,7 @@ class PanelList extends Component {
               <div >
 
               {panelStats.map(panel =>
-                <PanelRow  key={panel.panelLink} {...panel} />
+                <PanelRow  classes={this.props.classes} key={panel.panelLink} test={this.props} {...panel} />
                 )}
 
               </div>

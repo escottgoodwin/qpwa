@@ -9,6 +9,10 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import orange from '@material-ui/core/colors/orange';
+import deepPurple from '@material-ui/core/colors/deepPurple';
+import indigo from '@material-ui/core/colors/indigo';
+import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import Error from './Error'
 
@@ -30,8 +34,8 @@ class TestStats extends Component {
           return (
             <div style={{paddingTop:20,paddingBottom:20}}>
             <Card className={classes.card}>
-            <CardContent >
-            <Typography variant="h5" component="h5">
+            <CardContent style={{ backgroundColor:lightGreen[100]}}>
+            <Typography style={{color:lightGreen[800]}} variant="h5" component="h5">
               Test Peformance
             </Typography>
 

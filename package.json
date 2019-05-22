@@ -38,6 +38,7 @@
     "react-dropzone-component": "^3.2.0",
     "react-fine-uploader": "^1.1.1",
     "react-loading-skeleton": "^1.0.0",
+    "react-magnifier": "^3.0.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

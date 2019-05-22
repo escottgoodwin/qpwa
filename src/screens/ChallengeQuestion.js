@@ -113,7 +113,7 @@ class ChallengeQuestion extends Component {
       const { challenge, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
       return (
-      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
+
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
@@ -130,7 +130,7 @@ class ChallengeQuestion extends Component {
             return (
 
               <Fade in={!loading}>
-              <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
+
               <Paper className={classes.paper}>
             <div style={{marginTop:20}}>
             <div style={{marginBottom:20}}>
@@ -256,7 +256,7 @@ class ChallengeQuestion extends Component {
 
             </div>
             </Paper>
-            </div>
+      
             </Fade>
           )
         }}
@@ -266,7 +266,6 @@ class ChallengeQuestion extends Component {
         </div>
       </main>
 
-      </div>
 
   )
 }

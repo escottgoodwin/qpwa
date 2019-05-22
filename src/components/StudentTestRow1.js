@@ -5,6 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import CardActionArea from '@material-ui/core/CardActionArea';
+
 import Grid from '@material-ui/core/Grid';
 import BookIcon from '@material-ui/icons/Book';
 
@@ -43,7 +45,7 @@ const StudentTestRow1 = (props) =>
       { test_id: props.test.id }
     }} >
   <Card className={props.classes.card}>
-
+    <CardActionArea>
       {props.test.testType==="CLASS" &&
       <CardContent style={{ backgroundColor:cyan[100]}}>
       <BookIcon style={{ color:cyan[700]}} /> <h5 style={{color:cyan[700]}}>
@@ -105,7 +107,7 @@ const StudentTestRow1 = (props) =>
         </div>
 
       </CardContent>
-
+      </CardActionArea>
     </Card>
     </Link>
     </div>

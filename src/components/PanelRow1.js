@@ -4,7 +4,16 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import IconButton from '@material-ui/core/IconButton';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import Magnifier from "react-magnifier";
 
 const styles = {
   card: {
@@ -35,29 +44,101 @@ const styles = {
    }
 };
 
-const PanelRow = (props) =>
-<div style={{margin:15}}>
-<Card style={styles.card}>
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
+class PanelRow extends React.Component {
+
+    state = { open: false }
+
+    handleClickOpen = () => {
+    this.setState({ open: true });
+    };
+
+    handleClose = () => {
+      this.setState({ open: false });
+    };
+
+    render() {
+
+      const { classes, test, id, question, panelLink, total, totalCorrect, percentCorrect } = this.props
+      const { subject, testNumber } = test
+
+      return (
+
+
+<div style={{marginBottom:15}}>
+<Card onClick={this.handleClickOpen} style={styles.card}>
+  <CardActionArea>
     <CardMedia
-        height="140"
-        src={props.panelLink}
+
+        src={panelLink}
         component="img"
     />
-    {props.question.length>0 &&
+    {question.length>0 &&
+    <>
     <CardContent>
-      <Typography >
-        <b>Label:</b> {props.question}
+      <Typography variant="h6" component="h6">
+        <b>Label:</b> {question}
       </Typography>
     </CardContent>
+
+    </>
     }
+    <Divider />
     <CardContent>
-      <Typography >
-        <b>Answers:</b> {props.total} <b>Correct:</b> {props.totalCorrect} ({Math.round(props.percentCorrect*100)}%)
+      <Typography variant="h6" component="h6">
+        <b>Answers:</b> {total} <b>Correct:</b> {totalCorrect} ({Math.round(percentCorrect*100)}%)
       </Typography>
     </CardContent>
+    </CardActionArea>
+  </Card>
+
+<Dialog
+fullScreen
+open={this.state.open}
+onClose={this.handleClose}
+TransitionComponent={Transition}
+>
+<AppBar className={classes.appBar}>
+  <Toolbar>
+    <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+      <CloseIcon />
+    </IconButton>
+    <Typography variant="h6" color="inherit" className={classes.flex}>
+  {testNumber} - {subject}
+    </Typography>
+  </Toolbar>
+</AppBar>
+
+<div style={{marginTop:100}}>
+<Card style={styles.card}>
+
+<Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panelLink}  />;
+
+    {question.length>0 &&
+    <>
+    <Divider />
+    <CardContent>
+      <Typography variant="h6" component="h6">
+        <b>Label:</b> {question}
+      </Typography>
+    </CardContent>
+
+    </>
+    }
+
+
 
   </Card>
   </div>
+</Dialog>
+
+  </div>
+
+)
+}
+}
 
 export default PanelRow

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 import InvitationList from '../components/InvitationList'
 import StudentCourseList from '../components/StudentCourseList'
+import Fade from '@material-ui/core/Fade';
 
 import Error from './Error'
 import Loading from './Loading'
@@ -25,13 +26,14 @@ class StudentDashboard extends Component {
 
         <Query query={STUDENT_COURSE_QUERY} variables={{ userid: userid }}>
               {({ loading, error, data }) => {
-                if (loading) return <Loading />
-                if (error) return <Error error={error} />
+                if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
+                if (error) return <div> {JSON.stringify(error)} </div>
 
                 const userToRender = data.user
                 const studentCourses = new Array(userToRender.studentCourses.filter(course => !course.deleted))
 
                 return (
+                  <Fade in={!loading}>
                     <>
                     <h3>{userToRender.firstName} {userToRender.lastName}'s Courses</h3>
 
@@ -94,6 +96,7 @@ class StudentDashboard extends Component {
                       <StudentCourseList  {...studentCourses} />
 
                     </>
+                    </Fade>
               )
             }}
           </Query>

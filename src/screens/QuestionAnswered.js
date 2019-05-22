@@ -102,7 +102,6 @@ class QuestionAnswered extends Component {
       const { answerId } = this.props.location.state
 
       return (
-      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
       <CssBaseline />
       <div style={{marginBottom:50}}>
@@ -214,7 +213,6 @@ class QuestionAnswered extends Component {
         </div>
       </main>
 
-      </div>
 
   )
 }
