@@ -14,7 +14,7 @@ import Error from './Error'
 
 import {TEST_STATS_PERFORMANCE_QUERY} from '../ApolloQueries'
 
-class TestStats extends Component {
+class UserAnswerStats extends Component {
 
   render(){
     const { classes, test_id } = this.props
@@ -32,7 +32,7 @@ class TestStats extends Component {
             <Card className={classes.card}>
             <CardContent >
             <Typography variant="h5" component="h5">
-              Test Peformance
+              Your Answers
             </Typography>
 
             </CardContent >
@@ -41,30 +41,7 @@ class TestStats extends Component {
 
             <CardContent >
 
-            <Grid container justify="center" spacing={24}>
-            <Grid  item>
-
-            <Typography variant="h6" component="h6">
-              Answers: {stats.total}
-            </Typography>
-
-            </Grid>
-
-            <Grid item>
-
-            <Typography variant="h6" component="h6">
-            Correct: {stats.totalCorrect}
-            </Typography>
-
-            </Grid>
-            <Grid key='Questions' item>
-
-            <Typography variant="h6" component="h6">
-            Correct: { stats.totalCorrect/stats.total >0 ? Math.round(stats.totalCorrect/stats.total*100) : 0 }%
-            </Typography>
-
-            </Grid>
-            </Grid>
+            Answer Stats
             </CardContent >
             </Card>
             </div>
@@ -77,4 +54,4 @@ class TestStats extends Component {
 
 }
 
-export default TestStats
+export default UserAnswerStats

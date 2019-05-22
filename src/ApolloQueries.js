@@ -683,6 +683,7 @@ query TestChallenges($test_id:ID!){
       subject
       testNumber
       testDate
+      testType
       course{
         id
         name

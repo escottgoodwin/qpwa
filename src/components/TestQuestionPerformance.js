@@ -33,7 +33,7 @@ class TestQuestionPerformance extends Component {
     const { column, data, direction } = this.state
 
     return (
-    <Segment style={{ minHeight: 400, overflow: 'auto' }} attached>
+
 
     <Table sortable celled fixed striped>
             <Table.Header>
@@ -82,7 +82,7 @@ class TestQuestionPerformance extends Component {
               ))}
             </Table.Body>
           </Table>
-    </Segment>
+    
     )
   }
 }
