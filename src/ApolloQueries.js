@@ -1991,7 +1991,7 @@ export const USER_QUESTION_STATS_QUERY = gql`
     }
   }
   `
-export const USER_QUESTIONS_QUERY = gql`
+export const USER_QUESTIONS_QUERY_OLD = gql`
 query UserQuestions($testId:ID!){
   userQuestions(testId:$testId){
     id
@@ -2014,6 +2014,35 @@ query UserQuestions($testId:ID!){
 }
 `
 
+export const USER_QUESTIONS_QUERY = gql`
+query UserQuestions($testId:ID!){
+	userQuestions1(testId:$testId){
+    totalCorrect
+    totalQuestions
+    percentCorrect
+    answers
+    questions{
+      id
+    question
+    choices{
+      id
+      choice
+      correct
+    }
+    questionAnswers{
+      id
+      answerCorrect
+      answer{
+        id
+        choice
+        correct
+      }
+    }
+    }
+  }
+}
+`
+
 export const USER_ANSWERED_QUERY = gql`
 query UserAnsweredStats($testId:ID!){
   userAnsweredStats(testId:$testId){
@@ -2024,7 +2053,7 @@ query UserAnsweredStats($testId:ID!){
 }
 `
 
-export const USER_ANSWERS_QUERY = gql`
+export const USER_ANSWERS_QUERY_OLD = gql`
 query UserAnswers($testId:ID!){
   userAnswers(testId:$testId){
     id
@@ -2041,6 +2070,33 @@ query UserAnswers($testId:ID!){
         choice
         correct
       }
+    }
+  }
+}
+`
+
+export const USER_ANSWERS_QUERY = gql`
+query UserAnswers($testId:ID!){
+  userAnswers1(testId:$testId){
+    totalCorrect
+    total
+    percentCorrect
+    answers{
+      id
+    answerCorrect
+    answer{
+      id
+      choice
+    }
+    question{
+      id
+      question
+      choices{
+        id
+        choice
+        correct
+      }
+    }
     }
   }
 }

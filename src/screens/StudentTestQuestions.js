@@ -79,44 +79,29 @@ class StudentTestQuestions extends Component {
 
         <div style={{marginBottom:50}}>
 
-        <Query query={USER_QUESTION_STATS_QUERY} variables={{ testId  }} fetchPolicy="cache-and-network">
-              {({ loading, error, data }) => {
-                if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
-                if (error) return <div>{JSON.stringify(error)}</div>
-
-              const userQuestionStats = data.userQuestionStats
-
-          return (
-
-      <>
-      <Paper style={{padding:10}}>
-      <div>Questions : {userQuestionStats.totalQuestions} </div>
-      <div>Answers: {userQuestionStats.answers} </div>
-
-      <div>Correct: {userQuestionStats.totalCorrect} </div>
-      <div>Percent: {Math.round(userQuestionStats.percentCorrect*100)}% </div>
-      </Paper>
-      </>
-      )
-    }}
-    </Query>
-
     <Query query={USER_QUESTIONS_QUERY} variables={{ testId }} fetchPolicy="cache-and-network">
           {({ loading, error, data }) => {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
             if (error) return <div>{JSON.stringify(error)}</div>
 
-            const userQuestions = data.userQuestions
-            console.log(userQuestions)
+            const { totalQuestions, answers, totalCorrect, percentCorrect, questions } = data.userQuestions1
 
         return (
+          <>
+          <Paper style={{padding:10}}>
+          <div>Questions : {totalQuestions} </div>
+          <div>Answers: {answers} </div>
+
+          <div>Correct: {totalCorrect} </div>
+          <div>Percent: {Math.round(percentCorrect*100)}% </div>
+          </Paper>
 
           <Paper style={{padding:10,margin:10}}>
-
           {
-            userQuestions.map(uq => <UserQuestionItem {...uq} />)
+            questions.map(uq => <UserQuestionItem {...uq} />)
           }
           </Paper>
+          </>
           )
         }}
         </Query>

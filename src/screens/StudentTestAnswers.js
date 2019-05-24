@@ -79,39 +79,28 @@ class StudentTestAnswers extends Component {
 
         <div style={{marginBottom:50}}>
 
-        <Query query={USER_ANSWERED_QUERY} variables={{ testId: testId }} fetchPolicy="cache-and-network">
-              {({ loading, error, data }) => {
-                if (loading) return <div>Loading...</div>
-                if (error) return <div> {JSON.stringify(error)} </div>
-
-                const userAnsweredStats = data.userAnsweredStats
-
-            return (
-              <Paper style={{padding:10}}>
-              <h5>Your Answers</h5>
-              <div>Total: {userAnsweredStats.total} </div>
-              <div>Correct: {userAnsweredStats.totalCorrect} </div>
-              <div>{Math.round(userAnsweredStats.percentCorrect*100)}% </div>
-              </Paper>
-            )
-          }}
-      </Query>
 
 
-      <Paper style={{padding:10,margin:10}}>
       <Query query={USER_ANSWERS_QUERY} variables={{ testId: testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
               if (loading) return <div>Loading...</div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const answersToRender = data.userAnswers
+              const { total, totalCorrect, percentCorrect, answers } = data.userAnswers1
 
               return (
+                <>
+                <Paper style={{padding:10}}>
+                <h5>Your Answers</h5>
+                <div>Total: {total} </div>
+                <div>Correct: {totalCorrect} </div>
+                <div>{Math.round(percentCorrect*100)}% </div>
+                </Paper>
 
-                <div>
+                <Paper style={{padding:10,margin:10}}>
 
                 {
-                  answersToRender.map(item =>
+                  answers.map(item =>
                     <>
                     <h5  >
                      {item.question.question}
@@ -125,15 +114,13 @@ class StudentTestAnswers extends Component {
                     </>
                   )
                 }
-
-                </div>
+                </Paper>
+                </>
 
             )
           }}
           </Query>
 
-
-          </Paper>
               </div>
               </main>
 
