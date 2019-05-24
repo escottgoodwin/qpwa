@@ -23,7 +23,13 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Checkbox from '@material-ui/core/Checkbox';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import Magnifier from "react-magnifier";
+import CardActionArea from '@material-ui/core/CardActionArea'
 
 import EditQuestionInput from '../components/EditQuestionInput'
 
@@ -80,7 +86,19 @@ const styles = theme => ({
   },
 });
 
+const Transition = props =>  <Slide direction="up" {...props} />
+
 class EditQuestion extends Component {
+
+  state = { open: false }
+
+  handleClickOpen = () => {
+  this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
     render() {
 
@@ -112,16 +130,39 @@ class EditQuestion extends Component {
 
         <div>
 
-        <div style={{marginTop:10}}>
-        <Card className={styles.card}>
-
+        <div style={{marginBottom:20}}>
+        <Card onClick={this.handleClickOpen} className={styles.card}>
+          <CardActionArea>
               <CardMedia
                   src={panel.link}
                   component="img"
               />
-
+          </CardActionArea>
           </Card>
           </div>
+          <Dialog
+        fullScreen
+        open={this.state.open}
+        onClose={this.handleClose}
+        TransitionComponent={Transition}
+        >
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.flex}>
+              Edit Question
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <div style={{marginTop:100}}>
+        <Card style={styles.card}>
+            <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panel.link}  />;
+        </Card>
+        </div>
+        </Dialog>
 
       <EditQuestionInput classes={classes} oldQuestionId={oldQuestionId} testId={testId} {...data.question}/>
 

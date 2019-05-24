@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/App.css';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -122,4 +123,4 @@ const TestRow1 = (props) =>
 
 
 
-export default withStyles(styles)(TestRow1)
+export default withStyles(styles)(withRouter(TestRow1))

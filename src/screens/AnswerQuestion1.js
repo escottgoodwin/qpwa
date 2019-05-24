@@ -33,7 +33,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';
 import lightGreen from '@material-ui/core/colors/lightGreen';
-import indigo from '@material-ui/core/colors/indigo';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 import teal from '@material-ui/core/colors/teal';
 
 import { Mutation, Query } from "react-apollo"
@@ -153,7 +153,7 @@ class AnswerQuestion extends Component {
 
       const { classes } = this.props
       const { questionId } = this.props.location.state
-      const selectedColor = teal[200]
+      const selectedColor = blueGrey[200]
       return (
       <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>

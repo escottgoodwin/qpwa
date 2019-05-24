@@ -18,8 +18,6 @@ import UserQuestionStats from '../components/UserQuestionStats'
 import UserAnswerStats from '../components/UserAnswerStats'
 import StudentTestButtons from '../components/StudentTestButtons'
 
-
-
 import Error from './Error'
 import Loading from './Loading'
 import {TEST_QUERY, CHALLENGE_STUDENT_COUNT_QUERY} from '../ApolloQueries';

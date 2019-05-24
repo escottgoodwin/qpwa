@@ -29,7 +29,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
-import teal from '@material-ui/core/colors/teal';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import Magnifier from "react-magnifier";
+import CardActionArea from '@material-ui/core/CardActionArea'
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import { Mutation, Query } from "react-apollo"
 import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
@@ -91,6 +98,8 @@ const styles = theme => ({
   },
 });
 
+const Transition = props =>  <Slide direction="up" {...props} />
+
 class ReviewQuestion extends Component {
 
   state = {
@@ -101,24 +110,30 @@ class ReviewQuestion extends Component {
           isVisibleGraph:false,
           networkError:'',
           isVisibleNet:false,
+          open: false
       }
 
       handleChange = event => {
           this.setState({ value: event.target.value });
         };
 
+      handleClickOpen = () => {
+      this.setState({ open: true });
+      };
+
+      handleClose = () => {
+        this.setState({ open: false });
+      };
 
     render() {
 
 
-      const {value, answerChoiceId, chosenLabel, graphQLError, networkError, isVisibleNet, isVisibleGraph} = this.state
+      const {value, open, answerChoiceId, chosenLabel, graphQLError, networkError, isVisibleNet, isVisibleGraph} = this.state
 
       const { classes } = this.props
       const { newQuestionId, oldQuestionId, testId } = this.props.location.state
 
-      const selectedColor = teal[200]
-
-
+      const selectedColor = blueGrey[200]
 
       return (
 
@@ -155,15 +170,38 @@ class ReviewQuestion extends Component {
         <div style={{marginTop:20}}>
 
         <div style={{marginBottom:20}}>
-        <Card className={styles.card}>
-
+        <Card onClick={this.handleClickOpen} className={styles.card}>
+          <CardActionArea>
               <CardMedia
                   src={panel.link}
                   component="img"
               />
-
+          </CardActionArea>
           </Card>
           </div>
+          <Dialog
+        fullScreen
+        open={this.state.open}
+        onClose={this.handleClose}
+        TransitionComponent={Transition}
+        >
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.flex}>
+          Review Question
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <div style={{marginTop:100}}>
+        <Card style={styles.card}>
+            <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panel.link}  />;
+        </Card>
+        </div>
+        </Dialog>
 
           <Typography component="h4" variant="h4">
             {question}

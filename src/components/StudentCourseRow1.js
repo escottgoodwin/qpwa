@@ -1,9 +1,11 @@
 import React from 'react';
 import '../css/App.css';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -40,13 +42,15 @@ const styles = {
 
 const StudentCourseRow1 = (props) =>
 
-<Link  to={{
-  pathname: "/student_course_dashboard",
-  state:
-    { course_id: props.id }
-  }} >
   <div style={{margin:15}}>
-  <Card style={styles.card}>
+  <Card onClick={()=>props.history.push({
+    pathname: "/student_course_dashboard",
+    state:
+      { course_id: props.id }
+    })}
+    className={props.classes.card} >
+
+    <CardActionArea>
 
       <CardMedia
           height="140"
@@ -73,9 +77,9 @@ const StudentCourseRow1 = (props) =>
           Next Test:
         </Typography>
       </CardContent>
+      </CardActionArea>
     </Card>
     </div>
-    </Link>
 
 
-export default withStyles(styles)(StudentCourseRow1)
+export default withRouter(withStyles(styles)(StudentCourseRow1))

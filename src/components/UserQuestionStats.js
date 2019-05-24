@@ -1,13 +1,14 @@
 import React,{Component} from 'react'
 import '../css/App.css'
 import { Query } from "react-apollo"
-
+import { withRouter } from "react-router";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import orange from '@material-ui/core/colors/orange';
 import deepPurple from '@material-ui/core/colors/deepPurple';
@@ -21,10 +22,12 @@ import {USER_QUESTION_QUERY} from '../ApolloQueries'
 class UserQuestionStats extends Component {
 
   render(){
-    const { classes, test_id } = this.props
+
+    const { classes, testId } = this.props
+
     return (
 
-      <Query query={USER_QUESTION_QUERY} variables={{ testId: this.props.testId }} fetchPolicy="cache-and-network">
+      <Query query={USER_QUESTION_QUERY} variables={{ testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
               if (loading) return <div>Loading...</div>
               if (error) return <div> {JSON.stringify(error)} </div>
@@ -34,7 +37,15 @@ class UserQuestionStats extends Component {
           return (
 
             <div style={{paddingTop:20,paddingBottom:20}}>
-            <Card className={classes.card}>
+
+            <Card
+              onClick={()=>this.props.history.push({
+              pathname: `/user_questions`,
+              state: { testId }
+              })}
+              className={classes.card} >
+
+            <CardActionArea>
             <CardContent style={{ backgroundColor:indigo[100]}}>
             <Typography style={{color:indigo[800]}} variant="h5" component="h5">
               Your Questions
@@ -61,6 +72,7 @@ class UserQuestionStats extends Component {
             </Typography>
 
             </CardContent >
+            </CardActionArea>
             </Card>
             </div>
 
@@ -73,4 +85,4 @@ class UserQuestionStats extends Component {
 
 }
 
-export default UserQuestionStats
+export default withRouter(UserQuestionStats)

@@ -1981,12 +1981,67 @@ export const USER_QUESTION_QUERY = gql`
     }
     `
 
-export const USER_ANSWERED_QUERY = gql`
-  query UserAnsweredStats($testId:ID!){
-    userAnsweredStats(testId:$testId){
-      total
+export const USER_QUESTION_STATS_QUERY = gql`
+  query UserQuestionStats($testId:ID!){
+    userQuestionStats(testId:$testId){
+      totalQuestions
       totalCorrect
       percentCorrect
+      answers
     }
   }
   `
+export const USER_QUESTIONS_QUERY = gql`
+query UserQuestions($testId:ID!){
+  userQuestions(testId:$testId){
+    id
+    question
+    choices{
+      id
+      choice
+      correct
+    }
+    questionAnswers{
+      id
+      answerCorrect
+      answer{
+        id
+        choice
+        correct
+      }
+    }
+  }
+}
+`
+
+export const USER_ANSWERED_QUERY = gql`
+query UserAnsweredStats($testId:ID!){
+  userAnsweredStats(testId:$testId){
+    total
+    totalCorrect
+    percentCorrect
+  }
+}
+`
+
+export const USER_ANSWERS_QUERY = gql`
+query UserAnswers($testId:ID!){
+  userAnswers(testId:$testId){
+    id
+    answerCorrect
+    answer{
+      id
+      choice
+    }
+    question{
+      id
+      question
+      choices{
+        id
+        choice
+        correct
+      }
+    }
+  }
+}
+`

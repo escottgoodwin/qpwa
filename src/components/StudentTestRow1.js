@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/App.css';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from "react-router";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -39,16 +40,19 @@ const styles = {
 
 const StudentTestRow1 = (props) =>
   <div style={{margin:15}}>
-  <Link  to={{
+
+  <Card onClick={()=>props.history.push({
     pathname: "/student_test_dashboard",
     state:
       { test_id: props.test.id }
-    }} >
-  <Card className={props.classes.card}>
+    })}
+    className={props.classes.card}>
+
     <CardActionArea>
       {props.test.testType==="CLASS" &&
       <CardContent style={{ backgroundColor:cyan[100]}}>
-      <BookIcon style={{ color:cyan[700]}} /> <h5 style={{color:cyan[700]}}>
+      <BookIcon style={{ color:cyan[700]}} />
+      <h5 style={{color:cyan[700]}}>
       Lecture
       </h5>
       </CardContent>
@@ -56,7 +60,8 @@ const StudentTestRow1 = (props) =>
 
       {props.test.testType==="LAB" &&
       <CardContent style={{ backgroundColor:teal[100]}}>
-      <Microscope style={{color:teal[700]}}/><h5 style={{color:teal[700]}}>
+      <Microscope style={{color:teal[700]}}/>
+      <h5 style={{color:teal[700]}}>
       Lab
       </h5>
       </CardContent>
@@ -109,9 +114,7 @@ const StudentTestRow1 = (props) =>
       </CardContent>
       </CardActionArea>
     </Card>
-    </Link>
+
     </div>
 
-
-
-export default withStyles(styles)(StudentTestRow1)
+export default withRouter(withStyles(styles)(StudentTestRow1))

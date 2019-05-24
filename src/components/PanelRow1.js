@@ -44,9 +44,7 @@ const styles = {
    }
 };
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = props =>  <Slide direction="up" {...props} />
 
 class PanelRow extends React.Component {
 
@@ -67,78 +65,75 @@ class PanelRow extends React.Component {
 
       return (
 
+        <div style={{marginBottom:15}}>
+        <Card onClick={this.handleClickOpen} style={styles.card}>
+          <CardActionArea>
+            <CardMedia
 
-<div style={{marginBottom:15}}>
-<Card onClick={this.handleClickOpen} style={styles.card}>
-  <CardActionArea>
-    <CardMedia
+                src={panelLink}
+                component="img"
+            />
+            {question.length>0 &&
+            <>
+            <CardContent>
+              <Typography variant="h6" component="h6">
+                <b>Label:</b> {question}
+              </Typography>
+            </CardContent>
 
-        src={panelLink}
-        component="img"
-    />
-    {question.length>0 &&
-    <>
-    <CardContent>
-      <Typography variant="h6" component="h6">
-        <b>Label:</b> {question}
-      </Typography>
-    </CardContent>
+            </>
+            }
+            <Divider />
+            <CardContent>
+              <Typography variant="h6" component="h6">
+                <b>Answers:</b> {total} <b>Correct:</b> {totalCorrect} ({Math.round(percentCorrect*100)}%)
+              </Typography>
+            </CardContent>
+            </CardActionArea>
+          </Card>
 
-    </>
-    }
-    <Divider />
-    <CardContent>
-      <Typography variant="h6" component="h6">
-        <b>Answers:</b> {total} <b>Correct:</b> {totalCorrect} ({Math.round(percentCorrect*100)}%)
-      </Typography>
-    </CardContent>
-    </CardActionArea>
-  </Card>
+        <Dialog
+        fullScreen
+        open={this.state.open}
+        onClose={this.handleClose}
+        TransitionComponent={Transition}
+        >
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.flex}>
+          {testNumber} - {subject}
+            </Typography>
+          </Toolbar>
+        </AppBar>
 
-<Dialog
-fullScreen
-open={this.state.open}
-onClose={this.handleClose}
-TransitionComponent={Transition}
->
-<AppBar className={classes.appBar}>
-  <Toolbar>
-    <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-      <CloseIcon />
-    </IconButton>
-    <Typography variant="h6" color="inherit" className={classes.flex}>
-  {testNumber} - {subject}
-    </Typography>
-  </Toolbar>
-</AppBar>
+        <div style={{marginTop:100}}>
+        <Card style={styles.card}>
 
-<div style={{marginTop:100}}>
-<Card style={styles.card}>
+        <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panelLink}  />
 
-<Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panelLink}  />;
+            {question.length>0 &&
+            <>
+            <Divider />
+            <CardContent>
+              <Typography variant="h6" component="h6">
+                <b>Label:</b> {question}
+              </Typography>
+            </CardContent>
 
-    {question.length>0 &&
-    <>
-    <Divider />
-    <CardContent>
-      <Typography variant="h6" component="h6">
-        <b>Label:</b> {question}
-      </Typography>
-    </CardContent>
+            </>
+            }
 
-    </>
-    }
+          </Card>
+          </div>
+        </Dialog>
 
+      </div>
 
-
-  </Card>
-  </div>
-</Dialog>
-
-  </div>
-
-)
-}
+    )
+  }
 }
 
 export default PanelRow

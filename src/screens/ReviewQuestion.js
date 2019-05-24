@@ -29,6 +29,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import { Mutation, Query } from "react-apollo"
 import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
@@ -93,13 +94,27 @@ const styles = theme => ({
 class ReviewQuestion extends Component {
 
   state = {
-          value:'',
-          answerChoiceId: '',
-          chosenLabel:'',
-          graphQLError: '',
-          isVisibleGraph:false,
-          networkError:'',
-          isVisibleNet:false,
+        answerChoiceId:'',
+        choice1:'',
+        choiceCorrect1:false,
+        button1:'white',
+        choice2:'',
+        choiceCorrect2:false,
+        button2:'white',
+        choice3:'',
+        choiceCorrect3:false,
+        button3:'white',
+        choice4:'',
+        choiceCorrect4:false,
+        button4:'white',
+        choice1Id:'',
+        choice2Id:'',
+        choice3Id:'',
+        choice4Id:'',
+        graphQLError:'',
+        isVisibleGraph:false,
+        networkError:'',
+        isVisibleNet:false,
       }
 
       handleChange = event => {
@@ -114,6 +129,7 @@ class ReviewQuestion extends Component {
 
       const { classes } = this.props
       const { newQuestionId, oldQuestionId, testId } = this.props.location.state
+      const selectedColor = blueGrey[200]
 
       return (
 
@@ -129,7 +145,11 @@ class ReviewQuestion extends Component {
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { id, question, panel, choices, sentPanel } = data.question
-                const currValue = choices.filter(choice => choice.correct)[0].id
+
+                const button1 = choice[0].correct ? selectedColor : 'white'
+                const button2 = choice[0].correct ? selectedColor : 'white'
+                const button3 = choice[0].correct ? selectedColor : 'white'
+                const button4 = choice[0].correct ? selectedColor : 'white'
 
             return (
             <Fade in={!loading}>
@@ -141,50 +161,84 @@ class ReviewQuestion extends Component {
                   Review Question
                 </Typography>
 
-        <div style={{marginTop:20}}>
+                <div style={{marginTop:20}}>
 
-        <div style={{marginBottom:20}}>
-        <Card className={styles.card}>
+                  <Typography component="h4" variant="h4">
+                    {question}
+                  </Typography>
 
-              <CardMedia
-                  src={panel.link}
-                  component="img"
-              />
+                  <Typography component="h1" variant="h5">
+                    Choices
+                  </Typography>
+
+                  <div style={{marginTop:20}}>
+                <Card style={{backgroundColor:button1,
+                  minWidth: 275,
+                  position: 'relative',
+                }}  >
+
+                  <CardContent>
+
+                    <Typography  component="h6" variant="h6">
+                      {choices[0].choice}
+                    </Typography>
+
+                    </CardContent>
+
+                </Card>
+                </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button2,
+                minWidth: 275,
+                position: 'relative',
+              }}  >
+
+                <CardContent>
+
+                  <Typography  component="h6" variant="h6">
+                    {choices[1].choice}
+                  </Typography>
+
+                  </CardContent>
+
+              </Card>
+              </div>
+
+            <div style={{marginTop:20}}>
+            <Card style={{backgroundColor:button3,
+              minWidth: 275,
+              position: 'relative',
+            }} >
+
+              <CardContent>
+
+                <Typography  component="h6" variant="h6">
+                  {choices[2].choice}
+                </Typography>
+
+                </CardContent>
+
+            </Card>
+            </div>
+
+            <div style={{marginTop:20}}>
+          <Card style={{backgroundColor:button4,
+            minWidth: 275,
+            position: 'relative',
+          }} >
+
+            <CardContent>
+
+              <Typography  component="h6" variant="h6">
+                {choices[3].choice}
+              </Typography>
+
+              </CardContent>
 
           </Card>
           </div>
 
-          <Typography component="h4" variant="h4">
-            {question}
-          </Typography>
-
-        <FormControl component="fieldset" className={classes.formControl}>
-
-          <RadioGroup
-            aria-label="Choices"
-            name="choices"
-            className={classes.group}
-            value={currValue}
-            onChange={this.handleChange}
-          >
-
-          {choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
-
-        </RadioGroup>
-        </FormControl>
-
-        <div style={{margin:10}}>
-        <Button
-        fullWidth
-        variant="contained"
-        color="primary"
-        size='large'
-        className={classes.submit}
-        onClick={() => this.props.history.push({
-          pathname: `/edit_question`,
-          state: { newQuestionId: newQuestionId, oldQuestionId: oldQuestionId, testId: testId }
-        })}>Edit Question</Button>
-        </div>
 
         <div style={{margin:10}}>
         <Mutation
