@@ -9,6 +9,7 @@ import PanelList from '../components/PanelList1'
 import Error from '../components/Error'
 import Loading from './Loading'
 import { withStyles } from '@material-ui/core/styles';
+import Fade from '@material-ui/core/Fade';
 import classNames from 'classnames';
 
 const styles = theme => ({
@@ -76,17 +77,17 @@ class StudentTestPanels extends Component {
 
       <Query query={PANEL_QUERY} variables={{ test_id: test_id }}>
             {({ loading, error, data }) => {
-              if (loading) return <Loading />
-              if (error) return <Error {...error} />
+              if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
+              if (error) return <div>{JSON.stringify(error)}</div>
 
           return (
 
-      <>
+            <>
       <TestHeaderStudent classes={classes} {...data.test}/>
 
       <PanelList classes={classes} {...data.test}/>
-
       </>
+
 
 )
 }

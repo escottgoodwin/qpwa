@@ -32,10 +32,10 @@ class StudentCourseDashboard extends Component {
 
           return (
             <Fade in={!loading}>
-              <>
+              <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
               <CourseHeaderStudent {...courseToRender} />
               <StudentTestList tests={tests1} courseId={course_id} />
-            </>
+            </div>
             </Fade >
         )
       }}

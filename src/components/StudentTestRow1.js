@@ -72,30 +72,31 @@ const StudentTestRow1 = (props) =>
         { dateFormat(props.test.testDate, "dddd, mmmm dS, yyyy") }
       </Typography>
 
-      <Typography variant="h5" component="h5">
+      <h4>
       {props.test.testNumber}
-      </Typography>
+      </h4>
 
-        <Typography variant="h4" component="h4">
+      <h2>
         {props.test.subject}
-        </Typography>
+      </h2>
 
+      <hr />
         <div style={{margin:10}}>
         <Grid container justify="center" spacing={24}>
         <Grid key='Questions' item>
-        <Typography variant="h6" component="h6">
-          Questions: {props.test.questions.length}
-        </Typography>
+
+        <h5>  Questions: {props.test.questions.length}</h5>
+
         </Grid>
         <Grid key='Answers' item>
-        <Typography variant="h6" component="h6">
+        <h5>
           Answers: {props.test.questions.map(q => q.questionAnswers.length).reduce((a,b) => a + b, 0)}
-          </Typography>
+          </h5>
         </Grid>
         <Grid key='Panels' item>
-        <Typography variant="h6" component="h6">
+        <h5>
           Panels: { props.test.panels.length }
-        </Typography>
+        </h5>
         </Grid>
         </Grid>
 
@@ -104,10 +105,20 @@ const StudentTestRow1 = (props) =>
           <hr/>
 
           <div>
+          <Grid container justify="center" spacing={24}>
+
+          <Grid key='release' item>
 
           <Button disabled={!props.test.release} variant="outlined">Released</Button>
 
+          </Grid>
+
+          <Grid key='publish' item>
+
           <Button disabled={!props.test.published} variant="outlined">Published</Button>
+
+          </Grid>
+          </Grid>
 
         </div>
 

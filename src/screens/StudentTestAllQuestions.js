@@ -1,13 +1,15 @@
 import React,{Component} from 'react'
 import '../css/App.css'
+import { Link } from 'react-router-dom'
 import { Query } from "react-apollo"
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-import { USER_ANSWERS_QUERY, USER_ANSWERED_QUERY } from '../ApolloQueries'
+import {TEST_QUESTIONS_QUERY} from '../ApolloQueries'
 
 import TestHeaderStudent from '../components/TestHeaderStudent'
 import PanelList from '../components/PanelList1'
@@ -69,7 +71,17 @@ const styles = theme => ({
   },
 });
 
-class StudentTestAnswers extends Component {
+class StudentTestAllQuestions extends Component {
+
+  answerRandom = (questions) =>  {
+    const randomInt = Math.floor(Math.random() * questions.length)
+    const randomId = questions[randomInt].id
+    this.props.history.push({
+      pathname: "/answer_question",
+      state:
+        { questionId: randomId }
+      })
+    }
 
   render() {
 
@@ -78,12 +90,12 @@ class StudentTestAnswers extends Component {
 
       return (
 
-      <Query query={USER_ANSWERS_QUERY} variables={{ testId: testId }} fetchPolicy="cache-and-network">
-            {({ loading, error, data }) => {
+        <Query query={TEST_QUESTIONS_QUERY} variables={{ testId: testId }} fetchPolicy="cache-and-network">
+              {({ loading, error, data }) => {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const { total, totalCorrect, percentCorrect, answers } = data.userAnswers1
+                const { questions } = data.test
 
               return (
                 <Fade in={!loading}>
@@ -92,57 +104,26 @@ class StudentTestAnswers extends Component {
                 <div style={{marginBottom:50}}>
                 <StudentTestHeader classes={classes} test_id={testId} />
 
-                <Paper style={{padding:10}}>
-
-                <h4>
-                Your Answers
-                </h4>
-                <hr />
-
-                <Grid container justify="center" spacing={24}>
-                <Grid  item>
-                <h5>
-                Total: {total}
-                </h5>
-                </Grid>
-
-                <Grid  item>
-                <h5>
-                Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
-                </h5>
-                </Grid>
-
-                </Grid>
-
-                </Paper>
-
-                {
-                  answers.length>0 &&
-
+                <Button onClick={() => this.answerRandom(questions)} style={{marginTop:20,marginBottom:20}} fullWidth size='large' variant='contained' color="primary" >Random Question</Button>
 
                 <Paper style={{padding:25,marginTop:10}}>
-                <hr />
+
                 {
-                  answers.map(item =>
-                    <>
-                    <h5  >
-                     {item.question.question}
+                  questions.map(item =>
+                    <Link  to={{
+                      pathname: "/answer_question",
+                      state:
+                        { questionId: item.id }
+                      }} >
+
+                    <h5 key={item.id}>
+                      {item.question}
                     </h5>
 
-                    {item.answerCorrect ?
-                      <h5 style={{color:'green'}} >{item.answer.choice}</h5>
-                      :
-                      <>
-                      <h5 style={{color:'red'}} >{item.answer.choice}</h5>
-                      <h5 style={{color:'green'}} >{item.question.choices.filter(choice => choice.correct)[0].choice}</h5>
-                      </>
-                    }
-                    <hr />
-                    </>
+                    </Link>
                   )
                 }
                 </Paper>
-                }
                 </div>
                 </main>
 
@@ -152,10 +133,8 @@ class StudentTestAnswers extends Component {
           }}
           </Query>
 
-
-
-            )
+        )
       }
     }
 
-export default withStyles(styles)(StudentTestAnswers)
+export default withStyles(styles)(StudentTestAllQuestions)

@@ -22,50 +22,37 @@ class StudentTestButtons extends Component {
 
     const { classes, panels, id, userId } = this.props
     return (
-      <Grid container justify="center" spacing={24}>
 
-      <Grid  item>
-
+      <>
       <Link  to={{
         pathname: "/student_test_panels",
         state:
           {
             test_id: id }
         }} >
-        <Button  size='large' variant='contained' color="primary" >{panels.length} Panels</Button>
+        <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >{panels.length} Panels</Button>
       </Link>
 
-      </Grid>
+      <Link  to={{
+        pathname: "/challenge_student_dashboard",
+        state:
+          {
+            test_id: id }
+        }} >
+        <Button style={{marginTop:20}}fullWidth size='large' variant='contained' color="primary" >Challenges</Button>
+      </Link>
 
-      <Grid  item>
-      <Query query={CHALLENGE_STUDENT_COUNT_QUERY} variables={{ testId: id, userId: userId }}>
-            {({ loading, error, data }) => {
-              if (loading) return <div>Loading...</div>
-              if (error) return <div>{JSON.stringify(error)}</div>
+      <Link  to={{
+        pathname: "/test_questions",
+        state:
+          {
+            testId: id }
+        }} >
+        <Button style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >All Questions</Button>
+      </Link>
 
-              const {count} = data.challenges
-
-          return (
-            <>
-            {count>0 &&
-
-              <Link  to={{
-                pathname: "/challenge_student_dashboard",
-                state:
-                  {
-                    test_id: id }
-                }} >
-                <Button size='large' variant='contained' color="primary" >{count}  Challenges</Button>
-              </Link>
-            }
-            </>
-        )
-      }}
-    </Query>
-    </Grid>
-    </Grid>
-
-    )
+      </>
+      )
   }
 
 }

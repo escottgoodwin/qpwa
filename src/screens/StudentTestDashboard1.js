@@ -80,9 +80,7 @@ class StudentTestDashboard extends Component {
     const userId = Cookies.get('userid')
     const { classes } = this.props
     return (
-      <main className={classes.main}>
-      <CssBaseline />
-      <div style={{marginBottom:50}}>
+
 
       <Query query={TEST_QUERY} variables={{ test_id: test_id }}>
             {({ loading, error, data }) => {
@@ -94,7 +92,7 @@ class StudentTestDashboard extends Component {
 
           return (
             <Fade in={!loading}>
-            <>
+            <div style={{marginLeft:'5%',marginRight:'5%'}}>
             <TestHeaderStudent classes={classes} {...testToRender} />
 
             <StudentTestButtons userId={userId} {...data.test}/>
@@ -105,14 +103,13 @@ class StudentTestDashboard extends Component {
 
             <UserAnswerStats classes={classes} testId={test_id} />
 
-            </>
-            </Fade>
+            </div>
+          </Fade>
           )
         }}
       </Query>
 
-    </div>
-  </main>
+
 
       )
     }

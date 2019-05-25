@@ -50,7 +50,7 @@ import Challenge from './screens/Challenge'
 import EditChallenge from './screens/EditChallenge'
 import StudentTestQuestions from './screens/StudentTestQuestions'
 import StudentTestAnswers from './screens/StudentTestAnswers'
-
+import StudentTestAllQuestions from './screens/StudentTestAllQuestions'
 
 import Nav1 from './components/Nav1'
 import Footer from './components/Footer'
@@ -115,6 +115,7 @@ class App extends Component {
           <Route path="/edit_challenge" component={EditChallenge}/>
           <Route path="/user_questions" component={StudentTestQuestions}/>
           <Route path="/user_answers" component={StudentTestAnswers}/>
+          <Route path="/test_questions" component={StudentTestAllQuestions}/>
 
         </Switch>
 

@@ -29,7 +29,7 @@ class UserQuestionStats extends Component {
 
       <Query query={USER_QUESTION_QUERY} variables={{ testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
-              if (loading) return <div>Loading...</div>
+              if (loading) return <div style={{height:'25vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
               const { totalQuestions, answers, totalCorrect, percentCorrect } = data.userQuestionStats
@@ -45,6 +45,7 @@ class UserQuestionStats extends Component {
               })}
               className={classes.card} >
 
+
             <CardActionArea>
             <CardContent style={{ backgroundColor:indigo[100]}}>
             <Typography style={{color:indigo[800]}} variant="h5" component="h5">
@@ -56,20 +57,33 @@ class UserQuestionStats extends Component {
             <Divider />
 
             <CardContent >
+            <Grid container justify="center" spacing={24}>
 
-            <Typography variant="h6" component="h6">
+            <Grid  item>
+            <h5>
             Total Questions : {totalQuestions}
-            </Typography>
-            <Typography variant="h6" component="h6">
-            Total Answers: {answers}
-            </Typography>
-            <Typography variant="h6" component="h6">
-            Answers Correct: {totalCorrect}
-            </Typography>
+            </h5>
+            </Grid>
 
-            <Typography variant="h6" component="h6">
+            <Grid  item>
+            <h5>
+            Total Answers: {answers}
+            </h5>
+            </Grid>
+
+            <Grid  item>
+            <h5>
+            Answers Correct: {totalCorrect}
+            </h5>
+            </Grid>
+            <Grid  item>
+            <h5>
             Percent: {Math.round(percentCorrect*100)}%
-            </Typography>
+            </h5>
+
+            </Grid>
+
+            </Grid>
 
             </CardContent >
             </CardActionArea>

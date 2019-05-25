@@ -14,6 +14,7 @@ import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CardActionArea from '@material-ui/core/CardActionArea'
 import Magnifier from "react-magnifier";
+import Fade from '@material-ui/core/Fade';
 
 const styles = {
   card: {
@@ -48,7 +49,9 @@ const Transition = props =>  <Slide direction="up" {...props} />
 
 class PanelRow extends React.Component {
 
-    state = { open: false }
+    state = { open: false,
+              loading: true
+            }
 
     handleClickOpen = () => {
     this.setState({ open: true });
@@ -58,13 +61,18 @@ class PanelRow extends React.Component {
       this.setState({ open: false });
     };
 
+    componentDidMount(){
+      setTimeout(() => {this.setState({loading:false})}, 1000)
+    }
+
     render() {
 
       const { classes, test, id, question, panelLink, total, totalCorrect, percentCorrect } = this.props
       const { subject, testNumber } = test
+      const { loading, open } = this.state
 
       return (
-
+        <Fade in={!loading}>
         <div style={{marginBottom:15}}>
         <Card onClick={this.handleClickOpen} style={styles.card}>
           <CardActionArea>
@@ -76,25 +84,25 @@ class PanelRow extends React.Component {
             {question.length>0 &&
             <>
             <CardContent>
-              <Typography variant="h6" component="h6">
+              <h5>
                 <b>Label:</b> {question}
-              </Typography>
+              </h5>
             </CardContent>
 
             </>
             }
             <Divider />
             <CardContent>
-              <Typography variant="h6" component="h6">
+              <h5>
                 <b>Answers:</b> {total} <b>Correct:</b> {totalCorrect} ({Math.round(percentCorrect*100)}%)
-              </Typography>
+              </h5>
             </CardContent>
             </CardActionArea>
           </Card>
 
         <Dialog
         fullScreen
-        open={this.state.open}
+        open={open}
         onClose={this.handleClose}
         TransitionComponent={Transition}
         >
@@ -103,7 +111,7 @@ class PanelRow extends React.Component {
             <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
               <CloseIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.flex}>
+            <Typography variant="h" color="inherit" className={classes.flex}>
           {testNumber} - {subject}
             </Typography>
           </Toolbar>
@@ -118,9 +126,9 @@ class PanelRow extends React.Component {
             <>
             <Divider />
             <CardContent>
-              <Typography variant="h6" component="h6">
+              <h5>
                 <b>Label:</b> {question}
-              </Typography>
+              </h5>
             </CardContent>
 
             </>
@@ -131,7 +139,7 @@ class PanelRow extends React.Component {
         </Dialog>
 
       </div>
-
+      </Fade>
     )
   }
 }

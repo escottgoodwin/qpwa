@@ -2,25 +2,26 @@ import React from 'react';
 import '../css/App.css';
 
 import { Link } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
+
 
 const CourseHeaderStudent = (props) =>
 
-  <div style={{padding:15}}>
+  <Card style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5}}>
 
-  <Link  to={{
-    pathname: "/student_course_dashboard",
-    state:
-      { course_id: props.id }
-    }} >
-    <h2>{props.name} - {props.courseNumber}</h2>
-    </Link>
+  <CardContent>
 
-    <div style={{margin:10}} >
-    <h5>Time:  {props.time}</h5>
-    </div>
+  <h3>{props.name} - {props.courseNumber}</h3>
+  <h5>Time:  {props.time}</h5>
+  </CardContent>
 
-  </div>
+  </Card>
+
+
 
 
 export default CourseHeaderStudent

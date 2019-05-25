@@ -27,7 +27,7 @@ class UserAnswerStats extends Component {
 
       <Query query={USER_ANSWERED_QUERY} variables={{ testId: this.props.testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
-              if (loading) return <div>Loading...</div>
+              if (loading) return <div style={{height:'25vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
               const { total, totalCorrect, percentCorrect } = data.userAnsweredStats
@@ -55,15 +55,26 @@ class UserAnswerStats extends Component {
 
             <CardContent >
 
-            <Typography variant="h6" component="h6">
+            <Grid container justify="center" spacing={24}>
+
+            <Grid  item>
+            <h5>
             Questions Total: {total}
-            </Typography>
-            <Typography variant="h6" component="h6">
+            </h5>
+            </Grid>
+
+            <Grid  item>
+            <h5>
             Correct: {totalCorrect}
-            </Typography>
-            <Typography variant="h6" component="h6">
+            </h5>
+            </Grid>
+
+            <Grid  item>
+            <h5>
             Percent: {Math.round(percentCorrect*100)}%
-            </Typography>
+            </h5>
+            </Grid>
+            </Grid>
 
             </CardContent >
             </CardActionArea>

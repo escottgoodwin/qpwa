@@ -6,10 +6,14 @@ import { USER_QUESTIONS_QUERY, USER_QUESTION_STATS_QUERY } from '../ApolloQuerie
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Fade from '@material-ui/core/Fade';
 
 import TestHeaderStudent from '../components/TestHeaderStudent'
 import PanelList from '../components/PanelList1'
 import Error from '../components/Error'
+import StudentTestHeader from '../components/StudentTestHeader'
+
 import UserQuestionItem from '../components/UserQuestionItem'
 
 import Loading from './Loading'
@@ -75,10 +79,6 @@ class StudentTestQuestions extends Component {
 
       return (
 
-        <main className={classes.main}>
-
-        <div style={{marginBottom:50}}>
-
     <Query query={USER_QUESTIONS_QUERY} variables={{ testId }} fetchPolicy="cache-and-network">
           {({ loading, error, data }) => {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
@@ -87,28 +87,58 @@ class StudentTestQuestions extends Component {
             const { totalQuestions, answers, totalCorrect, percentCorrect, questions } = data.userQuestions1
 
         return (
-          <>
-          <Paper style={{padding:10}}>
-          <div>Questions : {totalQuestions} </div>
-          <div>Answers: {answers} </div>
+          <Fade in={!loading}>
+          <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
+          <main className={classes.main}>
 
-          <div>Correct: {totalCorrect} </div>
-          <div>Percent: {Math.round(percentCorrect*100)}% </div>
+          <div style={{marginBottom:50}}>
+          <StudentTestHeader classes={classes} test_id={testId} />
+          <Paper style={{padding:15}}>
+          <Typography variant="h" component="h4">
+          Your Questions
+          </Typography>
+
+          <hr />
+
+          <Grid container justify="center" spacing={24}>
+          <Grid  item>
+          <Typography variant="h" component="h5">
+          Questions : {totalQuestions}
+          </Typography>
+          </Grid >
+
+          <Grid  item>
+          <Typography variant="h" component="h5">
+            Answers: {answers}
+          </Typography>
+          </Grid >
+
+          <Grid  item>
+
+          <Typography variant="h" component="h5">
+            Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
+          </Typography>
+
+          </Grid >
+
+          </Grid>
           </Paper>
 
-          <Paper style={{padding:10,margin:10}}>
           {
-            questions.map(uq => <UserQuestionItem {...uq} />)
+            questions.length >0 &&
+            <Paper style={{padding:10,marginTop:10}}>
+            {
+              questions.map(uq => <UserQuestionItem {...uq} />)
+            }
+            </Paper>
           }
-          </Paper>
-          </>
+          </div>
+          </main>
+          </div>
+          </Fade>
           )
         }}
         </Query>
-
-          </div>
-          </main>
-
         )
       }
     }

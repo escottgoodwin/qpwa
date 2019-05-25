@@ -2101,3 +2101,23 @@ query UserAnswers($testId:ID!){
   }
 }
 `
+
+export const TEST_QUESTIONS_QUERY = gql`
+query TestQuestionsQuery($testId:ID!){
+  test(id:$testId){
+    id
+    subject
+    testNumber
+    testDate
+    course{
+      id
+      name
+      courseNumber
+    }
+    questions{
+      id
+      question
+    }
+  }
+}
+`

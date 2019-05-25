@@ -3,6 +3,9 @@ import {withRouter} from "react-router-dom"
 import moment from 'moment'
 import '../css/App.css';
 
+import { Query } from "react-apollo";
+import {TEST_QUERY} from '../ApolloQueries';
+
 import { Link } from 'react-router-dom'
 import { Microscope } from 'mdi-material-ui'
 import Typography from '@material-ui/core/Typography';
@@ -49,13 +52,23 @@ const styles = {
    }
 };
 
-class TestHeaderStudent  extends Component {
+class StudentTestHeader  extends Component {
 
   render() {
 
-    const { classes, subject, testNumber, course, testDate, testType, id, history } = this.props
+    const { test_id, classes, history } = this.props
 
     return (
+
+      <Query query={TEST_QUERY} variables={{ test_id }}>
+            {({ loading, error, data }) => {
+              if (loading) return <div  >Loading... </div>
+              if (error) return <div> {JSON.stringify(error)} </div>
+
+              const testToRender = data.test
+              const { course, id, testType, testNumber, subject, testDate } = data.test
+
+          return (
       <>
   <div style={{paddingTop:20,paddingBottom:20}}>
 
@@ -65,6 +78,7 @@ class TestHeaderStudent  extends Component {
         { course_id: course.id }
       })}
       className={classes.card}>
+
     <CardActionArea>
 
     <CardContent>
@@ -85,9 +99,7 @@ class TestHeaderStudent  extends Component {
         { test_id: id }
       })}
       className={classes.card}>
-
     <CardActionArea>
-
     {testType==="CLASS" &&
     <CardContent style={{ backgroundColor:cyan[100]}}>
     <BookIcon style={{ color:cyan[700]}} /> <h5 style={{color:cyan[700]}}>
@@ -105,28 +117,28 @@ class TestHeaderStudent  extends Component {
     }
 
   <CardContent >
-    <h5>
-    {testNumber}
-    </h5>
 
-        <h2>
-      {subject}
-        </h2>
-      <Typography  variant="h" component="h6" color="textSecondary" gutterBottom>
-        { moment(testDate).format('MMMM Do YYYY, h:mm a') }
-      </Typography>
+  <h5>
+  {testNumber}
+  </h5>
 
+  <h2>
+    {subject}
+  </h2>
+    <Typography  variant="h" component="h6" color="textSecondary" gutterBottom>
+      { moment(testDate).format('MMMM Do YYYY, h:mm a') }
+    </Typography>
   </CardContent>
-
   </CardActionArea>
-
   </Card >
-
   </div>
   </>
+)
+}}
+</Query>
 )
 }
 
 }
 
-export default withRouter(TestHeaderStudent)
+export default withRouter(StudentTestHeader)
