@@ -163,9 +163,9 @@ class ReviewQuestion extends Component {
                   <QuestionAnswerIcon />
                 </Avatar>
 
-                <Typography component="h1" variant="h5">
+                <h4>
                   Review Question
-                </Typography>
+                </h4>
 
         <div style={{marginTop:20}}>
 
@@ -203,9 +203,9 @@ class ReviewQuestion extends Component {
         </div>
         </Dialog>
 
-          <Typography component="h4" variant="h4">
+          <h3>
             {question}
-          </Typography>
+          </h3>
 
           <div style={{marginTop:20}}>
           <Card style={{backgroundColor:button1,
@@ -215,9 +215,9 @@ class ReviewQuestion extends Component {
 
             <CardContent>
 
-              <Typography  component="h6" variant="h6">
+              <h5>
                 {choices[0].choice}
-              </Typography>
+              </h5>
 
               </CardContent>
 
@@ -232,9 +232,9 @@ class ReviewQuestion extends Component {
 
           <CardContent>
 
-            <Typography  component="h6" variant="h6">
+            <h5>
               {choices[1].choice}
-            </Typography>
+            </h5>
 
             </CardContent>
 
@@ -249,9 +249,9 @@ class ReviewQuestion extends Component {
 
           <CardContent>
 
-          <Typography  component="h6" variant="h6">
+          <h5>
             {choices[2].choice}
-          </Typography>
+          </h5>
 
           </CardContent>
 
@@ -266,9 +266,9 @@ class ReviewQuestion extends Component {
 
           <CardContent>
 
-          <Typography  component="h6" variant="h6">
+          <h5>
           {choices[3].choice}
-          </Typography>
+          </h5>
 
           </CardContent>
 

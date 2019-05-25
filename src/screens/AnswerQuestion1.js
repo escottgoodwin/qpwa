@@ -180,9 +180,9 @@ class AnswerQuestion extends Component {
 
         <div style={{marginTop:20}}>
 
-          <Typography component="h4" variant="h4">
+          <h3>
             {question}
-          </Typography>
+          </h3>
 
           <div style={{marginTop:20}}>
         <Card style={{backgroundColor:button1,
@@ -202,9 +202,9 @@ class AnswerQuestion extends Component {
           <CardActionArea>
           <CardContent>
 
-            <Typography  component="h6" variant="h6">
+            <h5>
               {choices[0].choice}
-            </Typography>
+            </h5>
 
             </CardContent>
           </CardActionArea>
@@ -229,9 +229,9 @@ class AnswerQuestion extends Component {
         <CardActionArea>
         <CardContent>
 
-          <Typography  component="h6" variant="h6">
+          <h5>
             {choices[1].choice}
-          </Typography>
+          </h5>
 
           </CardContent>
         </CardActionArea>
@@ -256,9 +256,9 @@ class AnswerQuestion extends Component {
       <CardActionArea>
       <CardContent>
 
-        <Typography  component="h6" variant="h6">
+        <h5>
           {choices[2].choice}
-        </Typography>
+        </h5>
 
         </CardContent>
       </CardActionArea>
@@ -283,9 +283,9 @@ class AnswerQuestion extends Component {
     <CardActionArea>
     <CardContent>
 
-      <Typography  component="h6" variant="h6">
+      <h5>
         {choices[3].choice}
-      </Typography>
+      </h5>
 
       </CardContent>
     </CardActionArea>

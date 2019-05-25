@@ -91,6 +91,7 @@ const styles = theme => ({
   },
 });
 
+
 class ReviewQuestion extends Component {
 
   state = {
@@ -147,9 +148,9 @@ class ReviewQuestion extends Component {
                 const { id, question, panel, choices, sentPanel } = data.question
 
                 const button1 = choice[0].correct ? selectedColor : 'white'
-                const button2 = choice[0].correct ? selectedColor : 'white'
-                const button3 = choice[0].correct ? selectedColor : 'white'
-                const button4 = choice[0].correct ? selectedColor : 'white'
+                const button2 = choice[1].correct ? selectedColor : 'white'
+                const button3 = choice[2].correct ? selectedColor : 'white'
+                const button4 = choice[3].correct ? selectedColor : 'white'
 
             return (
             <Fade in={!loading}>
@@ -167,11 +168,7 @@ class ReviewQuestion extends Component {
                     {question}
                   </Typography>
 
-                  <Typography component="h1" variant="h5">
-                    Choices
-                  </Typography>
-
-                  <div style={{marginTop:20}}>
+                <div style={{marginTop:20}}>
                 <Card style={{backgroundColor:button1,
                   minWidth: 275,
                   position: 'relative',

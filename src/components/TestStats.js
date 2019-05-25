@@ -38,7 +38,7 @@ class TestStats extends Component {
             <Card className={classes.card}>
             <CardContent style={{ backgroundColor:lightGreen[100]}}>
             <Typography style={{color:lightGreen[800]}} variant="h5" component="h5">
-              Test Peformance
+              Test
             </Typography>
 
             </CardContent >

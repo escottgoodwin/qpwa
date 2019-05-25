@@ -32,6 +32,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import { Mutation, Query } from "react-apollo"
 import { ANSWERED_QUESTION_QUERY } from '../ApolloQueries'
@@ -96,10 +97,36 @@ const styles = theme => ({
 
 class QuestionAnswered extends Component {
 
+  state = {
+        answerChoiceId:'',
+        choice1:'',
+        choiceCorrect1:false,
+        button1:'white',
+        choice2:'',
+        choiceCorrect2:false,
+        button2:'white',
+        choice3:'',
+        choiceCorrect3:false,
+        button3:'white',
+        choice4:'',
+        choiceCorrect4:false,
+        button4:'white',
+        choice1Id:'',
+        choice2Id:'',
+        choice3Id:'',
+        choice4Id:'',
+        graphQLError:'',
+        isVisibleGraph:false,
+        networkError:'',
+        isVisibleNet:false,
+      }
+
     render() {
 
       const { classes } = this.props
       const { answerId } = this.props.location.state
+      const selectedColor = green[200]
+      const wrong = red[200]
 
       return (
       <main className={classes.main}>
@@ -113,28 +140,39 @@ class QuestionAnswered extends Component {
 
                 const { id, answer, question } = data.answer
 
-                const currValue = question.choices.filter(choice => choice.correct)[0].id
+                const { panel, choices, sentPanel } = question
+
+                const button1 = choices[0].correct ? selectedColor : wrong
+                const button2 = choices[1].correct ? selectedColor : wrong
+                const button3 = choices[2].correct ? selectedColor : wrong
+                const button4 = choices[3].correct ? selectedColor : wrong
 
             return (
               <Fade in={!loading}>
               <Paper className={classes.paper}>
-            <div style={{marginTop:20}}>
-            <div style={{marginBottom:20}}>
-            {answer.correct ?
+              <div style={{marginTop:20}}>
+              <div style={{marginBottom:20}}>
+              {answer.correct ?
               <div >
+
               <center>
 
                 <ThumbUpAltIcon fontSize='large' style={{color:green[400]}}/>
 
               </center>
+
               <Typography style={{color:green[400]}} component="h4" variant="h4">
                 You got it right!
               </Typography>
+
               <div style={{margin:10}} >
-              <Typography  component="h5" variant="h5">
+
+              <h4>
                 {answer.choice}
-              </Typography>
+              </h4>
+
               </div>
+
               </div>
               :
               <div >
@@ -143,36 +181,97 @@ class QuestionAnswered extends Component {
                 <ThumbDownAltIcon fontSize='large' style={{color:red[400]}}/>
 
               </center>
+
               <Typography style={{color:red[400]}} component="h4" variant="h4">
                 You got it wrong!
               </Typography>
+
               <div style={{margin:10}} >
-              <Typography  component="h5" variant="h5">
+
+              <h4>
                 {answer.choice}
-              </Typography>
+              </h4>
+
               </div>
+
               </div>
             }
+
             </div>
+
             <hr />
-              <Typography component="h4" variant="h4">
-                {question.question}
-              </Typography>
 
-            <FormControl component="fieldset" className={classes.formControl}>
+            <h3>
+              {question.question}
+            </h3>
 
-              <RadioGroup
-                aria-label="Choices"
-                name="choices"
-                className={classes.group}
-                value={currValue}
-                onChange={this.handleChange}
-              >
+            <div style={{marginTop:20}}>
+            <Card style={{backgroundColor:button1,
+              minWidth: 275,
+              position: 'relative',
+            }} >
 
-              {question.choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
+              <CardContent>
 
-            </RadioGroup>
-            </FormControl>
+                <h5>
+                  {choices[0].choice}
+                </h5>
+
+                </CardContent>
+
+            </Card>
+            </div>
+
+            <div style={{marginTop:20}}>
+            <Card style={{backgroundColor:button2,
+            minWidth: 275,
+            position: 'relative',
+            }}  >
+
+            <CardContent>
+
+              <h5>
+                {choices[1].choice}
+              </h5>
+
+              </CardContent>
+
+            </Card>
+            </div>
+
+            <div style={{marginTop:20}}>
+            <Card style={{backgroundColor:button3,
+            minWidth: 275,
+            position: 'relative',
+            }} >
+
+            <CardContent>
+
+            <h5>
+              {choices[2].choice}
+            </h5>
+
+            </CardContent>
+
+            </Card>
+            </div>
+
+            <div style={{marginTop:20}}>
+            <Card style={{backgroundColor:button4,
+            minWidth: 275,
+            position: 'relative',
+            }} >
+
+            <CardContent>
+
+            <h5>
+            {choices[3].choice}
+            </h5>
+
+            </CardContent>
+
+            </Card>
+            </div>
 
             <div style={{margin:10}}>
             <Button

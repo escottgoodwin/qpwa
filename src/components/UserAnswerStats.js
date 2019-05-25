@@ -59,21 +59,16 @@ class UserAnswerStats extends Component {
 
             <Grid  item>
             <h5>
-            Questions Total: {total}
+            Questions Answered: {total}
             </h5>
             </Grid>
 
             <Grid  item>
             <h5>
-            Correct: {totalCorrect}
+            Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
             </h5>
             </Grid>
 
-            <Grid  item>
-            <h5>
-            Percent: {Math.round(percentCorrect*100)}%
-            </h5>
-            </Grid>
             </Grid>
 
             </CardContent >

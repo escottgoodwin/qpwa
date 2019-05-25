@@ -25,16 +25,6 @@ const httpLink = createHttpLink({
   }
 })
 
-const wsLink = new WebSocketLink({
-  uri: process.env.REACT_APP_GRAPHQL_SUB_SERVER,
-  options: {
-    reconnect: true,
-    connectionParams: {
-        authorization: token1 ? `Bearer ${token1}` : "",
-    },
-  }
-})
-
 const authLink = setContext( async (_, { headers }) => {
   const token = Cookies.get('auth_token')
   return {
@@ -47,18 +37,8 @@ const authLink = setContext( async (_, { headers }) => {
 
 const fullHttpLink = authLink.concat(httpLink)
 
-const link = split(
-  // split based on operation type
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query)
-    return kind === 'OperationDefinition' && operation === 'subscription'
-  },
-  wsLink,
-  fullHttpLink,
-)
-
 const client = new ApolloClient({
-  link: link,
+  link: fullHttpLink,
   cache: new InMemoryCache()
 })
 
@@ -69,6 +49,5 @@ ReactDOM.render(
     </ApolloProvider>
   </Router>
 , document.getElementById('root'))
-
 
 serviceWorker.register();
