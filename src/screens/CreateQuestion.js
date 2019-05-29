@@ -1,37 +1,26 @@
 import React,{Component} from 'react'
-import * as Cookies from "js-cookie"
 import '../css/App.css'
 //import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
 import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea'
-import Checkbox from '@material-ui/core/Checkbox';
 import Fade from '@material-ui/core/Fade';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import Magnifier from "react-magnifier";
 
 import { Mutation, Query } from "react-apollo"
 import {CREATE_QUESTION_QUERY,CREATE_QUESTION_MUTATION} from '../ApolloQueries'
@@ -113,12 +102,12 @@ class CreateQuestion extends Component {
         open: false
       }
 
-      handleChange = name => event => {
+  handleChange = name => event => {
     this.setState({ [name]: event.target.checked });
   };
 
   handleClickOpen = () => {
-  this.setState({ open: true });
+    this.setState({ open: true });
   };
 
   handleClose = () => {
@@ -161,7 +150,7 @@ class CreateQuestion extends Component {
 
                 const questionToRender = data.question
 
-                const {id, sentPanel, test } = data.question
+                const { sentPanel, test } = data.question
 
                 const { subject, testNumber } = test
 
@@ -205,10 +194,10 @@ class CreateQuestion extends Component {
           </Toolbar>
         </AppBar>
 
-        <div style={{marginTop:100}}>
-        <Card style={styles.card}>
-            <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={sentPanel.link}  />;
-        </Card>
+        <div style={{marginTop:60}}>
+
+        <img style={{maxHeight:'100vw', maxWidth:'100vh', transform: 'translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%)) rotate(90deg)' }} src={sentPanel.link} alt="Logo" />
+
         </div>
         </Dialog>
 
@@ -243,7 +232,7 @@ class CreateQuestion extends Component {
 
         <Button
         fullWidth
-        variant={this.state.button1}
+        variant={button1}
         color="primary"
         className={classes.submit}
         onClick={() => this.setState({
@@ -272,7 +261,7 @@ class CreateQuestion extends Component {
 
         <Button
         fullWidth
-        variant={this.state.button2}
+        variant={button2}
         color="primary"
         className={classes.submit}
         onClick={() => this.setState({
@@ -302,7 +291,7 @@ class CreateQuestion extends Component {
 
           <Button
           fullWidth
-          variant={this.state.button3}
+          variant={button3}
           color="primary"
           className={classes.submit}
           onClick={() => this.setState({
@@ -332,7 +321,7 @@ class CreateQuestion extends Component {
 
           <Button
           fullWidth
-          variant={this.state.button4}
+          variant={button4}
           color="primary"
           className={classes.submit}
           onClick={() => this.setState({

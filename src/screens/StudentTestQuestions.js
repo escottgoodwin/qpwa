@@ -1,24 +1,17 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Query } from "react-apollo"
-
-import { USER_QUESTIONS_QUERY, USER_QUESTION_STATS_QUERY } from '../ApolloQueries'
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
+import { withStyles } from '@material-ui/core/styles';
 
-import TestHeaderStudent from '../components/TestHeaderStudent'
-import PanelList from '../components/PanelList1'
-import Error from '../components/Error'
 import StudentTestHeader from '../components/StudentTestHeader'
-
 import UserQuestionItem from '../components/UserQuestionItem'
 
-import Loading from './Loading'
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Query } from "react-apollo"
+import { USER_QUESTIONS_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {

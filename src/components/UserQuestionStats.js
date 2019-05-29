@@ -1,28 +1,22 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Query } from "react-apollo"
 import { withRouter } from "react-router";
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import orange from '@material-ui/core/colors/orange';
-import deepPurple from '@material-ui/core/colors/deepPurple';
 import indigo from '@material-ui/core/colors/indigo';
-import lightGreen from '@material-ui/core/colors/lightGreen';
 
-import Error from './Error'
-
+import { Query } from "react-apollo"
 import {USER_QUESTION_QUERY} from '../ApolloQueries'
 
 class UserQuestionStats extends Component {
 
   render(){
-
+    
     const { classes, testId } = this.props
 
     return (

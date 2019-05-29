@@ -8,9 +8,6 @@ import InvitationList from '../components/InvitationList'
 import StudentCourseList from '../components/StudentCourseList'
 import Fade from '@material-ui/core/Fade';
 
-import Error from './Error'
-import Loading from './Loading'
-
 import {STUDENT_COURSE_QUERY} from '../ApolloQueries'
 
 class StudentDashboard extends Component {

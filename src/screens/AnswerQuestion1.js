@@ -1,40 +1,19 @@
 import React,{Component} from 'react'
-import * as Cookies from "js-cookie"
 import '../css/App.css'
 //import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
 import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
 import CardActionArea from '@material-ui/core/CardActionArea'
-import green from '@material-ui/core/colors/green';
-import blue from '@material-ui/core/colors/blue';
-import lightGreen from '@material-ui/core/colors/lightGreen';
 import blueGrey from '@material-ui/core/colors/blueGrey';
-import teal from '@material-ui/core/colors/teal';
 
 import { Mutation, Query } from "react-apollo"
 import {ANSWER_QUESTION_QUERY, ANSWER_QUESTION_MUTATION} from '../ApolloQueries'
@@ -100,22 +79,10 @@ class AnswerQuestion extends Component {
 
       state = {
             answerChoiceId:'',
-            choice1:'',
-            choiceCorrect1:false,
             button1:'white',
-            choice2:'',
-            choiceCorrect2:false,
             button2:'white',
-            choice3:'',
-            choiceCorrect3:false,
             button3:'white',
-            choice4:'',
-            choiceCorrect4:false,
             button4:'white',
-            choice1Id:'',
-            choice2Id:'',
-            choice3Id:'',
-            choice4Id:'',
             graphQLError:'',
             isVisibleGraph:false,
             networkError:'',
@@ -130,22 +97,10 @@ class AnswerQuestion extends Component {
     render() {
 
       const { answerChoiceId,
-              choice1,
-              choiceCorrect1,
-              choice2,
-              choiceCorrect2,
-              choice3,
-              choiceCorrect3,
-              choice4,
-              choiceCorrect4,
               button1,
               button2,
               button3,
               button4,
-              choice1Id,
-              choice2Id,
-              choice3Id,
-              choice4Id,
               graphQLError,
               networkError,
               isVisibleNet,
@@ -154,6 +109,7 @@ class AnswerQuestion extends Component {
       const { classes } = this.props
       const { questionId } = this.props.location.state
       const selectedColor = blueGrey[200]
+
       return (
       <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
@@ -166,9 +122,7 @@ class AnswerQuestion extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, question, panel, choices } = data.question
-
-                console.log(choices[0])
+                const { question, choices } = data.question
 
             return (
               <Fade in={!loading}>

@@ -1,26 +1,18 @@
 import React,{Component} from 'react';
 import '../css/App.css';
 import * as Cookies from "js-cookie"
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+
 import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 
-import classNames from 'classnames';
-import { Query } from "react-apollo";
-import { Link } from 'react-router-dom'
 import TestHeaderStudent from '../components/TestHeaderStudent'
 import TestStats from '../components/TestStats'
 import UserQuestionStats from '../components/UserQuestionStats'
 import UserAnswerStats from '../components/UserAnswerStats'
 import StudentTestButtons from '../components/StudentTestButtons'
 
-import Error from './Error'
-import Loading from './Loading'
-import {TEST_QUERY, CHALLENGE_STUDENT_COUNT_QUERY} from '../ApolloQueries';
+import { Query } from "react-apollo";
+import { TEST_QUERY } from '../ApolloQueries';
 
 const styles = theme => ({
   container: {
@@ -87,13 +79,10 @@ class StudentTestDashboard extends Component {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const testToRender = data.test
-              const { panels, id } = data.test
-
           return (
             <Fade in={!loading}>
             <div style={{marginLeft:'5%',marginRight:'5%'}}>
-            <TestHeaderStudent classes={classes} {...testToRender} />
+            <TestHeaderStudent classes={classes} {...data.test} />
 
             <StudentTestButtons userId={userId} {...data.test}/>
 
@@ -109,11 +98,8 @@ class StudentTestDashboard extends Component {
         }}
       </Query>
 
-
-
       )
     }
   }
-
 
 export default withStyles(styles)(StudentTestDashboard)

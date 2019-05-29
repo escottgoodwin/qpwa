@@ -1,40 +1,20 @@
 import React,{Component} from 'react'
-import * as Cookies from "js-cookie"
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
-import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
-import blueGrey from '@material-ui/core/colors/blueGrey';
 
-import { Mutation, Query } from "react-apollo"
+import { Query } from "react-apollo"
 import { ANSWERED_QUESTION_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
@@ -138,9 +118,9 @@ class QuestionAnswered extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, answer, question } = data.answer
+                const { answer, question } = data.answer
 
-                const { panel, choices, sentPanel } = question
+                const { choices } = question
 
                 const button1 = choices[0].correct ? selectedColor : wrong
                 const button2 = choices[1].correct ? selectedColor : wrong

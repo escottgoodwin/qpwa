@@ -2,8 +2,7 @@ import React,{Component }from 'react';
 import { Route, Switch} from 'react-router-dom'
 import './css/App.css';
 import { withStyles } from '@material-ui/core/styles';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-
+import { messaging} from './firebase'
 
 import TeacherDashboard from './screens/TeacherDashboard'
 import StudentDashboard from './screens/StudentDashboard'
@@ -51,23 +50,54 @@ import EditChallenge from './screens/EditChallenge'
 import StudentTestQuestions from './screens/StudentTestQuestions'
 import StudentTestAnswers from './screens/StudentTestAnswers'
 import StudentTestAllQuestions from './screens/StudentTestAllQuestions'
+import StudentChallenges from './screens/StudentChallenges'
+import StudentAddPhotos from './screens/StudentAddPhotos'
 
 import Nav1 from './components/Nav1'
-import Footer from './components/Footer'
 
 const styles = (theme) => ({
   toolbar: theme.mixins.toolbar,
 });
 
-// Add the reducer to your store on the `routing` key
+
+messaging.usePublicVapidKey("BImgeLGYBV9aNJndBZoQJoSexNssY8Dg88iRm4pYZI__oXGqxdrPQue4e_3ekaf9q2VZGj20xBDZmJE6wyuIPzs");
+
 class App extends Component {
 
+  componentDidMount() {
+
+    messaging.getToken().then(function(currentToken) {
+      if (currentToken) {
+        //console.log('token exists')
+      } else {
+        Notification.requestPermission().then(function(permission) {
+          if (permission === 'granted') {
+            console.log('Notification permission granted.');
+            // TODO(developer): Retrieve an Instance ID token for use with FCM.
+            // ...
+          } else {
+            console.log('Unable to get permission to notify.');
+          }
+        });
+
+      }
+    }).catch(function(err) {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+
+    messaging.onMessage(payload => {
+      console.log('Message received. ', payload);
+
+      });
+
+}
+
   render() {
-    const { classes } = this.props
+
     return (
       <div className="App">
         <Nav1 />
-        <div style={{marginTop: '65px'}}>
+        <div style={{marginTop: '65px',backgroundColor:'#e4f1fe'}}>
         <Switch>
           <Route exact path="/" component={SignIn}/>
           <Route path="/sign_in" component={SignIn}/>
@@ -116,6 +146,8 @@ class App extends Component {
           <Route path="/user_questions" component={StudentTestQuestions}/>
           <Route path="/user_answers" component={StudentTestAnswers}/>
           <Route path="/test_questions" component={StudentTestAllQuestions}/>
+          <Route path="/student_challenges" component={StudentChallenges}/>
+          <Route path="/student_add_photos" component={StudentAddPhotos}/>
 
         </Switch>
 

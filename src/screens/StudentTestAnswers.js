@@ -1,23 +1,15 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Query } from "react-apollo"
 
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 
-import { USER_ANSWERS_QUERY, USER_ANSWERED_QUERY } from '../ApolloQueries'
-
-import TestHeaderStudent from '../components/TestHeaderStudent'
-import PanelList from '../components/PanelList1'
-import Error from '../components/Error'
-import UserQuestionItem from '../components/UserQuestionItem'
 import StudentTestHeader from '../components/StudentTestHeader'
 
-import Loading from './Loading'
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Query } from "react-apollo"
+import { USER_ANSWERS_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -87,7 +79,7 @@ class StudentTestAnswers extends Component {
 
               return (
                 <Fade in={!loading}>
-
+                <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
                 <main className={classes.main}>
                 <div style={{marginBottom:50}}>
                 <StudentTestHeader classes={classes} test_id={testId} />
@@ -145,7 +137,7 @@ class StudentTestAnswers extends Component {
                 }
                 </div>
                 </main>
-
+                </div>
                 </Fade>
 
             )

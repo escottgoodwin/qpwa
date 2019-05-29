@@ -3,11 +3,11 @@ import * as Cookies from "js-cookie"
 import '../css/App.css'
 //import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
 import { Message } from 'semantic-ui-react'
+import { messaging } from '../firebase'
 
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -21,7 +21,8 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
 import { Mutation } from "react-apollo"
-import {LOGIN_MUTATION} from '../ApolloQueries'
+import {MOBILE_LOGIN_MUTATION} from '../ApolloQueries'
+
 
 const styles = theme => ({
   container: {
@@ -74,12 +75,13 @@ class SignIn extends Component {
     state = {
       email: '',
       password: '',
+      pushToken:'',
       graphQLError: '',
       isVisibleGraph:false,
       networkError:false,
       isVisibleNet:false,
-      pushToken:'',
       isVisible:false,
+      errorMsg:'',
       showPassword:false
     }
 
@@ -87,12 +89,22 @@ class SignIn extends Component {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
+    componentDidMount(){
+
+      messaging.getToken().then(currentToken => {
+        this.setState({pushToken:currentToken})
+      }).catch(function(err) {
+        console.log('An error occurred while retrieving token. ', err);
+      })
+
+    }
+
     render() {
-      const { email, password, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
+      const { email, password, pushToken, graphQLError, networkError, isVisibleNet, isVisibleGraph, errorMsg, loginError } = this.state
       const { classes } = this.props
 
       return (
-        <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
+      <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
       <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
@@ -138,8 +150,8 @@ class SignIn extends Component {
         />
         <div style={{margin:10}}>
       <Mutation
-          mutation={LOGIN_MUTATION}
-          variables={{ email:email, password:password }}
+          mutation={MOBILE_LOGIN_MUTATION}
+          variables={{ email, password, pushToken }}
           onCompleted={data => this._confirm(data)}
           onError={error => this._error (error)}
         >
@@ -161,8 +173,8 @@ class SignIn extends Component {
 
         <div style={{margin:10}}>
       <Mutation
-          mutation={LOGIN_MUTATION}
-          variables={{ email:email, password:password }}
+          mutation={MOBILE_LOGIN_MUTATION}
+          variables={{ email, password, pushToken }}
           onCompleted={data => this._confirm(data)}
           onError={error => this._error (error)}
         >
@@ -194,6 +206,12 @@ class SignIn extends Component {
           </Message>
         }
 
+        {loginError &&
+          <Message negative>
+            <p><b>{errorMsg}</b></p>
+          </Message>
+        }
+
       </div>
 
   )
@@ -210,8 +228,8 @@ _error = async error => {
 }
 
   _confirm = async data => {
-    const { token } = data.login
-    const user = data.login.user
+    const { token } = data.mobileLogin
+    const user = data.mobileLogin.user
     this._saveUserData(token, user)
 
     if (user.role === "TEACHER") {
@@ -237,21 +255,16 @@ _error = async error => {
     sessionStorage.setItem('user', JSON.stringify(user))
     sessionStorage.setItem('userid', user.id)
     sessionStorage.setItem('online', user.online)
-    if (user.role === "ADMIN") {
-      sessionStorage.setItem('institutionId', user.adminInstitutions[0].id)
-
-    }
 
     Cookies.set('auth_token', token)
     Cookies.set('user', JSON.stringify(user))
     Cookies.set('userid', user.id)
     Cookies.set('online', user.online)
+
     if (user.role === "ADMIN") {
+      sessionStorage.setItem('institutionId', user.adminInstitutions[0].id)
       Cookies.set('institutionId', user.adminInstitutions[0].id)
-
     }
-
-
 
   }
 

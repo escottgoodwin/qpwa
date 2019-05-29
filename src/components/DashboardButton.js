@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import '../css/App.css';
 //import { Button } from 'reactstrap';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 class DashboardButton extends Component {
 
@@ -10,13 +10,29 @@ class DashboardButton extends Component {
     if (!!user) {
       switch (user.role) {
         case 'TEACHER':
-          return <Link to="/teacher_dashboard"> <Button variant="outlined" color="inherit">Dashboard</Button></Link>
+          return <Button
+                  onClick={()=>this.props.history.push('/teacher_dashboard')}
+                  variant="outlined" color="inherit">
+                  Dashboard
+                  </Button>
         case 'STUDENT':
-        return <Link to="/student_dashboard"> <Button variant="outlined" color="inherit">Dashboard</Button></Link>
+          return <Button
+                  onClick={()=>this.props.history.push('/student_dashboard')}
+                  variant="outlined" color="inherit">
+                  Dashboard
+                  </Button>
         case 'ADMIN':
-          return <Link to="/admin_dashboard"> <Button variant="outlined" color="inherit">Dashboard</Button></Link>
+          return <Button
+                  onClick={()=>this.props.history.push('/admin_dashboard')}
+                  variant="outlined" color="inherit">
+                  Dashboard
+                  </Button>
         case 'QUANDRIA':
-            return <Link to="/quandria_dashboard"> <Button variant="outlined" color="inherit">Dashboard</Button></Link>
+          return <Button
+                  onClick={()=>this.props.history.push('/quandria_dashboard')}
+                  variant="outlined" color="inherit">
+                  Dashboard
+                  </Button>
         default:
           return <div></div>
       }
@@ -36,4 +52,4 @@ class DashboardButton extends Component {
 }
 }
 
-export default DashboardButton
+export default withRouter(DashboardButton)

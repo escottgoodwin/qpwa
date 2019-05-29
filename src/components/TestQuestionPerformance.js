@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import '../css/App.css';
 import React, { Component } from 'react'
-import { Segment, Table } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
 class TestQuestionPerformance extends Component {
   state = {
@@ -82,7 +82,7 @@ class TestQuestionPerformance extends Component {
               ))}
             </Table.Body>
           </Table>
-    
+
     )
   }
 }

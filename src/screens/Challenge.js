@@ -1,34 +1,20 @@
 import React,{Component} from 'react'
-import * as Cookies from "js-cookie"
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
-import { Message } from 'semantic-ui-react'
+
+import { database } from '../firebase'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
@@ -38,10 +24,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
-import StudentChallengeList from '../components/StudentChallengeList';
+import ChallengeChat from '../components/ChallengeChat';
 
-import { Mutation, Query } from "react-apollo"
+import { Query } from "react-apollo"
 import { CHALLENGE_QUERY } from '../ApolloQueries'
+
+const collection = database.child('challenges')
 
 const styles = theme => ({
   container: {
@@ -113,7 +101,7 @@ function Transition(props) {
 
 class Challenge extends Component {
 
-    state = { open: false }
+    state = { open: false, open2: false, challenges:[] }
 
     handleClickOpen = () => {
     this.setState({ open: true });
@@ -123,11 +111,41 @@ class Challenge extends Component {
       this.setState({ open: false });
     };
 
+    handleClickOpen2 = () => {
+    this.setState({ open2: true });
+    };
+
+    handleClose2 = () => {
+      this.setState({ open2: false });
+    };
+
+    componentDidMount(){
+
+      const { challengeId } = this.props.location.state
+
+      const challenges = collection.child(challengeId)
+
+      challenges.on('value', snapshot => {
+
+      const challenges = snapshot.val() !== null ? Object.values(snapshot.val()) : []
+        this.setState({ challenges })
+      })
+
+    }
+
+    componentWillUnmount() {
+      collection.off();
+    }
 
     render() {
-      const msgcount = '5'
+
       const { classes } = this.props
       const { challengeId } = this.props.location.state
+      const { challenges } = this.state
+      const userId = sessionStorage.getItem('userid')
+
+      const selectedColor = green[200]
+      const wrong = red[200]
 
       return (
 
@@ -140,11 +158,16 @@ class Challenge extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, challenge, answer } = data.challenge
+                const { challenge, addedBy, answer } = data.challenge
 
                 const question  = answer.answer.question
 
-                const currValue = question.choices.filter(choice => choice.correct)[0].id
+                const { choices } = question
+
+                const button1 = choices[0].correct ? selectedColor : wrong
+                const button2 = choices[1].correct ? selectedColor : wrong
+                const button3 = choices[2].correct ? selectedColor : wrong
+                const button4 = choices[3].correct ? selectedColor : wrong
 
             return (
 
@@ -158,6 +181,7 @@ class Challenge extends Component {
             <Typography component="h5" variant="h5">
               Challenge
             </Typography>
+            <hr />
             <Typography component="h4" variant="h4">
               {challenge}
             </Typography>
@@ -168,7 +192,7 @@ class Challenge extends Component {
             color="primary"
             className={classes.submit}
             onClick={this.handleClickOpen}>
-            Chat
+            Chat Messages {challenges.length}
             </Button>
 
             <Dialog
@@ -188,9 +212,7 @@ class Challenge extends Component {
             </Toolbar>
           </AppBar>
 
-          <Typography variant="h6" color="inherit" className={classes.flex}>
-            Chat
-          </Typography>
+          <ChallengeChat classes={classes} challengeId={challengeId} challenges={challenges}/>
         </Dialog>
 
             </div>
@@ -232,35 +254,111 @@ class Challenge extends Component {
             <hr />
 
             <div style={{marginBottom:20}}>
-            <Card className={styles.card}>
-
+            <Card onClick={this.handleClickOpen2} className={styles.card}>
+              <CardActionArea>
                   <CardMedia
                       src={question.panel.link}
                       component="img"
                   />
-
-              </Card>
+              </CardActionArea>
+            </Card>
               </div>
+
+            <Dialog
+            fullScreen
+            open={this.state.open2}
+            onClose={this.handleClose2}
+            TransitionComponent={Transition}
+            >
+
+            <AppBar className={classes.appBar}>
+              <Toolbar>
+                <IconButton color="inherit" onClick={this.handleClose2} aria-label="Close">
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="h6" color="inherit" className={classes.flex}>
+                test course
+                </Typography>
+              </Toolbar>
+            </AppBar>
+
+            <img style={{maxHeight:'100vw', maxWidth:'100vh', transform: 'translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%)) rotate(90deg)' }} src={question.panel.link} alt="Logo" />
+
+            </Dialog>
 
               <Typography component="h4" variant="h4">
                 {question.question}
               </Typography>
 
-            <FormControl component="fieldset" className={classes.formControl}>
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button1,
+                minWidth: 275,
+                position: 'relative',
+              }} >
 
-              <RadioGroup
-                aria-label="Choices"
-                name="choices"
-                className={classes.group}
-                value={currValue}
-                onChange={this.handleChange}
-              >
+                <CardContent>
 
-              {question.choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
+                  <h5>
+                    {choices[0].choice}
+                  </h5>
 
-            </RadioGroup>
-            </FormControl>
+                  </CardContent>
 
+              </Card>
+              </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button2,
+              minWidth: 275,
+              position: 'relative',
+              }}  >
+
+              <CardContent>
+
+                <h5>
+                  {choices[1].choice}
+                </h5>
+
+                </CardContent>
+
+              </Card>
+              </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button3,
+              minWidth: 275,
+              position: 'relative',
+              }} >
+
+              <CardContent>
+
+              <h5>
+                {choices[2].choice}
+              </h5>
+
+              </CardContent>
+
+              </Card>
+              </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button4,
+              minWidth: 275,
+              position: 'relative',
+              }} >
+
+              <CardContent>
+
+              <h5>
+              {choices[3].choice}
+              </h5>
+
+              </CardContent>
+
+              </Card>
+              </div>
+
+          { userId === addedBy.id &&
             <div style={{margin:10}}>
             <Button
             fullWidth
@@ -274,6 +372,7 @@ class Challenge extends Component {
             })}>Edit Challenge
             </Button>
             </div>
+          }
 
             <div style={{margin:10}}>
             <Button

@@ -1,40 +1,24 @@
 import React,{Component} from 'react'
-import * as Cookies from "js-cookie"
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
 import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '@material-ui/core/Fade';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import Magnifier from "react-magnifier";
 import CardActionArea from '@material-ui/core/CardActionArea'
 import blueGrey from '@material-ui/core/colors/blueGrey';
 
@@ -103,14 +87,10 @@ const Transition = props =>  <Slide direction="up" {...props} />
 class ReviewQuestion extends Component {
 
   state = {
-          value:'',
-          answerChoiceId: '',
-          chosenLabel:'',
           graphQLError: '',
           isVisibleGraph:false,
           networkError:'',
           isVisibleNet:false,
-          open: false
       }
 
       handleChange = event => {
@@ -128,7 +108,7 @@ class ReviewQuestion extends Component {
     render() {
 
 
-      const {value, open, answerChoiceId, chosenLabel, graphQLError, networkError, isVisibleNet, isVisibleGraph} = this.state
+      const { graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
       const { classes } = this.props
       const { newQuestionId, oldQuestionId, testId } = this.props.location.state
@@ -148,7 +128,7 @@ class ReviewQuestion extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, question, panel, choices, sentPanel } = data.question
+                const { question, panel, choices } = data.question
 
                 const button1 = choices[0].correct ? selectedColor : 'white'
                 const button2 = choices[1].correct ? selectedColor : 'white'
@@ -196,11 +176,12 @@ class ReviewQuestion extends Component {
           </Toolbar>
         </AppBar>
 
-        <div style={{marginTop:100}}>
-        <Card style={styles.card}>
-            <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panel.link}  />;
-        </Card>
+        <div style={{marginTop:60}}>
+
+        <img style={{maxHeight:'100vw', maxWidth:'100vh', transform: 'translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%)) rotate(90deg)' }} src={panel.link} alt="Logo" />
+
         </div>
+
         </Dialog>
 
           <h3>

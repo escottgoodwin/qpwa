@@ -1,23 +1,16 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Query } from "react-apollo"
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Fade from '@material-ui/core/Fade';
-import orange from '@material-ui/core/colors/orange';
-import deepPurple from '@material-ui/core/colors/deepPurple';
-import indigo from '@material-ui/core/colors/indigo';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
-import Error from './Error'
-
-import {TEST_STATS_PERFORMANCE_QUERY} from '../ApolloQueries'
+import { Query } from "react-apollo"
+import { TEST_STATS_PERFORMANCE_QUERY } from '../ApolloQueries'
 
 class TestStats extends Component {
 

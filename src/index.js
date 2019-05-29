@@ -2,20 +2,15 @@ import React from 'react'
 import * as Cookies from "js-cookie"
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker';
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
-import { getMainDefinition } from 'apollo-utilities'
-import { split } from 'apollo-link'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
-import { WebSocketLink } from 'apollo-link-ws'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './App'
-
-//const token1 = sessionStorage.getItem('auth_token')
-const token1 = Cookies.get('auth_token')
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_SERVER,
@@ -41,6 +36,17 @@ const client = new ApolloClient({
   link: fullHttpLink,
   cache: new InMemoryCache()
 })
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./firebase-messaging-sw.js")
+    .then(function(registration) {
+      
+    })
+    .catch(function(err) {
+      console.log("Service worker registration failed, error:", err);
+    });
+}
 
 ReactDOM.render(
   <Router>

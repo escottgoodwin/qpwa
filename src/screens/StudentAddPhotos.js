@@ -1,13 +1,19 @@
-import React,{Component} from 'react';
-import '../css/App.css';
+import React,{Component} from 'react'
+import '../css/App.css'
 
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
+import Fade from '@material-ui/core/Fade';
+import Camera from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css';
+
+import TestHeaderStudent from '../components/TestHeaderStudent'
+import PhotoComponent from '../components/PhotoComponent'
+
+import { Query } from "react-apollo"
+import { TEST_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -44,7 +50,8 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.primary.main,
+    //backgroundColor: theme.palette.primary.main,
+
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -53,51 +60,40 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+  card: {
+    minWidth: 275,
+    position: 'relative',
+  },
+  formControl: {
+    margin: theme.spacing.unit * 3,
+  },
+  group: {
+    margin: `${theme.spacing.unit}px 0`,
+
+  },
 });
 
-class SignOut extends Component {
+class StudentAddPhotos extends Component {
+
+    onTakePhoto (dataUri) {
+      // Do stuff with the dataUri photo...
+      console.log(dataUri);
+    }
 
     render() {
 
       const { classes } = this.props
-      const { authMsg } = this.props.location.state
+      const { testId } = this.props.location.state
 
       return (
 
-      <div className="main">
-      <div className="dashboard">
-      <div className="signin">
+        <Camera isFullscreen={true}
+          onTakePhoto = { (dataUri) => { this.onTakePhoto(dataUri); } }
+        />
 
-      <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {authMsg}
-        </Typography>
+      )
+    }
 
-      <div style={{margin:10, width: '100%'}}>
+  }
 
-      <Button 
-      variant="contained"
-      color="primary"
-      fullWidth
-      onClick={() => this.props.history.push('/sign_in')}
-      className={classes.submit} >
-       Sign In
-      </Button>
-
-      </div>
-      </Paper>
-    </main>
-    </div>
-    </div>
-    </div>
-
-  )
-}
-}
-
-export default withStyles(styles)(SignOut) ;
+export default withStyles(styles)(StudentAddPhotos)

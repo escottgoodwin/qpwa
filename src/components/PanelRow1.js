@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/App.css';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Divider from '@material-ui/core/Divider';
@@ -13,7 +12,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CardActionArea from '@material-ui/core/CardActionArea'
-import Magnifier from "react-magnifier";
 import Fade from '@material-ui/core/Fade';
 
 const styles = {
@@ -67,7 +65,7 @@ class PanelRow extends React.Component {
 
     render() {
 
-      const { classes, test, id, question, panelLink, total, totalCorrect, percentCorrect } = this.props
+      const { classes, test, question, panelLink, total, totalCorrect, percentCorrect } = this.props
       const { subject, testNumber } = test
       const { loading, open } = this.state
 
@@ -112,30 +110,17 @@ class PanelRow extends React.Component {
               <CloseIcon />
             </IconButton>
             <Typography variant="h" color="inherit" className={classes.flex}>
-          {testNumber} - {subject}
+              {testNumber} - {subject} { question.length>0 && <> - <b>Label:</b> {question} </>}
             </Typography>
           </Toolbar>
         </AppBar>
 
-        <div style={{marginTop:100}}>
-        <Card style={styles.card}>
+        <div style={{marginTop:60}}>
 
-        <Magnifier zoomFactor={.75} mgWidth={200} mgHeight={200} mgShape='square' src={panelLink}  />
+        <img style={{maxHeight:'100vw', maxWidth:'100vh', transform: 'translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%)) rotate(90deg)' }} src={panelLink} alt="Logo" />
 
-            {question.length>0 &&
-            <>
-            <Divider />
-            <CardContent>
-              <h5>
-                <b>Label:</b> {question}
-              </h5>
-            </CardContent>
+        </div>
 
-            </>
-            }
-
-          </Card>
-          </div>
         </Dialog>
 
       </div>

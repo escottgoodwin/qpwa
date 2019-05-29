@@ -1,33 +1,15 @@
 import React,{Component} from 'react'
 import '../css/App.css'
 import { Message } from 'semantic-ui-react'
-import {  DateTimeInput } from 'semantic-ui-calendar-react';
-import { Mutation } from "react-apollo"
+
 import {withRouter} from "react-router-dom"
-import moment from 'moment'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Checkbox from '@material-ui/core/Checkbox';
 
-import {EDIT_QUESTION_MUTATION} from '../ApolloQueries'
+import { Mutation } from "react-apollo"
+import { EDIT_QUESTION_MUTATION } from '../ApolloQueries'
 
 class EditQuestionInput extends Component {
 
@@ -97,7 +79,7 @@ correctButton = (choiceCorrect1,choiceCorrect2,choiceCorrect3,choiceCorrect4) =>
 }
 
 componentDidMount(){
-  const { oldQuestionId, testId, question, choices, test  } = this.props
+  const { question, choices } = this.props
 
   const choice1 = choices[0].choice
   const choiceCorrect1 = choices[0].correct
@@ -117,7 +99,7 @@ componentDidMount(){
 
   this.setState({ question, choice1, choiceCorrect1, choice2, choiceCorrect2, choice3, choiceCorrect3, choice4, choiceCorrect4, choice1Id, choice2Id, choice3Id, choice4Id })
 
-  this.correctButton(choiceCorrect1,choiceCorrect2,choiceCorrect3,choiceCorrect4)
+  this.correctButton(choiceCorrect1, choiceCorrect2, choiceCorrect3, choiceCorrect4)
 }
 
 render() {
@@ -131,10 +113,6 @@ render() {
           choiceCorrect3,
           choice4,
           choiceCorrect4,
-          button1,
-          button2,
-          button3,
-          button4,
           choice1Id,
           choice2Id,
           choice3Id,
@@ -332,10 +310,24 @@ render() {
           size='large'
           color="primary"
           className={classes.submit}
-          onClick={mutation}>Submit</Button>
+          onClick={mutation}>
+          Submit
+          </Button>
         )}
     </Mutation>
     </div>
+
+    {isVisibleGraph &&
+      <Message negative>
+        <p><b>{graphQLError}</b></p>
+      </Message>
+    }
+
+    {isVisibleNet &&
+      <Message negative>
+        <p><b>{networkError}</b></p>
+      </Message>
+    }
 
     </form>
     </div>

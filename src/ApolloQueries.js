@@ -640,6 +640,34 @@ query TestQuery($test_id:ID!){
   }
 `
 
+export const MOBILE_LOGIN_MUTATION = gql`
+  mutation LoginMutation($email: String!, $password: String!, $pushToken: String) {
+    mobileLogin(email: $email, password: $password, pushToken: $pushToken) {
+      token
+      token
+      user{
+        id
+        firstName
+        lastName
+        online
+        role
+        teacherInstitutions {
+          id
+          name
+        }
+        studentInstitutions {
+          id
+          name
+        }
+        adminInstitutions{
+          id
+          name
+        }
+      }
+    }
+  }
+`
+
 export const LOGIN_MUTATION = gql`
 mutation LoginMutation($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -1917,6 +1945,11 @@ query ChallengeQuery($challengeId:ID!){
     challenge(id:$challengeId){
    	 	id
       challenge
+      addedBy{
+        id
+        firstName
+        lastName
+      }
     	answer{
       	id
     		answer{
@@ -1952,6 +1985,7 @@ export const CHALLENGE_QUESTION_QUERY = gql`
         challenge
         addedDate
         addedBy{
+          id
           firstName
           lastName
         }
@@ -2117,6 +2151,25 @@ query TestQuestionsQuery($testId:ID!){
     questions{
       id
       question
+    }
+  }
+}
+`
+
+export const STUDENT_CHALLENGES = gql`
+query StudentChallenges($userId:ID!,$testId:ID!){
+  challenges(where:{AND:[{addedBy:{id:$userId}},
+    {answer:{question:{test:{id:$testId}}}}]}){
+    count
+  	challenges{
+      id
+      challenge
+      addedDate
+      addedBy{
+        id
+        firstName
+        lastName
+      }
     }
   }
 }

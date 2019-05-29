@@ -1,40 +1,28 @@
 import React,{Component} from 'react'
-import * as Cookies from "js-cookie"
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
-import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
 import EditChallengeInput from '../components/EditChallengeInput';
-import StudentChallengeList from '../components/StudentChallengeList';
 
 import {Query } from "react-apollo"
 
@@ -98,20 +86,35 @@ const styles = theme => ({
   },
 });
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
+
 class EditChallenge extends Component {
 
   state = {
         challenge:'',
+        open:false,
         graphQLError:'',
         isVisibleGraph:false,
         networkError:'',
         isVisibleNet:false,
       }
 
+      handleClickOpen = () => {
+        this.setState({ open: true });
+      };
+
+      handleClose = () => {
+        this.setState({ open: false });
+      };
+
     render() {
 
       const { classes } = this.props
       const { challengeId } = this.props.location.state
+      const selectedColor = green[200]
+      const wrong = red[200]
 
       return (
       <main className={classes.main}>
@@ -123,11 +126,16 @@ class EditChallenge extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, challenge, answer } = data.challenge
+                const { answer } = data.challenge
 
                 const question  = answer.answer.question
 
-                const currValue = question.choices.filter(choice => choice.correct)[0].id
+                const { choices } = question
+
+                const button1 = choices[0].correct ? selectedColor : wrong
+                const button2 = choices[1].correct ? selectedColor : wrong
+                const button3 = choices[2].correct ? selectedColor : wrong
+                const button4 = choices[3].correct ? selectedColor : wrong
 
             return (
 
@@ -173,35 +181,110 @@ class EditChallenge extends Component {
             <hr />
 
             <div style={{marginBottom:20}}>
-            <Card className={styles.card}>
-
+            <Card onClick={this.handleClickOpen} className={styles.card}>
+              <CardActionArea>
                   <CardMedia
                       src={question.panel.link}
                       component="img"
                   />
-
-              </Card>
+              </CardActionArea>
+            </Card>
               </div>
+
+            <Dialog
+            fullScreen
+            open={this.state.open}
+            onClose={this.handleClose}
+            TransitionComponent={Transition}
+            >
+
+            <AppBar className={classes.appBar}>
+              <Toolbar>
+                <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="h6" color="inherit" className={classes.flex}>
+                test course
+                </Typography>
+              </Toolbar>
+            </AppBar>
+
+            <img style={{maxHeight:'100vw', maxWidth:'100vh', transform: 'translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%)) rotate(90deg)' }} src={question.panel.link} alt="Logo" />
+
+            </Dialog>
+
 
               <Typography component="h4" variant="h4">
                 {question.question}
               </Typography>
 
-            <FormControl component="fieldset" className={classes.formControl}>
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button1,
+                minWidth: 275,
+                position: 'relative',
+              }} >
 
-              <RadioGroup
-                aria-label="Choices"
-                name="choices"
-                className={classes.group}
-                value={currValue}
-                onChange={this.handleChange}
-              >
+                <CardContent>
 
-              {question.choices.map(choice => <FormControlLabel value={choice.id} control={<Radio color='primary' />} label={choice.choice} />)}
+                  <h5>
+                    {choices[0].choice}
+                  </h5>
 
-            </RadioGroup>
+                  </CardContent>
 
-            </FormControl>
+              </Card>
+              </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button2,
+              minWidth: 275,
+              position: 'relative',
+              }}  >
+
+              <CardContent>
+
+                <h5>
+                  {choices[1].choice}
+                </h5>
+
+                </CardContent>
+
+              </Card>
+              </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button3,
+              minWidth: 275,
+              position: 'relative',
+              }} >
+
+              <CardContent>
+
+              <h5>
+                {choices[2].choice}
+              </h5>
+
+              </CardContent>
+
+              </Card>
+              </div>
+
+              <div style={{marginTop:20}}>
+              <Card style={{backgroundColor:button4,
+              minWidth: 275,
+              position: 'relative',
+              }} >
+
+              <CardContent>
+
+              <h5>
+              {choices[3].choice}
+              </h5>
+
+              </CardContent>
+
+              </Card>
+              </div>
 
             <EditChallengeInput classes={classes} {...data.challenge}/>
 

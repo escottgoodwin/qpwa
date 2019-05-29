@@ -1,25 +1,16 @@
 import React,{Component} from 'react'
 import '../css/App.css'
 import { Link } from 'react-router-dom'
-import { Query } from "react-apollo"
 
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import {TEST_QUESTIONS_QUERY} from '../ApolloQueries'
-
-import TestHeaderStudent from '../components/TestHeaderStudent'
-import PanelList from '../components/PanelList1'
-import Error from '../components/Error'
-import UserQuestionItem from '../components/UserQuestionItem'
 import StudentTestHeader from '../components/StudentTestHeader'
 
-import Loading from './Loading'
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import { Query } from "react-apollo"
+import { TEST_QUESTIONS_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -99,7 +90,7 @@ class StudentTestAllQuestions extends Component {
 
               return (
                 <Fade in={!loading}>
-
+                <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
                 <main className={classes.main}>
                 <div style={{marginBottom:50}}>
                 <StudentTestHeader classes={classes} test_id={testId} />
@@ -126,7 +117,7 @@ class StudentTestAllQuestions extends Component {
                 </Paper>
                 </div>
                 </main>
-
+                </div>
                 </Fade>
 
             )
