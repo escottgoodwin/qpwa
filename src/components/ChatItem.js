@@ -13,12 +13,6 @@ const ChatItem = (props) =>
     <>
   <ListItem alignItems="flex-start">
 
-  <div style={{alignText:'left',marginRight:10}}>
-
-  {props.firstName} {props.lastName}
-
-  </div>
-
   <div style={{borderRadius:'1px 15px 15px 15px',alignText:'left',backgroundColor:blue[700],padding:10,color:'white'}}>
 
     {props.message}

@@ -87,7 +87,7 @@ const StudentTestRow1 = (props) =>
         <Grid key='Answers' item>
         <h5>
           Answers: {props.test.questions.map(q => q.questionAnswers.length).reduce((a,b) => a + b, 0)}
-          </h5>
+        </h5>
         </Grid>
         <Grid key='Panels' item>
         <h5>

@@ -4,8 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
-import {Link} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 const styles = {
   card: {
@@ -38,13 +39,16 @@ const styles = {
 
 const CourseRow1 = (props) =>
 
-<Link  to={{
+<div style={{margin:15}}>
+
+<Card onClick={()=>props.history.push({
   pathname: "/course_dashboard",
   state:
     { course_id: props.id }
-  }} >
-  <div style={{margin:15}}>
-<Card className={styles.card}>
+  })}
+  className={props.classes.card} >
+
+  <CardActionArea>
 
       <CardMedia
           height="140"
@@ -53,6 +57,7 @@ const CourseRow1 = (props) =>
           component="img"
 
       />
+
 
       <CardContent>
         <Typography className={props.classes.title} color="textSecondary" gutterBottom>
@@ -66,16 +71,17 @@ const CourseRow1 = (props) =>
         </Typography>
         <hr/>
         <Typography  variant="h6">
-          Tests: {props.tests.length} Students: {props.students.length}
+          Tests: {props.tests.filter(test => !test.deleted).length} Students: {props.students.length}
         </Typography>
         <hr/>
         <Typography  >
           Next Test:
         </Typography>
       </CardContent>
+      </CardActionArea>
     </Card>
     </div>
-    </Link>
 
 
-export default withStyles(styles)(CourseRow1)
+
+export default withStyles(styles)(withRouter(CourseRow1))

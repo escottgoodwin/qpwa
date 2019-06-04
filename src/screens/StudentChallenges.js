@@ -91,7 +91,8 @@ class StudentChallenges extends Component {
               return (
 
               <Fade in={!loading}>
-              <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
+              <div >
+
               <TestHeaderStudent classes={classes} {...data.test} />
 
               <StudentChallengesList  testId={testId} />
@@ -110,6 +111,7 @@ class StudentChallenges extends Component {
               })}>Test Dashboard</Button>
 
               </div>
+
               </div>
               </Fade>
 

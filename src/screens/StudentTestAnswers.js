@@ -70,6 +70,10 @@ class StudentTestAnswers extends Component {
 
       return (
 
+        <main className={classes.main}>
+
+        <div style={{marginBottom:50}}>
+
       <Query query={USER_ANSWERS_QUERY} variables={{ testId: testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
@@ -77,11 +81,11 @@ class StudentTestAnswers extends Component {
 
               const { total, totalCorrect, percentCorrect, answers } = data.userAnswers1
 
+
               return (
                 <Fade in={!loading}>
-                <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
-                <main className={classes.main}>
-                <div style={{marginBottom:50}}>
+                <div  >
+
                 <StudentTestHeader classes={classes} test_id={testId} />
 
                 <Paper style={{padding:10}}>
@@ -136,14 +140,15 @@ class StudentTestAnswers extends Component {
                 </Paper>
                 }
                 </div>
-                </main>
-                </div>
+
                 </Fade>
 
             )
           }}
           </Query>
+          </div>
 
+          </main>
 
 
             )

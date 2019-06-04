@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import InvitationList from '../components/InvitationList'
 import StudentCourseList from '../components/StudentCourseList'
 import Fade from '@material-ui/core/Fade';
+import Paper from '@material-ui/core/Paper';
 
 import {STUDENT_COURSE_QUERY} from '../ApolloQueries'
 
@@ -32,63 +33,15 @@ class StudentDashboard extends Component {
                 return (
                   <Fade in={!loading}>
                     <>
-                    <h3>{userToRender.firstName} {userToRender.lastName}'s Courses</h3>
+                    <h4 >Welcome {userToRender.firstName} {userToRender.lastName}</h4>
 
                     {userToRender.invitesSentTo.length>0 &&
-                      <div>
+                      <Paper>
                       <div><h4>Course Inivitations</h4></div>
 
                       <InvitationList userid={userToRender.id} invites={userToRender.invitesSentTo}/>
-                      </div>
+                      </Paper>
                     }
-                    <div>
-                    <Link  to={{
-                      pathname: "/create_question",
-                      state:
-                        { questionId: questionId }
-                      }} >
-
-                      Create Question
-
-                    </Link>
-                     </div>
-
-                     <div>
-                     <Link  to={{
-                       pathname: "/answer_question",
-                       state:
-                         { questionId: questionId }
-                       }} >
-
-                       Answer Question
-
-                     </Link>
-                      </div>
-
-                      <div>
-                      <Link  to={{
-                        pathname: "/review_question",
-                        state:
-                          { newQuestionId: questionId,
-                            testId: testId}
-                        }} >
-
-                        Review Question
-
-                      </Link>
-                       </div>
-
-                       <div>
-                       <Link  to={{
-                         pathname: "/question_answered",
-                         state:
-                           { answerId: answerId }
-                         }} >
-
-                         Question Answered
-
-                       </Link>
-                        </div>
 
                       <StudentCourseList  {...studentCourses} />
 

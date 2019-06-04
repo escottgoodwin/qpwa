@@ -4,23 +4,26 @@ import '../css/App.css';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const CourseHeader = (props) =>
+<>
+<Card style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5}}>
 
-  <div style={{backgroundColor: '#e4f1fe',marginTop:'2em'}}>
+<CardContent>
   <Link  to={{
     pathname: "/course_dashboard",
     state:
       { course_id: props.id }
     }} >
-    <Typography color='primary' variant="h4" component="h4">
-    {props.name} - {props.courseNumber}
-    </Typography>
-    </Link>
-    <Typography variant="h6" component="h6">
-    Time: {props.time}
-    </Typography>
+    <h3>{props.name} - {props.courseNumber}</h3>
 
+    </Link>
+    <h5>Time: {props.time}</h5>
+    </CardContent>
+
+</Card>
 
 
    <div style={{display:'inline-block',padding:5}}>
@@ -42,8 +45,7 @@ const CourseHeader = (props) =>
         <Button color="primary" variant="contained">{props.studentsCount} Students</Button>
        </Link>
      </div>
-
-  </div>
+  </>
 
 
 export default CourseHeader

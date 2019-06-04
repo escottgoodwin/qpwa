@@ -26,6 +26,7 @@
     "graphql": "^14.0.2",
     "i": "^0.3.6",
     "js-cookie": "^2.2.0",
+    "jslib-html5-camera-photo": "^3.0.2-beta.0",
     "mdi-material-ui": "^5.11.0",
     "npm": "^6.4.1",
     "react": "^16.6.3",

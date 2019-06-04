@@ -5,7 +5,8 @@ import CourseHeader from '../components/CourseHeader'
 import TestList from '../components/TestList'
 import { Query, Mutation } from "react-apollo"
 import { Message } from 'semantic-ui-react'
-import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Error from './Error'
 
 import Loading from './Loading'
@@ -28,53 +29,29 @@ class CourseDashboard extends Component {
     const { graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
     return (
+      <>
+      <CssBaseline />
+      <div style={{marginBottom:50}}>
     <Query query={NEW_COURSE_DASHBOARD_QUERY} variables={{ courseId: course_id }} fetchPolicy="cache-and-network" >
           {({ loading, error, data }) => {
-            if (loading) return <Loading />
-            if (error) return <Error {...error}/>
-
+            if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
+            if (error) return <div> {JSON.stringify(error)} </div>
 
             const courseToRender = data.courseDashboard
             const tests1 = courseToRender.courseTestList.filter(test => !test.deleted)
 
         return (
+          <Fade in={!loading}>
               <>
               <CourseHeader {...courseToRender} />
               <TestList tests={tests1} courseId={course_id} />
-              <div style={{margin:'10%'}}>
-
-              <Mutation
-                  mutation={DELETE_COURSE_MUTATION}
-                  variables={{ course_id }}
-                  onCompleted={data => this._confirm(data)}
-                  onError={error => this._error(error)}
-                  refetchQueries={() => { return [{
-                    query: TEACHER_DASHBOARD_QUERY,
-                    variables: { userid }
-                  }]
-                }}>
-                  {mutation => (
-                    <Button  size='large' fullWidth variant='contained' color='secondary' onClick={mutation}>Delete Course</Button>
-                  )}
-                </Mutation>
-
-                {isVisibleGraph &&
-                  <Message negative>
-                    <p><b>{graphQLError}</b></p>
-                  </Message>
-                }
-
-                {isVisibleNet &&
-                  <Message negative>
-                    <p><b>{networkError}</b></p>
-                  </Message>
-                }
-
-              </div>
             </>
+            </Fade>
         )
       }}
     </Query>
+    </div>
+    </>
     )
   }
 
