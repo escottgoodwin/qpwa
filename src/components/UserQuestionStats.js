@@ -16,7 +16,7 @@ import {USER_QUESTION_QUERY} from '../ApolloQueries'
 class UserQuestionStats extends Component {
 
   render(){
-    
+
     const { classes, testId } = this.props
 
     return (
@@ -53,19 +53,19 @@ class UserQuestionStats extends Component {
             <CardContent >
             <Grid container justify="center" spacing={24}>
 
-            <Grid  item>
+            <Grid  item xs={4}>
             <h5>
             Questions : {totalQuestions}
             </h5>
             </Grid>
 
-            <Grid  item>
+            <Grid  item xs={4}>
             <h5>
             Answers: {answers}
             </h5>
             </Grid>
 
-            <Grid  item>
+            <Grid item xs={4}>
             <h5>
             Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
             </h5>

@@ -139,11 +139,13 @@ class Challenge extends Component {
 
     render() {
 
-      const { classes } = this.props
-      const { challengeId } = this.props.location.state
+      const { classes, history } = this.props
+      const { challengeId, role } = this.props.location.state
       const { challenges } = this.state
       const userId = sessionStorage.getItem('userid')
-
+      console.log(role)
+      const testPath = role==='TEACHER' ? '/teacher_test_dashboard' : '/student_test_dashboard'
+      console.log(testPath )
       const selectedColor = green[200]
       const wrong = red[200]
 
@@ -159,7 +161,7 @@ class Challenge extends Component {
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { challenge, addedBy, answer } = data.challenge
-
+                console.log(answer)
                 const question  = answer.answer.question
 
                 const { choices } = question
@@ -374,6 +376,25 @@ class Challenge extends Component {
             </div>
           }
 
+          {role==='TEACHER' &&
+          <div style={{margin:10}}>
+          <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          size='large'
+          className={classes.submit}
+          onClick={() => history.push({
+            pathname: '/teacher_challenges',
+            state: { testId: answer.answer.question.test.id }
+          })}>
+          Test Challenges
+          </Button>
+          </div>
+        }
+
+
+
             <div style={{margin:10}}>
             <Button
             fullWidth
@@ -382,9 +403,10 @@ class Challenge extends Component {
             size='large'
             className={classes.submit}
             onClick={() => this.props.history.push({
-              pathname: `/student_test_dashboard`,
+              pathname: testPath,
               state: { test_id: question.test.id }
-            })}>Test Dashboard
+            })}>
+            Test Dashboard
             </Button>
             </div>
 

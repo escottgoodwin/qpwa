@@ -38,7 +38,7 @@ const StudentTestRow1 = (props) =>
   <div style={{margin:15}}>
 
   <Card onClick={()=>props.history.push({
-    pathname: "/teacher_test_dashboard",
+    pathname: "/student_test_dashboard",
     state:
       { test_id: props.test.id }
     })}
@@ -78,18 +78,18 @@ const StudentTestRow1 = (props) =>
 
       <hr />
         <div style={{margin:10}}>
-        <Grid container justify="center" spacing={24}>
-        <Grid key='Questions' item>
+        <Grid container justify="center" >
+        <Grid key='Questions' item xs={4}>
 
         <h5>  Questions: {props.test.questions.length}</h5>
 
         </Grid>
-        <Grid key='Answers' item>
+        <Grid key='Answers' item item xs={4}>
         <h5>
           Answers: {props.test.questions.map(q => q.questionAnswers.length).reduce((a,b) => a + b, 0)}
         </h5>
         </Grid>
-        <Grid key='Panels' item>
+        <Grid key='Panels' item item xs={4}>
         <h5>
           Panels: { props.test.panels.length }
         </h5>
@@ -101,15 +101,15 @@ const StudentTestRow1 = (props) =>
           <hr/>
 
           <div>
-          <Grid container justify="center" spacing={24}>
+          <Grid container justify="center" >
 
-          <Grid key='release' item>
+          <Grid key='release'item xs={6}>
 
           <Button disabled={!props.test.release} variant="outlined">Released</Button>
 
           </Grid>
 
-          <Grid key='publish' item>
+          <Grid key='publish' item xs={6}>
 
           <Button disabled={!props.test.published} variant="outlined">Published</Button>
 

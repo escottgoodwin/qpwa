@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 
-
 export const ADD_COURSE_MUTATION = gql`
   mutation AddCourse(
     $name: String!,

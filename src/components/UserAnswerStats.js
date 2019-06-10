@@ -51,13 +51,13 @@ class UserAnswerStats extends Component {
 
             <Grid container justify="center" spacing={24}>
 
-            <Grid  item>
+            <Grid item xs={6}>
             <h5>
             Questions Answered: {total}
             </h5>
             </Grid>
 
-            <Grid  item>
+            <Grid item xs={6}>
             <h5>
             Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
             </h5>
