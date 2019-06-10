@@ -13,6 +13,7 @@ import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CardActionArea from '@material-ui/core/CardActionArea'
 import Fade from '@material-ui/core/Fade';
+import LazyLoad from 'react-lazyload';
 
 const styles = {
   card: {
@@ -60,7 +61,7 @@ class PanelRow extends React.Component {
     };
 
     componentDidMount(){
-      setTimeout(() => {this.setState({loading:false})}, 1000)
+      setTimeout(() => {this.setState({loading:false})}, 700)
     }
 
     render() {
@@ -70,7 +71,9 @@ class PanelRow extends React.Component {
       const { loading, open } = this.state
 
       return (
+
         <Fade in={!loading}>
+        <>
         <div style={{marginBottom:15}}>
         <Card onClick={this.handleClickOpen} style={styles.card}>
           <CardActionArea>
@@ -124,7 +127,9 @@ class PanelRow extends React.Component {
         </Dialog>
 
       </div>
+      </>
       </Fade>
+
     )
   }
 }
