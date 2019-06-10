@@ -1109,7 +1109,7 @@ query CourseStudentsQuery($courseId:ID!){
 
 export const NEW_COURSE_DASHBOARD_QUERY = gql`
 query CourseDashboardQuery($courseId:ID!){
-  courseDashboard(courseId:$courseId){
+  courseDashboard1(courseId:$courseId){
     id
     name
     courseNumber

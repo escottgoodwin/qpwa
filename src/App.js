@@ -52,6 +52,11 @@ import StudentTestAnswers from './screens/StudentTestAnswers'
 import StudentTestAllQuestions from './screens/StudentTestAllQuestions'
 import StudentChallenges from './screens/StudentChallenges'
 import StudentAddPhotos from './screens/StudentAddPhotos'
+import TeacherTestDashboard from './screens/TeacherTestDashboard'
+import TeacherTestPanels from './screens/TeacherTestPanels'
+import TeacherTestAllQuestions from './screens/TeacherTestAllQuestions'
+import TeacherReviewQuestion from './screens/TeacherReviewQuestion1'
+import TeacherCourseStudents from './screens/TeacherCourseStudents'
 
 import Nav1 from './components/Nav1'
 
@@ -114,7 +119,7 @@ class App extends Component {
           <Route path="/add_course" component={AddCourse}/>
           <Route path="/edit_course/" component={EditCourse}/>
           <Route path="/course_invitation/" component={CourseInvitation}/>
-          <Route path="/test_dashboard/" component={TestDashboard}/>
+          <Route path="/test_dashboard/" component={TeacherTestDashboard}/>
           <Route path="/student_test_dashboard/" component={StudentTestDashboard}/>
           <Route path="/add_test/" component={AddTest}/>
           <Route path="/edit_test/" component={EditTest}/>
@@ -125,7 +130,6 @@ class App extends Component {
           <Route path="/challenge_dashboard" component={ChallengeDashboard2}/>
           <Route path="/publish_test" component={PublishTest}/>
           <Route path="/edit_publish_test" component={EditPublishTest}/>
-          <Route path="/course_students" component={CourseStudents}/>
           <Route path="/institution_dashboard" component={InstitutionDashboard}/>
           <Route path="/add_admin" component={AddAdministrator}/>
           <Route path="/add_teacher" component={AddTeacherQuandrio}/>
@@ -148,6 +152,11 @@ class App extends Component {
           <Route path="/test_questions" component={StudentTestAllQuestions}/>
           <Route path="/student_challenges" component={StudentChallenges}/>
           <Route path="/student_add_photos" component={StudentAddPhotos}/>
+          <Route path="/teacher_test_dashboard" component={TeacherTestDashboard}/>
+          <Route path="/teacher_test_panels" component={TeacherTestPanels}/>
+          <Route path="/teacher_questions" component={TeacherTestAllQuestions}/>
+          <Route path="/teacher_question" component={TeacherReviewQuestion}/>
+          <Route path="/course_students" component={TeacherCourseStudents}/>
 
         </Switch>
 

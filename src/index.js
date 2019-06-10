@@ -9,6 +9,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './App'
 
@@ -41,7 +42,7 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./firebase-messaging-sw.js")
     .then(function(registration) {
-      
+
     })
     .catch(function(err) {
       console.log("Service worker registration failed, error:", err);
@@ -51,7 +52,9 @@ if ("serviceWorker" in navigator) {
 ReactDOM.render(
   <Router>
     <ApolloProvider client={client}>
+      <ApolloHooksProvider client={client}>
       <Route path="/" component={App} />
+      </ApolloHooksProvider >
     </ApolloProvider>
   </Router>
 , document.getElementById('root'))

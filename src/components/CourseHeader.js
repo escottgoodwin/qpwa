@@ -11,17 +11,13 @@ const CourseHeader = (props) =>
 <>
 <Card style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5}}>
 
-<CardContent>
-  <Link  to={{
-    pathname: "/course_dashboard",
-    state:
-      { course_id: props.id }
-    }} >
+  <CardContent>
+
     <h3>{props.name} - {props.courseNumber}</h3>
 
-    </Link>
     <h5>Time: {props.time}</h5>
-    </CardContent>
+    
+  </CardContent>
 
 </Card>
 

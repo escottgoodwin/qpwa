@@ -1,22 +1,103 @@
 import React,{Component} from 'react';
 import '../css/App.css';
-import { Form, Input, Button, Select, Message } from 'semantic-ui-react'
+
 import {  DateTimeInput } from 'semantic-ui-calendar-react';
 import moment from 'moment'
+
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+
+import MomentUtils from '@date-io/moment';
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 import { Mutation } from "react-apollo";
 
 import { ADD_TEST_MUTATION } from '../ApolloQueries'
 
-import EditCourseHeader from '../components/EditCourseHeader'
+import TeacherCourseHeader from '../components/TeacherCourseHeader'
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  card: {
+    minWidth: 275,
+    position: 'relative',
+  },
+});
+
+function handleDateChange(date) {
+  console.log(date)
+}
 
 class AddTest extends Component {
-
 
     state = {
           testNumber:'',
           subject:'',
-          testDate:'',
+          testDate:new Date(),
           testType:'',
           graphQLError: '',
           isVisibleGraph:false,
@@ -24,130 +105,175 @@ class AddTest extends Component {
           isVisibleNet:false,
         }
 
-    handleChange = (event, {name, value}) => {
-    if (this.state.hasOwnProperty(name)) {
-      this.setState({ [name]: value });
-    }
-  }
-
     render() {
       const { course_id } = this.props.location.state
+      const { classes } = this.props
       const { testNumber, subject, testDate, testType, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
-      const testDate1 = moment(testDate).format()
-      const testnumbers = [{value:"Test 1",text:"Test 1"}, {value:"Test 2",text:"Test 2"}, {value:"Test 3",text:"Test 3"}, {value:"Test 4",text:"Test 4"}, {value:"Test 5",text:"Test 5"}, {value:"Test 6",text:"Test 6"}]
-      const testTypes = [{value:"CLASS",text:"CLASS"},{value:"LAB",text:"LAB"}]
 
       return (
-        <div className="main">
-        <div style={{marginLeft:'20%', marginRight:'20%'}}>
-          <div >
+        <main className={classes.main}>
 
-                <EditCourseHeader course_id={course_id} />
+        <div style={{marginBottom:50}}>
 
-        <h2>Add Test</h2>
+          <TeacherCourseHeader courseid={course_id} />
 
-      <Form size="big">
+          <Paper style={{alignItems: 'center',padding:15}}>
+            <center>
+            <Avatar className={classes.avatar}>
+              <ImportContactsIcon />
+            </Avatar>
+            </center>
+          <h2>Add Test</h2>
 
-      <Form.Field
-        control={Input}
-        label='Subject'
-        value={subject}
-        onChange={e => this.setState({ subject: e.target.value })}
-        placeholder='Subject'
-      />
-      <Form.Group widths='equal'>
+          <Paper className={classes.paper}>
+          <TextField
+              id="outlined-full-width"
+              label="Subject"
+              fullWidth
+              className={classes.textField}
+              value={subject}
+              onChange={e => this.setState({ subject: e.target.value })}
+              margin="normal"
+            />
+            </Paper>
 
-      <DateTimeInput
-      autoComplete="off"
-      width={8}
-      label='Test Date'
-      dateFormat="MM-DD-YYYY"
-      timeFormat="AMPM"
-          name="testDate"
-          placeholder="Date Time"
-          value={this.state.testDate}
-          iconPosition="left"
-          onChange={this.handleChange} />
+            <Paper className={classes.paper}>
+            <InputLabel  htmlFor="testNumber">Test Number</InputLabel>
+            <Select
+              fullWidth
+              value={testNumber}
+              onChange={e => this.setState({ testNumber: e.target.value })}
+              inputProps={{
+                name: 'testNumber',
+                id: 'testNumber',
+              }}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"Test 1"}>Test 1</MenuItem>
+              <MenuItem value={"Test 2"}>Test 2</MenuItem>
+              <MenuItem value={"Test 3"}>Test 3</MenuItem>
+              <MenuItem value={"Test 4"}>Test 4</MenuItem>
+              <MenuItem value={"Test 5"}>Test 5</MenuItem>
+              <MenuItem value={"Test 6"}>Test 6</MenuItem>
+            </Select>
+            </Paper>
 
-      <Form.Field
-      width={4}
-        id='institutionId'
-        control={Select}
-        options={testnumbers}
-        onChange={(event, {value}) => { this.setState({ testNumber: value })}}
-        label='Test Number'
-        fluid
-        selection
-        placeholder='Select'
-      />
+            <Paper className={classes.paper}>
+            <InputLabel  htmlFor="testType">Test Type</InputLabel>
+            <Select
+              fullWidth
+              value={testType}
+              onChange={e => this.setState({ testType: e.target.value })}
+              inputProps={{
+                name: 'testType',
+                id: 'testType',
+              }}
+            >
+              <MenuItem value="">
+                <em>Test Type</em>
+              </MenuItem>
+              <MenuItem value={"LECTURE"}>Lecture</MenuItem>
+              <MenuItem value={"LAB"}>Lab</MenuItem>
 
-      <Form.Field
-      width={4}
-        id='type'
-        control={Select}
-        options={testTypes}
-        onChange={(event, {value}) => { this.setState({ testType: value })}}
-        label='Test Type'
-        fluid
-        selection
-        placeholder='Select'
-      />
-      </Form.Group>
+            </Select>
+            </Paper>
 
-      <Mutation
-          mutation={ADD_TEST_MUTATION}
-          variables={{
-            subject: subject,
-            testDate:testDate1,
-            testNumber: testNumber,
-            published: false,
-            release:false,
-            courseId: course_id,
-            testType: testType
+        <Paper className={classes.paper}>
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+
+        <KeyboardDatePicker
+        fullWidth
+          margin="normal"
+          id="mui-pickers-date"
+          label="Date picker"
+          value={testDate}
+          onChange={(date) => this.setState({testDate:date})}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
           }}
-          onCompleted={data => this._confirm(data)}
-        >
-          {mutation => (
-            <Button  color='blue' onClick={mutation}>Submit</Button>
-          )}
-        </Mutation>
+        />
 
-        {isVisibleGraph &&
-          <Message negative>
-            <p><b>{graphQLError}</b></p>
-          </Message>
-        }
+        <KeyboardTimePicker
+        fullWidth
+          margin="normal"
+          id="mui-pickers-time"
+          label="Time picker"
+          value={testDate}
+          onChange={(date) => this.setState({testDate:date})}
+          KeyboardButtonProps={{
+            'aria-label': 'change time',
+          }}
+        />
 
-        {isVisibleNet &&
-          <Message negative>
-            <p><b>{networkError}</b></p>
-          </Message>
-        }
 
-      </Form>
-    </div>
-  </div>
-  </div>
-)
+        </MuiPickersUtilsProvider>
+        </Paper>
+        <Mutation
+            mutation={ADD_TEST_MUTATION}
+            variables={{
+              subject,
+              testDate,
+              testNumber,
+              published: false,
+              release:false,
+              courseId: course_id,
+              testType
+            }}
+            onCompleted={data => this._confirm(data)}
+          >
+            {mutation => (
+
+              <Button
+              fullWidth
+              variant="contained"
+              size='large'
+              color="primary"
+              className={classes.submit}
+              onClick={mutation}>
+              Submit
+              </Button>
+
+            )}
+          </Mutation>
+
+          {isVisibleGraph &&
+            <div>
+              <p><b>{graphQLError}</b></p>
+            </div>
+          }
+
+          {isVisibleNet &&
+            <div>
+              <p><b>{networkError}</b></p>
+            </div>
+          }
+
+          </Paper>
+      </div>
+      </main>
+
+  )
 }
 
-_error = async error => {
+  _error = async error => {
 
-    const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
-    this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
+      const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
+      this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
 
-    error.networkError &&
-      this.setState({ isVisibleNet: true, networkError: error.networkError.message})
+      error.networkError &&
+        this.setState({ isVisibleNet: true, networkError: error.networkError.message})
 
-}
-
-_confirm = async data => {
-  const { id } = data.addTest
-  this.props.history.push({
-    pathname: `/test_dashboard`,
-    state: { test_id: id  }
-    })
   }
+
+  _confirm = async data => {
+    const { id } = data.addTest
+    this.props.history.push({
+      pathname: `/test_dashboard`,
+      state: { test_id: id  }
+      })
+    }
 }
 
-export default AddTest
+export default withStyles(styles)(AddTest)

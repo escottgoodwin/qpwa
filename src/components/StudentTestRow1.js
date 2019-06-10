@@ -38,7 +38,7 @@ const StudentTestRow1 = (props) =>
   <div style={{margin:15}}>
 
   <Card onClick={()=>props.history.push({
-    pathname: "/student_test_dashboard",
+    pathname: "/teacher_test_dashboard",
     state:
       { test_id: props.test.id }
     })}

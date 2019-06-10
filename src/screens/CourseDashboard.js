@@ -32,17 +32,18 @@ class CourseDashboard extends Component {
       <>
       <CssBaseline />
       <div style={{marginBottom:50}}>
-    <Query query={NEW_COURSE_DASHBOARD_QUERY} variables={{ courseId: course_id }} fetchPolicy="cache-and-network" >
+      <Query query={NEW_COURSE_DASHBOARD_QUERY} variables={{ courseId: course_id }} fetchPolicy="cache-and-network" >
           {({ loading, error, data }) => {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
             if (error) return <div> {JSON.stringify(error)} </div>
 
-            const courseToRender = data.courseDashboard
+            const courseToRender = data.courseDashboard1
             const tests1 = courseToRender.courseTestList.filter(test => !test.deleted)
 
         return (
           <Fade in={!loading}>
               <>
+              
               <CourseHeader {...courseToRender} />
               <TestList tests={tests1} courseId={course_id} />
             </>

@@ -12,7 +12,7 @@ import lightGreen from '@material-ui/core/colors/lightGreen';
 import { Query } from "react-apollo"
 import { TEST_STATS_PERFORMANCE_QUERY } from '../ApolloQueries'
 
-class TestStats extends Component {
+class TeacherTestStats extends Component {
 
   render(){
     const { classes, test_id } = this.props
@@ -40,8 +40,8 @@ class TestStats extends Component {
 
             <CardContent >
 
-            <Grid container justify="center" spacing={24}>
-            <Grid  xs={6} item>
+            <Grid container justify="center" >
+            <Grid  key='Answers' item xs={4}>
 
             <h5>
               Answers: {stats.total}
@@ -49,14 +49,24 @@ class TestStats extends Component {
 
             </Grid>
 
-            <Grid xs={6} item>
+            <Grid key='Correct' item xs={4}>
 
             <h5>
-            Correct: {stats.totalCorrect} ({ stats.totalCorrect/stats.total >0 ? Math.round(stats.totalCorrect/stats.total*100) : 0 }%)
+            Correct: {stats.totalCorrect}
             </h5>
 
             </Grid>
+            <Grid key='Questions' item xs={4}>
 
+            <h5>
+            Correct: { stats.totalCorrect/stats.total >0 ? Math.round(stats.totalCorrect/stats.total*100) : 0 }%
+            </h5>
+
+            <h5>
+            Student Performance List
+            </h5>
+
+            </Grid>
             </Grid>
             </CardContent >
             </Card>
@@ -71,4 +81,4 @@ class TestStats extends Component {
 
 }
 
-export default TestStats
+export default TeacherTestStats

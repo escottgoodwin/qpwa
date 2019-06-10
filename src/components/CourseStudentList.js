@@ -1,80 +1,64 @@
-import _ from 'lodash'
-import '../css/App.css';
-import React, { Component } from 'react'
-import { Segment, Table } from 'semantic-ui-react'
+import React from 'react';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import { makeStyles, withTheme } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
 
-class StudentCourseList extends Component {
-  state = {
-    column: null,
-    data: this.props.students,
-    direction: null,
-  }
+const classes = {
+  root: {
+    width: '100%',
+    marginTop: 10,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 650,
+  },
+};
 
-  handleSort = clickedColumn => () => {
-    const { column, data, direction } = this.state
+function CourseStudentList(props) {
+  const rows = props.students
+  return (
+    <Paper style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5,padding:10}}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
 
-    if (column !== clickedColumn) {
-      this.setState({
-        column: clickedColumn,
-        data: _.sortBy(data, [clickedColumn]),
-        direction: 'ascending',
-      })
+            <TableCell style={{fontSize:14}} align="left">First Name</TableCell>
+            <TableCell style={{fontSize:14}} align="left">Last Name</TableCell>
+            <TableCell style={{fontSize:14}} align="left">Acurracy</TableCell>
 
-      return
-    }
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map(row => (
+            <TableRow key={row.id}>
 
-    this.setState({
-      data: data.reverse(),
-      direction: direction === 'ascending' ? 'descending' : 'ascending',
-    })
-  }
-
-  render() {
-    const { column, data, direction } = this.state
-
-    return (
-    <Segment style={{ minHeight: 400, overflow: 'auto' }} attached>
-      <h4>Enrolled Students</h4>
-    <Table sortable celled fixed  >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell
-              sorted={column === 'name' ? direction : null}
-              onClick={this.handleSort('firstName')}
-            >
-              First Name
-            </Table.HeaderCell>
-
-            <Table.HeaderCell
-              sorted={column === 'name' ? direction : null}
-              onClick={this.handleSort('lastName')}
-            >
-              Last Name
-            </Table.HeaderCell>
-
-            <Table.HeaderCell
-              sorted={column === 'percentCorrect' ? direction : null}
-              onClick={this.handleSort('percentCorrect')}
-            >
-              Percent Correct
-            </Table.HeaderCell>
-
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {_.map(data, ({ id, firstName, lastName, percentCorrect }) => (
-            <Table.Row key={id}>
-              <Table.Cell>{firstName}</Table.Cell>
-              <Table.Cell>{lastName}</Table.Cell>
-              <Table.Cell>{Math.round(percentCorrect*100)}%</Table.Cell>
-            </Table.Row>
+              <TableCell style={{fontSize:16}} style={{fontSize:18}} align="left">{row.firstName}</TableCell>
+              <TableCell style={{fontSize:16}} align="left">{row.lastName}</TableCell>
+              <TableCell style={{fontSize:16}} align="left">{row.percentCorrect}</TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
+        </TableBody>
       </Table>
-    </Segment>
-    )
-  }
+    </Paper>
+  );
 }
 
-export default StudentCourseList
+export default CourseStudentList;

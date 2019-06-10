@@ -22,7 +22,7 @@ export default class TestRow extends Component {
 
 
           <Link  to={{
-            pathname: "/test_dashboard",
+            pathname: "/teacher_test_dashboard",
             state:
               { test_id: id }
             }} >
