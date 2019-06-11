@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
-import TestHeaderTeacher from '../components/TestHeaderTeacher'
+import TeacherTestHeader from '../components/TeacherTestHeader'
 import PanelList from '../components/PanelList1'
 
 import { Query } from "react-apollo"
@@ -84,7 +84,7 @@ class TeacherTestPanels extends Component {
             return (
 
               <>
-              <TestHeaderTeacher classes={classes} {...data.test}/>
+              <TeacherTestHeader classes={classes} test_id={test_id}/>
 
               <PanelList classes={classes} {...data.test}/>
               </>

@@ -7,6 +7,7 @@ import { Microscope } from 'mdi-material-ui'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardMedia from '@material-ui/core/CardMedia';
 import BookIcon from '@material-ui/icons/Book';
 
 import teal from '@material-ui/core/colors/teal';
@@ -28,21 +29,29 @@ class TeacherCourseHeader  extends Component {
               if (loading) return <div style={{height:'25vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const { name, courseNumber } = data.course
+              const { name, courseNumber, image } = data.course
 
           return (
 
             <>
             <div style={{paddingTop:20,paddingBottom:20}}>
 
+
+
               <Card onClick={()=> history.push({
                 pathname: "/course_dashboard",
                 state:
                   { course_id:courseid }
                 })}
+                style={{opacity:1,
+                  backgroundSize: 'cover',
+                  overflow: 'hidden',
+                  color:'black',
+                  backgroundImage:`url(${image})`}}
                 >
 
               <CardActionArea>
+
 
               <CardContent>
               <div style={{padding:'20px'}}>

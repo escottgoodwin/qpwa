@@ -28,14 +28,19 @@ class TeacherTestHeader  extends Component {
               if (loading) return <div  >Loading... </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const { course, id, testType, testNumber, subject, testDate } = data.test
+              const { course, id, image, testType, testNumber, subject, testDate } = data.test
 
           return (
 
             <>
             <div style={{paddingTop:20,paddingBottom:20}}>
 
-              <Card onClick={()=> history.push({
+              <Card style={{backgroundSize: 'cover',
+              overflow: 'hidden',
+              color:'black',
+              backgroundImage:`url(${course.image})`}}
+
+              onClick={()=> history.push({
                 pathname: "/course_dashboard",
                 state:
                   { course_id: course.id }

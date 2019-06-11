@@ -16,13 +16,17 @@ class TestHeaderTeacher  extends Component {
 
   render() {
 
-    const { classes, subject, testNumber, course, testDate, testType, id, history } = this.props
+    const { classes, subject, image, testNumber, course, testDate, testType, id, history } = this.props
 
     return (
       <>
   <div style={{paddingTop:20,paddingBottom:20}}>
 
-    <Card onClick={()=> history.push({
+    <Card style={{backgroundSize: 'cover',
+    overflow: 'hidden',
+    color:'black',
+    backgroundImage:`url(${course.image})`}}
+    onClick={()=> history.push({
       pathname: "/course_dashboard",
       state:
         { course_id: course.id }

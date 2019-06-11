@@ -349,6 +349,7 @@ query CourseQuery($courseid:ID!){
     name
     courseNumber
     time
+    image
     institution{
       id
       name
@@ -457,6 +458,7 @@ query CourseQuery($courseid:ID!){
     name
     courseNumber
     time
+    image
     institution{
       id
       name
@@ -629,6 +631,7 @@ query TestQuery($test_id:ID!){
     	course{
         id
         name
+        image
         courseNumber
       }
       panels{

@@ -82,7 +82,7 @@ class TeacherTestDashboard extends Component {
 
               const testToRender = data.test
 
-              const { published, publishDate, release, testType, releaseDate, endDate, startTime, endTime } = testToRender
+              const { published, publishDate, release, image, testType, releaseDate, endDate, startTime, endTime } = testToRender
 
 
           return (
