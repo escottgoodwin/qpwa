@@ -11,7 +11,8 @@ const CourseHeader = (props) =>
 <>
 <Card
 
-style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5,opacity:1,
+style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5,
+  opacity:.8,
   backgroundSize: 'cover',
   overflow: 'hidden',
   color:'black',
@@ -27,26 +28,6 @@ style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5,opacity:1,
 
 </Card>
 
-
-   <div style={{display:'inline-block',padding:5}}>
-     <Link  to={{
-       pathname: "/add_test",
-       state:
-         { course_id: props.id }
-       }} >
-       <Button color="primary" variant="contained">Add Test</Button>
-      </Link>
-    </div>
-
-    <div style={{display:'inline-block',padding:5}}>
-      <Link  to={{
-        pathname: "/course_students",
-        state:
-          { course_id: props.id }
-        }} >
-        <Button color="primary" variant="contained">{props.studentsCount} Students</Button>
-       </Link>
-     </div>
   </>
 
 

@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom'
 
 const styles = {
@@ -63,20 +64,28 @@ const CourseRow1 = (props) =>
         <Typography className={props.classes.title} color="textSecondary" gutterBottom>
           {props.time}
         </Typography>
-        <Typography  variant="h4" component="h4">
+        <h3>
             {props.name}
-        </Typography>
+        </h3>
         <Typography className={props.classes.pos} color="textSecondary">
             {props.institution.name}
         </Typography>
         <hr/>
+
+        <Grid container>
+        <Grid item xs={6}>
+        <h5>
+          Tests: {props.tests.filter(test => !test.deleted).length}
+        </h5>
+        </Grid>
+
+        <Grid item xs={6}>
         <Typography  variant="h6">
-          Tests: {props.tests.filter(test => !test.deleted).length} Students: {props.students.length}
+           Students: {props.students.length}
         </Typography>
-        <hr/>
-        <Typography  >
-          Next Test:
-        </Typography>
+        </Grid>
+        </Grid>
+
       </CardContent>
       </CardActionArea>
     </Card>

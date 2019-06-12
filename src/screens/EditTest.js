@@ -6,45 +6,138 @@ import { Query } from "react-apollo";
 import Error from './Error'
 import Loading from './Loading'
 
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
+
+import MomentUtils from '@date-io/moment';
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+import TestHeaderTeacher from '../components/TestHeaderTeacher'
 import EditTestInput from '../components/EditTestInput'
-import TestHeader from '../components/TestHeader'
 
 import {TEST_QUERY} from '../ApolloQueries'
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  card: {
+    minWidth: 275,
+    position: 'relative',
+  },
+});
+
+function handleDateChange(date) {
+  console.log(date)
+}
+
 
 class EditTest extends Component {
 
 render() {
+  const { classes } = this.props
+  const { test_id }= this.props.location.state
 
   return (
-    <div className="main">
-    <div className="container">
+    <main className={classes.main}>
 
-    <TestHeader  testId={this.props.location.state.test_id} />
-    <Query query={TEST_QUERY} variables={{ test_id: this.props.location.state.test_id }}>
+    <div style={{marginBottom:50}}>
+
+    <Query query={TEST_QUERY} variables={{ test_id }}>
           {({ loading, error, data }) => {
-            if (loading) return <Loading/>
-            if (error) return <Error {...error}/>
-
-            const testToRender = data.test
+            if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
+            if (error) return <div> {JSON.stringify(error)} </div>
 
         return (
-            <div>
-            <div style={{padding:"20px"}}>
+          <Fade in={!loading}>
+          <>
+          <TestHeaderTeacher classes={classes} {...data.test} />
 
-            <h2>Edit Test</h2>
-            </div>
-            <div style={{paddingRight:'14em',paddingLeft:'14em'}}>
-            <EditTestInput {...testToRender}/>
-            </div>
-            </div>
+          <Paper style={{alignItems: 'center',padding:15}}>
+            <center>
+            <Avatar className={classes.avatar}>
+              <ImportContactsIcon />
+            </Avatar>
+            </center>
+          <h2>Edit Test</h2>
+
+            <EditTestInput {...data.test}/>
+
+            </Paper>
+          </>
+          </Fade>
+
             )
           }}
         </Query>
         </div>
-        </div>
+        </main>
 
       )
   }
 }
 
-export default EditTest ;
+export default withStyles(styles)(EditTest);

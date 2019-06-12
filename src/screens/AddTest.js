@@ -174,13 +174,15 @@ class AddTest extends Component {
               <MenuItem value="">
                 <em>Test Type</em>
               </MenuItem>
-              <MenuItem value={"LECTURE"}>Lecture</MenuItem>
+              <MenuItem value={"CLASS"}>Lecture</MenuItem>
               <MenuItem value={"LAB"}>Lab</MenuItem>
 
             </Select>
             </Paper>
 
         <Paper className={classes.paper}>
+        <InputLabel  htmlFor="testType">Test Date</InputLabel>
+        {moment(testDate).format('MMMM Do YYYY, h:mm a')}
         <MuiPickersUtilsProvider utils={MomentUtils}>
 
         <KeyboardDatePicker
@@ -210,6 +212,7 @@ class AddTest extends Component {
 
         </MuiPickersUtilsProvider>
         </Paper>
+
         <Mutation
             mutation={ADD_TEST_MUTATION}
             variables={{

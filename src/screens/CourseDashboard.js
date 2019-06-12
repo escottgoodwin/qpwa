@@ -7,6 +7,8 @@ import { Query, Mutation } from "react-apollo"
 import { Message } from 'semantic-ui-react'
 import Fade from '@material-ui/core/Fade';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 import Error from './Error'
 
 import Loading from './Loading'
@@ -38,15 +40,40 @@ class CourseDashboard extends Component {
             if (error) return <div> {JSON.stringify(error)} </div>
 
             const courseToRender = data.courseDashboard1
-            const tests1 = courseToRender.courseTestList.filter(test => !test.deleted)
+            const { studentCount, courseTestList } = data.courseDashboard1
+
+            const tests1 = courseTestList.filter(test => !test.deleted)
 
         return (
           <Fade in={!loading}>
-              <>
-              
+          <>
+
               <CourseHeader {...courseToRender} />
+
+              <div style={{marginLeft:30,marginRight:30}}>
+                <Link  to={{
+                  pathname: "/add_test",
+                  state:
+                    { course_id }
+                  }} >
+
+                  <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Add Test</Button>
+
+                 </Link>
+
+
+                 <Link  to={{
+                   pathname: "/course_students",
+                   state:
+                     { course_id }
+                   }} >
+
+                   <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >{studentCount} Students</Button>
+
+                  </Link>
+              </div>
               <TestList tests={tests1} courseId={course_id} />
-            </>
+              </>
             </Fade>
         )
       }}

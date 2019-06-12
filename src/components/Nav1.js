@@ -3,13 +3,15 @@ import '../css/App.css';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import SignInButton from './SignInButton'
 import DashboardButton from './DashboardButton'
 
 class Nav1 extends React.Component {
-  
+
   handleChange = event => {
     this.setState({ auth: event.target.checked });
   };
@@ -28,13 +30,27 @@ class Nav1 extends React.Component {
     return (
 
 <div className={classes.root}>
-      <AppBar position="fixed" >
+      <AppBar style={{backgroundColor:'#21385b',color:'#2185d0'}} position="fixed" >
         <Toolbar>
+        <Grid container justify="space-between">
+
+        <Grid item >
         <DashboardButton />
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+        </Grid>
+
+        <Grid item >
+        <Button variant="outlined" color="inherit">
+
             Quandrio
-          </Typography>
+
+        </Button>
+        </Grid>
+
+        <Grid item >
           <SignInButton />
+
+        </Grid>
+        </Grid>
         </Toolbar>
       </AppBar>
     </div>

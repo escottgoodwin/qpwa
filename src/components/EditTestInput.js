@@ -1,23 +1,101 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Form, Input, Button, Select, Message } from 'semantic-ui-react'
-import {  DateTimeInput } from 'semantic-ui-calendar-react';
 import { Mutation } from "react-apollo"
 import {withRouter} from "react-router-dom"
 import moment from 'moment'
 
-import {TEST_COURSE_MUTATION} from '../ApolloQueries'
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea'
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+
+import MomentUtils from '@date-io/moment';
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+
+import { TEST_COURSE_MUTATION } from '../ApolloQueries'
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  card: {
+    minWidth: 275,
+    position: 'relative',
+  },
+});
+
 
 class EditTestInput extends Component {
 
       state = {
-            subject: this.props.subject,
-            testDate:moment(this.props.testDate).format(),
-            testNumber:this.props.testNumber,
-            testType:this.props.testType,
+            subject: '',
+            testDate:'',
+            testNumber:'',
+            testType:'',
             graphQLError: '',
             isVisibleGraph:false,
-            networkError:false,
+            networkError:'',
             isVisibleNet:false,
   }
 
@@ -27,112 +105,161 @@ class EditTestInput extends Component {
   }
 }
 
+  componentDidMount(){
+    const { subject, testDate, testType, testNumber } = this.props
+    console.log(testType)
+    this.setState({subject,
+    testDate,
+    testNumber,
+    testType,
+    })
+  }
+
 render() {
-
-  const { subject, testDate, testNumber, testType ,graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
-  const testnumbers = [{value:"Test 1",text:"Test 1"}, {value:"Test 2",text:"Test 2"}, {value:"Test 3",text:"Test 3"}, {value:"Test 4",text:"Test 4"}, {value:"Test 5",text:"Test 5"}, {value:"Test 6",text:"Test 6"}]
-  const testTypes = [{value:"CLASS",text:"CLASS"},{value:"LAB",text:"LAB"}]
-
-  const testDate1 = moment(testDate).format()
+  const { id, classes } = this.props
+  const { testNumber, subject, testDate, testType, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
+console.log(this.state)
   return (
+    <>
+    <Paper className={classes.paper}>
+    <TextField
+        id="outlined-full-width"
+        label="Subject"
+        fullWidth
+        className={classes.textField}
+        value={subject}
+        onChange={e => this.setState({ subject: e.target.value })}
+        margin="normal"
+      />
+      </Paper>
 
-    <div>
+      <Paper className={classes.paper}>
+      <InputLabel  htmlFor="testNumber">Test Number</InputLabel>
+      <Select
+        fullWidth
+        value={testNumber}
+        onChange={e => this.setState({ testNumber: e.target.value })}
+        inputProps={{
+          name: 'testNumber',
+          id: 'testNumber',
+        }}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={"Test 1"}>Test 1</MenuItem>
+        <MenuItem value={"Test 2"}>Test 2</MenuItem>
+        <MenuItem value={"Test 3"}>Test 3</MenuItem>
+        <MenuItem value={"Test 4"}>Test 4</MenuItem>
+        <MenuItem value={"Test 5"}>Test 5</MenuItem>
+        <MenuItem value={"Test 6"}>Test 6</MenuItem>
+      </Select>
+      </Paper>
 
-    <Form size='big'>
+      <Paper className={classes.paper}>
+      <InputLabel  htmlFor="testType">Test Type</InputLabel>
+      <Select
+        fullWidth
+        value={testType}
+        onChange={e => this.setState({ testType: e.target.value })}
+        inputProps={{
+          name: 'testType',
+          id: 'testType',
+        }}
+      >
+        <MenuItem value="">
+          <em>Test Type</em>
+        </MenuItem>
+        <MenuItem value={"CLASS"}>Lecture</MenuItem>
+        <MenuItem value={"LAB"}>Lab</MenuItem>
 
-    <Form.Field
-      control={Input}
-      label='Subject'
-      value={subject}
-      onChange={e => this.setState({ subject: e.target.value })}
-      placeholder='Subject'
-    />
-    <Form.Group widths='equal'>
+      </Select>
+      </Paper>
 
-    <DateTimeInput
-    label='Test Date'
-    dateFormat="MM-DD-YYYY"
-    timeFormat="AMPM"
-        name="testDate"
-        placeholder="Date Time"
-        value={this.state.testDate}
-        iconPosition="left"
-        onChange={this.handleChange} />
+  <Paper className={classes.paper}>
+  <InputLabel  htmlFor="testType">Test Date</InputLabel>
+  {moment(testDate).format('MMMM Do YYYY, h:mm a')}
+  <MuiPickersUtilsProvider utils={MomentUtils}>
 
-    <Form.Field
-      id='institutionId'
-      control={Select}
-      options={testnumbers}
-      value={this.state.testNumber}
-      onChange={(event, {value}) => { this.setState({ testNumber: value })}}
-      label='Test Number'
-      fluid
-      selection
-      placeholder='Select Test Number'
-    />
+  <KeyboardDatePicker
+  fullWidth
+    margin="normal"
+    id="mui-pickers-date"
+    label="Date picker"
+    value={testDate}
+    onChange={(date) => this.setState({testDate:date})}
+    KeyboardButtonProps={{
+      'aria-label': 'change date',
+    }}
+  />
 
-    <Form.Field
-    width={4}
-      id='type'
-      control={Select}
-      options={testTypes}
-      value={this.state.testType}
-      onChange={(event, {value}) => { this.setState({ testType: value })}}
-      label='Test Type'
-      fluid
-      selection
-      placeholder='Select'
-    />
-
-    </Form.Group>
-
-          </Form>
-
-            <Mutation
-                mutation={TEST_COURSE_MUTATION}
-                variables={{
-                  subject: subject,
-                  testNumber: testNumber,
-                  testDate: testDate1,
-                  testType: testType,
-                  id: this.props.id
-                 }}
-                onCompleted={data => this._confirm(data)}
-                onError={error => this._error (error)}
-                optimisticResponse={{
-                  __typename: "Mutation",
-                  updateTest: {
-                    id: this.props.id,
-                    __typename: "Test",
-                    subject: subject,
-                    testNumber: testNumber,
-                    testDate: testDate1,
-                    testType: testType
-                  }
-                }}
-              >
-                {mutation => (
-                  <Button  color='blue' onClick={mutation}>Submit</Button>
-                )}
-              </Mutation>
-
-              {isVisibleGraph &&
-                <Message negative>
-                  <p><b>{graphQLError}</b></p>
-                </Message>
-              }
-
-              {isVisibleNet &&
-                <Message negative>
-                  <p><b>{networkError}</b></p>
-                </Message>
-              }
-
-          </div>
+  <KeyboardTimePicker
+  fullWidth
+    margin="normal"
+    id="mui-pickers-time"
+    label="Time picker"
+    value={testDate}
+    onChange={(date) => this.setState({testDate:date})}
+    KeyboardButtonProps={{
+      'aria-label': 'change time',
+    }}
+  />
 
 
-)
-}
+  </MuiPickersUtilsProvider>
+  </Paper>
+  <Mutation
+      mutation={TEST_COURSE_MUTATION}
+      variables={{
+        subject,
+        testNumber,
+        testDate,
+        testType,
+        id
+       }}
+      onCompleted={data => this._confirm(data)}
+      onError={error => this._error (error)}
+      optimisticResponse={{
+        __typename: "Mutation",
+        updateTest: {
+          id: id,
+          __typename: "Test",
+          subject: subject,
+          testNumber: testNumber,
+          testDate: testDate,
+          testType: testType
+        }
+      }}
+    >
+      {mutation => (
+
+        <Button
+        fullWidth
+        variant="contained"
+        size='large'
+        color="primary"
+        className={classes.submit}
+        onClick={mutation}>
+        Submit
+        </Button>
+
+      )}
+    </Mutation>
+
+    {isVisibleGraph &&
+      <div>
+        <p><b>{graphQLError}</b></p>
+      </div>
+    }
+
+    {isVisibleNet &&
+      <div>
+        <p><b>{networkError}</b></p>
+      </div>
+    }
+    </>
+    )
+  }
 
 _error = async error => {
 
@@ -146,11 +273,11 @@ _error = async error => {
 
 _confirm = async data => {
   this.props.history.push({
-    pathname: `/test_dashboard`,
+    pathname: `/teacher_test_dashboard`,
     state: { test_id: this.props.id  }
     })
 }
 
 }
 
-export default withRouter(EditTestInput)
+export default withStyles(styles)(withRouter(EditTestInput))

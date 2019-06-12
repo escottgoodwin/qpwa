@@ -59,20 +59,20 @@ const StudentCourseRow1 = (props) =>
         <Typography className={props.classes.title} color="textSecondary" gutterBottom>
           {props.time}
         </Typography>
-        <Typography  variant="h4" component="h4">
+
+        <h3>
             {props.name}
-        </Typography>
+        </h3>
+
         <Typography className={props.classes.pos} color="textSecondary">
             {props.institution.name}
         </Typography>
         <hr/>
-        <Typography  variant="h6">
-          Tests: {props.tests.length}
-        </Typography>
-        <hr/>
-        <Typography  >
-          Next Test:
-        </Typography>
+
+        <h5>
+          Tests: {props.tests.filter(test => !test.deleted).length}
+        </h5>
+
       </CardContent>
       </CardActionArea>
     </Card>

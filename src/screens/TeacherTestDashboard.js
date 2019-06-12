@@ -1,15 +1,19 @@
 import React,{Component} from 'react';
 import '../css/App.css';
 import * as Cookies from "js-cookie"
+import { Link } from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
+import Button from '@material-ui/core/Button';
 
 import TestHeaderTeacher from '../components/TestHeaderTeacher'
 import TestStats from '../components/TestStats'
 import TeacherTestButtons from '../components/TeacherTestButtons'
 import TeacherTestStudents from '../components/TeacherTestStudents'
 import TeacherTestQuestions from '../components/TeacherTestQuestions'
+import TeacherQuestionButtons from '../components/TeacherQuestionButtons'
+
 
 import { Query } from "react-apollo";
 import { TEST_QUERY,NEW_CHALLENGE_SUBSCRIPTION,DELETE_TEST_MUTATION,CHALLENGE_TEST_QUERY,TEST_STATS_QUERY, TEACHER_DASHBOARD_QUERY } from '../ApolloQueries';
@@ -87,7 +91,7 @@ class TeacherTestDashboard extends Component {
 
           return (
             <Fade in={!loading}>
-            <div style={{marginLeft:'5%',marginRight:'5%'}}>
+            <div style={{marginLeft:'5%',marginRight:'5%',marginBottom:20}}>
             <TestHeaderTeacher classes={classes} {...data.test} />
 
             <TeacherTestButtons userId={userId} {...data.test}/>
@@ -98,6 +102,17 @@ class TeacherTestDashboard extends Component {
 
             <TeacherTestQuestions classes={classes} test_id={test_id}  {...data.test} />
 
+            <TeacherQuestionButtons {...data.test}/>
+
+            <Link  to={{
+              pathname: "/edit_test",
+              state:
+                {
+                  test_id }
+              }} >
+            <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Edit Test</Button>
+
+            </Link>
 
             </div>
           </Fade>

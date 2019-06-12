@@ -43,7 +43,7 @@ class TeacherCourseHeader  extends Component {
                 state:
                   { course_id:courseid }
                 })}
-                style={{opacity:1,
+                style={{opacity:.8,
                   backgroundSize: 'cover',
                   overflow: 'hidden',
                   color:'black',
@@ -54,9 +54,9 @@ class TeacherCourseHeader  extends Component {
 
 
               <CardContent>
-              <div style={{padding:'20px'}}>
+
               <h4>{name} - {courseNumber}</h4>
-              </div>
+
               </CardContent>
               </CardActionArea>
               </Card>
