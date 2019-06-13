@@ -76,14 +76,12 @@ class TeacherTestQuestions extends Component {
 
               const bestQuestions = listSort1(testQuestionStats,'percentCorrect','desc').slice(0, 3)
               const worstQuestions = listSort1(testQuestionStats,'percentCorrect','asc').slice(0, 3)
-              console.log(bestQuestions)
-              console.log(worstQuestions)
 
           return (
             <Fade in={!loading}>
             <div style={{paddingTop:20,paddingBottom:20}}>
             <Card onClick={()=>history.push({
-              pathname: "/teacher_test_students",
+              pathname: "/teacher_test_questions",
               state:
                 { test_id: test_id }
               })}
@@ -101,7 +99,7 @@ class TeacherTestQuestions extends Component {
 
             <CardContent >
 
-            <h4> Worse Performing Questions</h4>
+            <h4> Best Performing Questions</h4>
             <hr />
             <Table className={classes.table}>
               <TableHead>
@@ -129,7 +127,7 @@ class TeacherTestQuestions extends Component {
 
             <CardContent >
 
-            <h4>Best Performing Questions</h4>
+            <h4>Worst Performing Questions</h4>
 
             <hr />
             <Table className={classes.table}>

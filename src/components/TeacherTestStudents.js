@@ -77,8 +77,6 @@ class TeacherTestStudents extends Component {
               const withAnswers = userTestStats.filter(s => s.total > 0)
               const bestStudents = listSort1(userTestStats,'percentCorrect','desc').slice(0, 3)
               const worstStudents = listSort1(userTestStats,'percentCorrect','asc').slice(0, 3)
-              console.log(bestStudents)
-              console.log(worstStudents)
 
           return (
             <Fade in={!loading}>
@@ -86,7 +84,9 @@ class TeacherTestStudents extends Component {
             <Card onClick={()=>history.push({
               pathname: "/teacher_test_students",
               state:
-                { test_id: test_id }
+                { test_id: test_id,
+                  courseId: course.id
+                }
               })}
               className={classes.card}>
 
@@ -102,7 +102,7 @@ class TeacherTestStudents extends Component {
 
             <CardContent >
 
-            <h4> Worse Performing Students</h4>
+            <h4> Worst Performing Students</h4>
             <hr />
             <Table className={classes.table}>
               <TableHead>

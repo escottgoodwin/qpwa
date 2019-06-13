@@ -58,6 +58,8 @@ import TeacherTestAllQuestions from './screens/TeacherTestAllQuestions'
 import TeacherReviewQuestion from './screens/TeacherReviewQuestion1'
 import TeacherCourseStudents from './screens/TeacherCourseStudents'
 import TeacherTestChallenges from './screens/TeacherTestChallenges'
+import TeacherTestPerfStudent from './screens/TeacherTestPerfStudent'
+import TeacherTestPerfQuestion from './screens/TeacherTestPerfQuestion'
 
 import Nav1 from './components/Nav1'
 
@@ -159,6 +161,8 @@ class App extends Component {
           <Route path="/teacher_question" component={TeacherReviewQuestion}/>
           <Route path="/course_students" component={TeacherCourseStudents}/>
           <Route path="/teacher_challenges" component={TeacherTestChallenges}/>
+          <Route path="/teacher_test_students" component={TeacherTestPerfStudent}/>
+          <Route path="/teacher_test_questions" component={TeacherTestPerfQuestion}/>
 
         </Switch>
 
