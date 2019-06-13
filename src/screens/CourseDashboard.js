@@ -17,18 +17,9 @@ import {NEW_COURSE_DASHBOARD_QUERY, DELETE_COURSE_MUTATION, TEACHER_DASHBOARD_QU
 
 class CourseDashboard extends Component {
 
-  state = {
-    graphQLError: '',
-    isVisibleGraph:false,
-    networkError:false,
-    isVisibleNet:false,
-  }
-
   render() {
 
-    const userid = Cookies.get('userid')
     const { course_id }= this.props.location.state
-    const { graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
     return (
       <>
@@ -48,7 +39,7 @@ class CourseDashboard extends Component {
           <Fade in={!loading}>
           <>
 
-              <CourseHeader {...courseToRender} />
+          <CourseHeader {...courseToRender} />
 
               <div style={{marginLeft:30,marginRight:30}}>
                 <Link  to={{
@@ -73,6 +64,18 @@ class CourseDashboard extends Component {
                   </Link>
               </div>
               <TestList tests={tests1} courseId={course_id} />
+
+              <Link  to={{
+                pathname: "/edit_course",
+                state:
+                  {
+                    course_id }
+                }} >
+
+              <div style={{marginLeft:30,marginRight:30}}>
+              <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Edit Course</Button>
+              </div>
+              </Link>
               </>
             </Fade>
         )
