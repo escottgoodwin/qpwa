@@ -20,7 +20,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
   var notificationTitle = 'Quandrio';
   var notificationOptions = {
     body: 'Background Message body.',
-    icon: '../public/firebase-logo.png'
+    icon: '../public/favicon.ico'
   };
 
   return self.registration.showNotification(notificationTitle,

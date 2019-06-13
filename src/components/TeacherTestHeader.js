@@ -25,7 +25,7 @@ class TeacherTestHeader  extends Component {
 
       <Query query={TEST_QUERY} variables={{ test_id }}>
             {({ loading, error, data }) => {
-              if (loading) return <div  >Loading... </div>
+              if (loading) return <div style={{height:'20vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
               const { course, id, image, testType, testNumber, subject, testDate } = data.test
@@ -35,7 +35,9 @@ class TeacherTestHeader  extends Component {
             <>
             <div style={{paddingTop:20,paddingBottom:20}}>
 
-              <Card style={{backgroundSize: 'cover',
+              <Card style={{
+              backgroundSize: 'cover',
+              opacity:1,
               overflow: 'hidden',
               color:'black',
               backgroundImage:`url(${course.image})`}}
@@ -50,7 +52,7 @@ class TeacherTestHeader  extends Component {
               <CardActionArea>
 
               <CardContent>
-              <div style={{padding:'20px'}}>
+              <div style={{padding:'15px',backgroundColor:'#303030',opacity:.7, color:'white'}}>
               <h4>{course.name} - {course.courseNumber}</h4>
               </div>
               </CardContent>

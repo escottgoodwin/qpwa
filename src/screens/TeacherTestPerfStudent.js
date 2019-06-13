@@ -137,7 +137,7 @@ class TeacherTestPerfStudent extends Component {
                 <TableBody>
 
               {bestStudents.map(student =>
-                <TableRow key={student.id}>
+                <TableRow key={student.name}>
                   <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
                   <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
                   <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
