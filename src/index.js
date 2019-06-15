@@ -2,7 +2,7 @@ import React from 'react'
 import * as Cookies from "js-cookie"
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker';
-
+import { messaging } from 'firebase'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
@@ -42,12 +42,13 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("./firebase-messaging-sw.js")
     .then(function(registration) {
-
+      console.log('sw with firebase registered',registration)
     })
     .catch(function(err) {
       console.log("Service worker registration failed, error:", err);
     });
 }
+
 
 ReactDOM.render(
   <Router>

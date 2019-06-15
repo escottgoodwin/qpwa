@@ -18,6 +18,8 @@ firebase.initializeApp(firebaseConfig);
 
 var messaging = firebase.messaging();
 
+messaging.usePublicVapidKey("BImgeLGYBV9aNJndBZoQJoSexNssY8Dg88iRm4pYZI__oXGqxdrPQue4e_3ekaf9q2VZGj20xBDZmJE6wyuIPzs");
+
 var database = firebase.database().ref();
 
 var storage = firebase.storage();

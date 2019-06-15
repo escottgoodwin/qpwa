@@ -60,6 +60,7 @@
     "react-scripts": "2.1.1",
     "react-scroll-box": "^0.3.5",
     "react-table-drag-select": "^0.3.1",
+    "react-toast-notifications": "^1.4.0",
     "react-transition-group": "^1.2.1",
     "reactstrap": "^6.4.0",
     "redux": "^4.0.0",

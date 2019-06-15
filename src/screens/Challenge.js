@@ -143,9 +143,9 @@ class Challenge extends Component {
       const { challengeId, role } = this.props.location.state
       const { challenges } = this.state
       const userId = sessionStorage.getItem('userid')
-      console.log(role)
+
       const testPath = role==='TEACHER' ? '/teacher_test_dashboard' : '/student_test_dashboard'
-      console.log(testPath )
+  
       const selectedColor = green[200]
       const wrong = red[200]
 

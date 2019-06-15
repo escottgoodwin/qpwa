@@ -90,9 +90,15 @@ class SignIn extends Component {
   };
 
     componentDidMount(){
+      const pushToken = Cookies.set('pushToken')
 
       messaging.getToken().then(currentToken => {
+        if (currentToken) {
         this.setState({pushToken:currentToken})
+        console.log(currentToken)
+      } else {
+
+      }
       }).catch(function(err) {
         console.log('An error occurred while retrieving token. ', err);
       })
@@ -102,6 +108,7 @@ class SignIn extends Component {
     render() {
       const { email, password, pushToken, graphQLError, networkError, isVisibleNet, isVisibleGraph, errorMsg, loginError } = this.state
       const { classes } = this.props
+      console.log(pushToken)
 
       return (
       <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>

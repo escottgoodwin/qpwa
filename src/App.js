@@ -1,8 +1,9 @@
 import React,{Component }from 'react';
+import * as Cookies from "js-cookie"
 import { Route, Switch} from 'react-router-dom'
 import './css/App.css';
 import { withStyles } from '@material-ui/core/styles';
-import { messaging} from './firebase'
+import { messaging, database } from './firebase'
 
 import TeacherDashboard from './screens/TeacherDashboard'
 import StudentDashboard from './screens/StudentDashboard'
@@ -67,12 +68,40 @@ const styles = (theme) => ({
   toolbar: theme.mixins.toolbar,
 });
 
+const collection = database.child('notifications')
 
-messaging.usePublicVapidKey("BImgeLGYBV9aNJndBZoQJoSexNssY8Dg88iRm4pYZI__oXGqxdrPQue4e_3ekaf9q2VZGj20xBDZmJE6wyuIPzs");
+messaging.onMessage(payload => {
+
+  console.log(payload)
+  const { data, notification } = payload
+  const { title, body } = notification
+  var notificationTitle = title;
+  var notificationOptions = {
+    body: body,
+    icon: '/assets/android-chrome-512x512.png'
+  };
+  this.setState({
+    body,
+    title,
+    open:true,
+    questionId: data.questionId,
+  })
+  console.log(this.state.open)
+  console.log(this.state)
+
+  });
 
 class App extends Component {
 
+  state={
+    open:false,
+    title:'',
+    body:'New Question'
+    }
+
   componentDidMount() {
+
+    const userId = Cookies.get('userid')
 
     messaging.getToken().then(function(currentToken) {
       if (currentToken) {
@@ -94,13 +123,36 @@ class App extends Component {
     });
 
     messaging.onMessage(payload => {
-      console.log('Message received. ', payload);
 
-      });
+      const { data, notification } = payload
+      const { title, body } = notification
 
+      const { questionId, testId, course, institution, testNumber, subject } = data
+
+      var notificationTitle = title;
+      var notificationOptions = {
+        body: body,
+        icon: '/assets/android-chrome-512x512.png'
+      };
+
+      const newNotification = {
+        body,
+        title,
+        timeAdded:new Date(),
+        userId,
+        testId,
+        questionId,
+      }
+
+      collection.child(userId).push(newNotification);
+
+})
 }
 
+
+
   render() {
+
 
     return (
       <div className="App">
