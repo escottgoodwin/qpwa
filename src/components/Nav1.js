@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/App.css';
+
 import * as Cookies from "js-cookie"
 import { withRouter } from 'react-router-dom'
 import { database } from '../firebase'
@@ -10,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
+import moment from 'moment'
 
 import SignInButton from './SignInButton'
 import DashboardButton from './DashboardButton'
@@ -32,30 +34,24 @@ class Nav1 extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleAnswer = (questionId) => {
-    this.setState({ open: false });
-    this.props.history.push({
-      pathname: `/create_question`,
-      state: { questionId  }
-      })
-  };
-
-
   componentDidMount(){
     const userId = Cookies.get('userid')
     const notifications = collection.child(userId)
 
-    notifications.on('child_added', snapshot => {
-      console.log('snapshot',snapshot.val())
+    notifications.limitToLast(1).on('child_added', snapshot => {
 
-    if (snapshot.val() !== null){
+    const timeAdded = new Date(snapshot.val().added)
+    const now = new Date()
+    const nowPlusTen = now.setSeconds(now.getSeconds() - 5);
+
+    if (timeAdded >= nowPlusTen){
+
       const notification = snapshot.val()
 
       this.setState({ notification, open:true })
     }
 
     });
-
 
   }
 

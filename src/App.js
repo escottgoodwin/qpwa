@@ -4,6 +4,7 @@ import { Route, Switch} from 'react-router-dom'
 import './css/App.css';
 import { withStyles } from '@material-ui/core/styles';
 import { messaging, database } from './firebase'
+import firebase from 'firebase'
 
 import TeacherDashboard from './screens/TeacherDashboard'
 import StudentDashboard from './screens/StudentDashboard'
@@ -70,27 +71,6 @@ const styles = (theme) => ({
 
 const collection = database.child('notifications')
 
-messaging.onMessage(payload => {
-
-  console.log(payload)
-  const { data, notification } = payload
-  const { title, body } = notification
-  var notificationTitle = title;
-  var notificationOptions = {
-    body: body,
-    icon: '/assets/android-chrome-512x512.png'
-  };
-  this.setState({
-    body,
-    title,
-    open:true,
-    questionId: data.questionId,
-  })
-  console.log(this.state.open)
-  console.log(this.state)
-
-  });
-
 class App extends Component {
 
   state={
@@ -138,13 +118,14 @@ class App extends Component {
       const newNotification = {
         body,
         title,
-        timeAdded:new Date(),
+        added: firebase.database.ServerValue.TIMESTAMP,
         userId,
         testId,
         questionId,
       }
 
       collection.child(userId).push(newNotification);
+
 
 })
 }
