@@ -79,17 +79,17 @@ const StudentTestRow1 = (props) =>
       <hr />
         <div style={{margin:10}}>
         <Grid container justify="center" >
-        <Grid key='Questions' item xs={4}>
+        <Grid  item xs={4}>
 
         <h5>  Questions: {props.test.questions.length}</h5>
 
         </Grid>
-        <Grid key='Answers' item item xs={4}>
+        <Grid item item xs={4}>
         <h5>
           Answers: {props.test.questions.map(q => q.questionAnswers.length).reduce((a,b) => a + b, 0)}
         </h5>
         </Grid>
-        <Grid key='Panels' item item xs={4}>
+        <Grid item item xs={4}>
         <h5>
           Panels: { props.test.panels.length }
         </h5>

@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
+import green from '@material-ui/core/colors/green';
 import moment from 'moment'
 
 import SignInButton from './SignInButton'
@@ -85,14 +86,24 @@ class Nav1 extends React.Component {
         </Toolbar>
         <Drawer  anchor="top" open={open} onClose={() => this.setState({open:false})}>
 
-            <div style={{backgroundColor:'green',padding:5}}>
+            <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
             <center>
-            <div><h5>New Question</h5> </div>
-            <div><h5>{notification.body} - {notification.title}</h5></div>
-            <div>
+            <div ><h5>New Question</h5> </div>
+            <div style={{padding:5}}><h5>{notification.body} - {notification.title}</h5></div>
+            <div style={{padding:5}}>
+            <Grid container >
+
+            <Grid item xs={6}>
             <Button onClick={() => this.handleAnswer(notification.questionId)} variant="outlined" color="primary"  className={classes.button} >Answer</Button>
+            </Grid>
+
+            <Grid item xs={6}>
 
             <Button variant="outlined" color="secondary" className={classes.button} onClick={() => this.setState({open:false})}>Dismiss</Button>
+
+            </Grid>
+
+            </Grid>
             </div>
             </center>
             </div>

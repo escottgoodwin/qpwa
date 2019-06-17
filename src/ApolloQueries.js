@@ -2176,3 +2176,24 @@ query StudentChallenges($userId:ID!,$testId:ID!){
   }
 }
 `
+
+export const NEW_QUESTIONS = gql`
+query NewQuestions($userId:ID!){
+  questions(where:{AND:[{sentTo:{id:$userId}},
+  {questionAnswers_every:{id:null}}]}){
+    count
+  }
+}
+`
+
+export const JOIN_MUTATION = gql`
+  mutation JoinCourse(
+    $inviteId: ID!,
+    $courseId: ID!
+  ){
+    joinCourse(inviteId: $inviteId,
+      courseId: $courseId){
+        authMsg
+      }
+    }
+`

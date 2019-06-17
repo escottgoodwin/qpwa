@@ -62,6 +62,8 @@ import TeacherCourseStudents from './screens/TeacherCourseStudents'
 import TeacherTestChallenges from './screens/TeacherTestChallenges'
 import TeacherTestPerfStudent from './screens/TeacherTestPerfStudent'
 import TeacherTestPerfQuestion from './screens/TeacherTestPerfQuestion'
+import StudentJoinCourse from './screens/StudentJoinCourse'
+
 
 import Nav1 from './components/Nav1'
 
@@ -72,12 +74,6 @@ const styles = (theme) => ({
 const collection = database.child('notifications')
 
 class App extends Component {
-
-  state={
-    open:false,
-    title:'',
-    body:'New Question'
-    }
 
   componentDidMount() {
 
@@ -126,14 +122,11 @@ class App extends Component {
 
       collection.child(userId).push(newNotification);
 
-
-})
+    })
 }
 
 
-
   render() {
-
 
     return (
       <div className="App">
@@ -196,6 +189,8 @@ class App extends Component {
           <Route path="/teacher_challenges" component={TeacherTestChallenges}/>
           <Route path="/teacher_test_students" component={TeacherTestPerfStudent}/>
           <Route path="/teacher_test_questions" component={TeacherTestPerfQuestion}/>
+          <Route path="/join_course" component={StudentJoinCourse}/>
+
 
         </Switch>
 
