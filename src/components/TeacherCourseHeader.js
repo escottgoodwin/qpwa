@@ -1,17 +1,11 @@
 import React,{Component} from 'react';
 import {withRouter} from "react-router-dom"
-import moment from 'moment'
+
 import '../css/App.css';
 
-import { Microscope } from 'mdi-material-ui'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
-import BookIcon from '@material-ui/icons/Book';
-
-import teal from '@material-ui/core/colors/teal';
-import cyan from '@material-ui/core/colors/cyan';
 
 import { Query } from "react-apollo";
 import { COURSE_QUERY } from '../ApolloQueries';

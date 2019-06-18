@@ -8,11 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
 import green from '@material-ui/core/colors/green';
-import moment from 'moment'
 
 import SignInButton from './SignInButton'
 import DashboardButton from './DashboardButton'
@@ -57,7 +55,7 @@ class Nav1 extends React.Component {
   }
 
   render() {
-    const { classes, history } = this.props;
+    const { classes } = this.props;
     const { open, notification } = this.state
     return (
 

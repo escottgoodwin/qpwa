@@ -1,19 +1,9 @@
 import React,{Component} from 'react'
 import '../css/App.css'
 
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Fade from '@material-ui/core/Fade';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
-
-import TestHeaderStudent from '../components/TestHeaderStudent'
-import PhotoComponent from '../components/PhotoComponent'
-
-import { Query } from "react-apollo"
-import { TEST_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -81,9 +71,6 @@ class StudentAddPhotos extends Component {
     }
 
     render() {
-
-      const { classes } = this.props
-      const { testId } = this.props.location.state
 
       return (
 

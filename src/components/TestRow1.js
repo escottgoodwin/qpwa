@@ -1,8 +1,6 @@
 import React from 'react';
 import '../css/App.css';
-
 import { withRouter } from "react-router";
-import {Link} from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';

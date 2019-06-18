@@ -2,7 +2,6 @@ import React,{Component} from 'react'
 import '../css/App.css'
 
 import Fade from '@material-ui/core/Fade';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -80,7 +79,7 @@ class StudentTestAnswers extends Component {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const { total, totalCorrect, percentCorrect, answers } = data.userAnswers1
+              const { answers } = data.userAnswers1
 
 
               return (

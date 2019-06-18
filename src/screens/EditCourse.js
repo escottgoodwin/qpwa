@@ -4,37 +4,13 @@ import * as Cookies from "js-cookie"
 //import { Form, FormGroup, Label, Input, } from 'reactstrap';
 
 import { Query, Mutation } from "react-apollo";
-import Error from './Error'
-import Loading from './Loading'
 
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea'
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
-
-import MomentUtils from '@date-io/moment';
-
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 import TeacherCourseHeader from '../components/TeacherCourseHeader'
 import EditCourseInput from '../components/EditCourseInput'
@@ -107,8 +83,6 @@ render() {
           {({ loading, error, data }) => {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
             if (error) return <div> {JSON.stringify(error)} </div>
-
-            const courseToRender = data.course
 
         return (
           <Fade in={!loading}>

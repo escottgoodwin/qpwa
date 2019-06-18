@@ -2,8 +2,6 @@ import React,{Component} from 'react'
 import '../css/App.css'
 
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -78,7 +76,7 @@ class StudentTestQuestions extends Component {
             if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
             if (error) return <div>{JSON.stringify(error)}</div>
 
-            const { totalQuestions, answers, totalCorrect, percentCorrect, questions } = data.userQuestions1
+            const { questions } = data.userQuestions1
 
         return (
           <Fade in={!loading}>

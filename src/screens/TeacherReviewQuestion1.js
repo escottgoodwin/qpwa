@@ -1,8 +1,6 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Message } from 'semantic-ui-react'
 
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,8 +22,8 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
 
-import { Mutation, Query } from "react-apollo"
-import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
+import { Query } from "react-apollo"
+import { QUESTION_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   container: {
@@ -88,13 +86,6 @@ const Transition = props =>  <Slide direction="up" {...props} />
 
 class TeacherReviewQuestion extends Component {
 
-  state = {
-          graphQLError: '',
-          isVisibleGraph:false,
-          networkError:'',
-          isVisibleNet:false,
-      }
-
       handleChange = event => {
           this.setState({ value: event.target.value });
         };
@@ -108,10 +99,7 @@ class TeacherReviewQuestion extends Component {
       };
 
     render() {
-
-
-      const { graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
-
+      
       const { classes } = this.props
       const { questionId, testId } = this.props.location.state
 

@@ -67,7 +67,7 @@ class TestHeaderTeacher  extends Component {
 
   render() {
 
-    const { classes, subject, image, testNumber, course, testDate, testType, id, history } = this.props
+    const { classes, subject, testNumber, course, testDate, testType, id, history } = this.props
 
     return (
       <>

@@ -1,20 +1,15 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Link } from 'react-router-dom'
 
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
-import PanelList from '../components/PanelList1'
 
 import { Query } from "react-apollo"
 import { USER_TEST_STATS_QUERY } from '../ApolloQueries'
@@ -111,8 +106,7 @@ class TeacherTestPerfStudent extends Component {
                 const { userTestStats } = data
 
                 const bestStudents = listSort1(userTestStats,'percentCorrect','desc')
-                const worstStudents = listSort1(userTestStats,'percentCorrect','asc')
-
+                
             return (
 
               <>

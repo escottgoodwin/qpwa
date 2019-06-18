@@ -2,8 +2,6 @@ import React,{Component} from 'react'
 import '../css/App.css'
 
 import Fade from '@material-ui/core/Fade';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,10 +12,8 @@ import { Microscope } from 'mdi-material-ui'
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import BookIcon from '@material-ui/icons/Book';
 import { withStyles } from '@material-ui/core/styles';
-import CourseHeaderStudent from '../components/CourseHeaderStudent'
-import StudentTestList from '../components/StudentTestList'
 
-import { Query, Mutation } from "react-apollo"
+import { Query } from "react-apollo"
 import { NEW_QUESTIONS } from '../ApolloQueries'
 
 const styles = theme => ({
@@ -85,8 +81,7 @@ class StudentNewQuestions extends Component {
 
   render() {
     const userId = sessionStorage.getItem('userid')
-    const { classes, history } = this.props
-    const { course_id }= this.props.location.state
+    const { history } = this.props
 
     return (
 

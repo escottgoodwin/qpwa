@@ -8,7 +8,7 @@ class TeacherTestButtons extends Component {
 
   render(){
 
-    const { panels, id, testType } = this.props
+    const { panels, id } = this.props
     return (
 
       <>

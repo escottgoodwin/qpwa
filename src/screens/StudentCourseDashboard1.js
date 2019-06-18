@@ -72,7 +72,6 @@ class StudentCourseDashboard extends Component {
 
   render() {
 
-    const { classes } = this.props
     const { course_id }= this.props.location.state
 
     return (

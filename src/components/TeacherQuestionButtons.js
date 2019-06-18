@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React from 'react'
 import '../css/App.css'
 import { Link, withRouter } from 'react-router-dom'
 import moment from 'moment'
@@ -8,21 +8,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
 
 import { RELEASE_QUESTIONS_MUTATION, TEST_QUERY } from '../ApolloQueries'
-
-
-
-const _confirm = async data => {
-  const { id } = data.updateTest
-  this.props.history.push({
-    pathname: `/test_dashboard`,
-    state: { test_id: id }
-    })
-}
 
 function releaseQuestion(id){
   const now = new Date()

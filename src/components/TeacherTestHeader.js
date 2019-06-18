@@ -28,7 +28,7 @@ class TeacherTestHeader  extends Component {
               if (loading) return <div style={{height:'20vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const { course, id, image, testType, testNumber, subject, testDate } = data.test
+              const { course, id, testType, testNumber, subject, testDate } = data.test
 
           return (
 

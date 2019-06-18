@@ -20,7 +20,6 @@ import StudentCourseDashboard from './screens/StudentCourseDashboard1'
 import CourseInvitation from './screens/CourseInvitation'
 import AddCourse from './screens/AddCourse'
 import EditCourse from './screens/EditCourse'
-import TestDashboard from './screens/TestDashboard'
 import StudentTestDashboard from './screens/StudentTestDashboard1'
 import TestPanels from './screens/TestPanels'
 import StudentTestPanels from './screens/StudentTestPanels'
@@ -31,7 +30,6 @@ import EditPublishTest from './screens/EditPublishTest'
 import StudentPerformance from './screens/StudentPerformance'
 import StudentTestPerformance from './screens/StudentTestPerformance'
 import ChallengeDashboard2 from './screens/ChallengeDashboard3'
-import CourseStudents from './screens/CourseStudents'
 import InstitutionDashboard from './screens/InstitutionDashboard'
 import AddAdministrator from './screens/AddAdministrator'
 import AddTeacherQuandrio from './screens/AddTeacherQuandrio'
@@ -104,13 +102,7 @@ class App extends Component {
       const { data, notification } = payload
       const { title, body } = notification
 
-      const { questionId, testId, course, institution, testNumber, subject } = data
-
-      var notificationTitle = title;
-      var notificationOptions = {
-        body: body,
-        icon: '/assets/android-chrome-512x512.png'
-      };
+      const { questionId, testId, } = data
 
       const newNotification = {
         body,

@@ -2,25 +2,11 @@ import React,{Component} from 'react'
 import '../css/App.css'
 import { Mutation } from "react-apollo"
 import {withRouter} from "react-router-dom"
-import moment from 'moment'
 
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea'
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 
 import { EDIT_COURSE_MUTATION } from '../ApolloQueries'

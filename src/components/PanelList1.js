@@ -4,10 +4,7 @@ import '../css/App.css';
 import { Query } from "react-apollo";
 import {TEST_PANEL_STATS_QUERY} from '../ApolloQueries'
 
-import Fade from '@material-ui/core/Fade';
-
 import LazyLoad from 'react-lazyload';
-import { CSSTransitionGroup } from 'react-transition-group';
 
 import PanelRow from './PanelRow1'
 
@@ -15,7 +12,7 @@ import PanelRow from './PanelRow1'
 class PanelList extends Component {
 
   render() {
-      const {scrollPosition} = this.props;
+
       return (
 
         <Query query={TEST_PANEL_STATS_QUERY} variables={{ testId: this.props.id }}>
@@ -33,7 +30,7 @@ class PanelList extends Component {
                 <LazyLoad throttle={200} once={true} key={panel.id} height={200} offset={[-100, 0]}>
 
                 <PanelRow  classes={this.props.classes} key={panel.panelLink} test={this.props} {...panel} />
-                
+
                 </LazyLoad>
                 )}
 

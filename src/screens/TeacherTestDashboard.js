@@ -16,7 +16,7 @@ import TeacherQuestionButtons from '../components/TeacherQuestionButtons'
 
 
 import { Query } from "react-apollo";
-import { TEST_QUERY,NEW_CHALLENGE_SUBSCRIPTION,DELETE_TEST_MUTATION,CHALLENGE_TEST_QUERY,TEST_STATS_QUERY, TEACHER_DASHBOARD_QUERY } from '../ApolloQueries';
+import { TEST_QUERY } from '../ApolloQueries';
 
 const styles = theme => ({
   container: {
@@ -83,11 +83,6 @@ class TeacherTestDashboard extends Component {
             {({ loading, error, data }) => {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
-
-              const testToRender = data.test
-
-              const { published, publishDate, release, image, testType, releaseDate, endDate, startTime, endTime } = testToRender
-
 
           return (
             <Fade in={!loading}>

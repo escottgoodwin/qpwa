@@ -1,21 +1,14 @@
 import React,{Component} from 'react';
 import '../css/App.css';
-import { Mutation } from "react-apollo";
+
 import {withRouter} from "react-router-dom"
 
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import blue from '@material-ui/core/colors/blue';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
-
-import gql from "graphql-tag";
-
-import { JOIN_MUTATION, STUDENT_COURSE_QUERY } from '../ApolloQueries'
 
 const styles = theme => ({
   card: {
@@ -77,11 +70,7 @@ render() {
 
 
     )
-
   }
-    _confirm = async data => {
-      this.props.history.push({pathname: `/student_dashboard`})
-    }
 }
 
 export default withStyles(styles)(withRouter(InvitationRow))

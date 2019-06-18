@@ -2,27 +2,16 @@ import React,{Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import '../css/App.css'
 import { Query } from "react-apollo"
-import { Link } from 'react-router-dom'
 
 import InvitationList from '../components/InvitationList'
 import StudentCourseList from '../components/StudentCourseList'
 import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 
 import green from '@material-ui/core/colors/green';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
-import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 import { STUDENT_COURSE_QUERY, NEW_QUESTIONS } from '../ApolloQueries'
 
@@ -56,12 +45,8 @@ class StudentDashboard extends Component {
 
   render() {
     const userid = sessionStorage.getItem('userid')
-    const questionId = 'cjuub450n01bb0751keow7kjv'
 
     const { history, classes } = this.props
-
-    const answerId = 'cjunbxcu800dx0734t8cq9arz'
-    const testId = 'cjuub0c8j00x707512cybsukb'
 
     return (
 

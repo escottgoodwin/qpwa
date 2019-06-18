@@ -13,7 +13,6 @@ import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import CardActionArea from '@material-ui/core/CardActionArea'
 import Fade from '@material-ui/core/Fade';
-import LazyLoad from 'react-lazyload';
 
 const styles = {
   card: {

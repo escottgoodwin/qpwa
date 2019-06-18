@@ -3,7 +3,6 @@ import * as Cookies from "js-cookie"
 import '../css/App.css'
 import { Query } from "react-apollo"
 
-import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 
 import TeacherHeader from '../components/TeacherHeader'

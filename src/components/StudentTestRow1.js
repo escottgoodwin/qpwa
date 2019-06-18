@@ -84,12 +84,12 @@ const StudentTestRow1 = (props) =>
         <h5>  Questions: {props.test.questions.length}</h5>
 
         </Grid>
-        <Grid item item xs={4}>
+        <Grid item xs={4}>
         <h5>
           Answers: {props.test.questions.map(q => q.questionAnswers.length).reduce((a,b) => a + b, 0)}
         </h5>
         </Grid>
-        <Grid item item xs={4}>
+        <Grid item xs={4}>
         <h5>
           Panels: { props.test.panels.length }
         </h5>

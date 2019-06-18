@@ -4,7 +4,6 @@ import { withRouter } from "react-router";
 
 import { withStyles } from '@material-ui/core/styles';
 
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
@@ -15,9 +14,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import { Query } from "react-apollo"
@@ -74,7 +71,6 @@ class TeacherTestStudents extends Component {
 
               const { userTestStats } = data
 
-              const withAnswers = userTestStats.filter(s => s.total > 0)
               const bestStudents = listSort1(userTestStats,'percentCorrect','desc').slice(0, 3)
               const worstStudents = listSort1(userTestStats,'percentCorrect','asc').slice(0, 3)
 

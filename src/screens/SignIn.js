@@ -90,7 +90,6 @@ class SignIn extends Component {
   };
 
     componentDidMount(){
-      const pushToken = Cookies.set('pushToken')
 
       messaging.getToken().then(currentToken => {
         if (currentToken) {

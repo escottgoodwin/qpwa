@@ -1,19 +1,16 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import * as Cookies from "js-cookie"
-import CourseHeader from '../components/CourseHeader'
-import TestList from '../components/TestList'
-import { Query, Mutation } from "react-apollo"
-import { Message } from 'semantic-ui-react'
+
 import Fade from '@material-ui/core/Fade';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
-import Error from './Error'
 
-import Loading from './Loading'
+import CourseHeader from '../components/CourseHeader'
+import TestList from '../components/TestList'
 
-import {NEW_COURSE_DASHBOARD_QUERY, DELETE_COURSE_MUTATION, TEACHER_DASHBOARD_QUERY} from '../ApolloQueries'
+import { Query } from "react-apollo"
+import { NEW_COURSE_DASHBOARD_QUERY } from '../ApolloQueries'
 
 class CourseDashboard extends Component {
 

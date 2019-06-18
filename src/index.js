@@ -2,7 +2,6 @@ import React from 'react'
 import * as Cookies from "js-cookie"
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker';
-import { messaging } from 'firebase'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'

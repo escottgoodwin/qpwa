@@ -1,8 +1,6 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Link } from 'react-router-dom'
 
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
@@ -78,8 +76,6 @@ class TeacherTestPanels extends Component {
               {({ loading, error, data }) => {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
-
-                const { id, testType } = data.test
 
             return (
 

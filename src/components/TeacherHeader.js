@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/App.css';
-import { Link } from 'react-router-dom'
-import Button from '@material-ui/core/Button';
+
 import Paper from '@material-ui/core/Paper';
 
 const TeacherHeader = (props) =>

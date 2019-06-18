@@ -3,17 +3,13 @@ import '../css/App.css'
 
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 
 import blue from '@material-ui/core/colors/blue';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { withStyles } from '@material-ui/core/styles';
-import CourseHeaderStudent from '../components/CourseHeaderStudent'
-import StudentTestList from '../components/StudentTestList'
 
 import { Query, Mutation } from "react-apollo"
 import { COURSE_QUERY,STUDENT_COURSE_QUERY, JOIN_MUTATION } from '../ApolloQueries'
@@ -83,7 +79,6 @@ class StudentJoinCourse extends Component {
 
   render() {
 
-    const { classes } = this.props
     const { course_id }= this.props.location.state
 
     return (
@@ -98,7 +93,7 @@ class StudentJoinCourse extends Component {
               if (error) return <div> {JSON.stringify(error)} </div>
 
               const courseToRender = data.course
-              const { name, time, courseNumber, institution, image, students, teachers, invite } = data.course
+              const { name, time, courseNumber, institution, image, teachers } = data.course
               console.log(courseToRender)
           return (
             <Fade in={!loading}>
