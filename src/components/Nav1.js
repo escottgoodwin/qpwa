@@ -33,24 +33,36 @@ class Nav1 extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  answerQuestion = (questionId) => {
+    this.setState({ open: false });
+    this.props.history.push({
+     pathname: "/answer_question",
+     state:
+       { questionId }
+     })
+  }
+
   componentDidMount(){
     const userId = Cookies.get('userid')
-    const notifications = collection.child(userId)
 
-    notifications.limitToLast(1).on('child_added', snapshot => {
+    if (userId){
+      const notifications = collection.child(userId)
 
-    const timeAdded = new Date(snapshot.val().added)
-    const now = new Date()
-    const nowPlusTen = now.setSeconds(now.getSeconds() - 5);
+      notifications.limitToLast(1).on('child_added', snapshot => {
 
-    if (timeAdded >= nowPlusTen){
+      const timeAdded = new Date(snapshot.val().added)
+      const now = new Date()
+      const nowPlusTen = now.setSeconds(now.getSeconds() - 5);
 
-      const notification = snapshot.val()
+      if (timeAdded >= nowPlusTen){
 
-      this.setState({ notification, open:true })
+        const notification = snapshot.val()
+
+        this.setState({ notification, open:true })
+      }
+
+      });
     }
-
-    });
 
   }
 
@@ -92,7 +104,9 @@ class Nav1 extends React.Component {
             <Grid container >
 
             <Grid item xs={6}>
-            <Button onClick={() => this.handleAnswer(notification.questionId)} variant="outlined" color="primary"  className={classes.button} >Answer</Button>
+
+            <Button onClick={()=> this.answerQuestion(notification.questionId)}
+              variant="outlined" color="primary"  className={classes.button} >Answer</Button>
             </Grid>
 
             <Grid item xs={6}>

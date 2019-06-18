@@ -92,9 +92,8 @@ class StudentJoinCourse extends Component {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const courseToRender = data.course
               const { name, time, courseNumber, institution, image, teachers } = data.course
-              console.log(courseToRender)
+
           return (
             <Fade in={!loading}>
             <>

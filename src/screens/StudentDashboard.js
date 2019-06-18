@@ -55,13 +55,13 @@ class StudentDashboard extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div> {JSON.stringify(error)} </div>
 
-                const userToRender = data.user
-                const studentCourses = new Array(userToRender.studentCourses.filter(course => !course.deleted))
+                const { id, firstName, lastName, invitesSentTo, studentCourses } = data.user
+                const activeCourses = new Array(studentCourses.filter(course => !course.deleted))
 
                 return (
                   <Fade in={!loading}>
                     <>
-                    <h4 >Welcome {userToRender.firstName} {userToRender.lastName}</h4>
+                    <h4 >Welcome {firstName} {lastName}</h4>
 
                     <Query query={NEW_QUESTIONS} variables={{ userId: userid }}>
                           {({ loading, error, data }) => {
@@ -72,13 +72,9 @@ class StudentDashboard extends Component {
 
                             return (
                               <div style={{marginRight:35,marginLeft:35}}>
-                              {count &&
+                              {count>0 &&
 
-                              <Card onClick={()=>history.push({
-                                pathname: "/new_questions",
-                                state:
-                                  {  }
-                                })}
+                              <Card onClick={()=>history.push("/new_questions")}
                               className={classes.card}>
 
                               <div className={classes.details}>
@@ -94,21 +90,20 @@ class StudentDashboard extends Component {
                               </CardActionArea>
                             </Card>
 
-
                             }
                             </div>
                             )
                           }}
                         </Query>
 
-                    {userToRender.invitesSentTo.length>0 &&
+                    {invitesSentTo.length>0 &&
                       <div style={{marginTop:10,marginBottom:10,marginRight:35,marginLeft:35}}>
 
-                      <InvitationList userid={userToRender.id} invites={userToRender.invitesSentTo}/>
+                      <InvitationList userid={id} invites={invitesSentTo}/>
                       </div>
                     }
 
-                      <StudentCourseList  {...studentCourses} />
+                      <StudentCourseList  {...activeCourses} />
 
                     </>
                     </Fade>

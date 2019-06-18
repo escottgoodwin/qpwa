@@ -1,8 +1,6 @@
 import React,{Component} from 'react'
 import * as Cookies from "js-cookie"
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
-import { Message } from 'semantic-ui-react'
 import { messaging } from '../firebase'
 
 import Button from '@material-ui/core/Button';
@@ -19,6 +17,11 @@ import FingerPrintIcon from '@material-ui/icons/Fingerprint';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+
+import CloseIcon from '@material-ui/icons/Close';
+import ErrorIcon from '@material-ui/icons/Error';
 
 import { Mutation } from "react-apollo"
 import {MOBILE_LOGIN_MUTATION} from '../ApolloQueries'
@@ -38,6 +41,20 @@ const styles = theme => ({
   },
   menu: {
     width: 200,
+  },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing(1),
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
   },
   main: {
     width: 'auto',
@@ -82,6 +99,7 @@ class SignIn extends Component {
       isVisibleNet:false,
       isVisible:false,
       errorMsg:'',
+      loginError:'',
       showPassword:false
     }
 
@@ -94,7 +112,6 @@ class SignIn extends Component {
       messaging.getToken().then(currentToken => {
         if (currentToken) {
         this.setState({pushToken:currentToken})
-        console.log(currentToken)
       } else {
 
       }
@@ -105,7 +122,7 @@ class SignIn extends Component {
     }
 
     render() {
-      const { email, password, pushToken, graphQLError, networkError, isVisibleNet, isVisibleGraph, errorMsg, loginError } = this.state
+      const { email, password, pushToken, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
       const { classes } = this.props
       console.log(pushToken)
 
@@ -120,7 +137,6 @@ class SignIn extends Component {
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
-
         </Typography>
 
         <form className={classes.form}>
@@ -201,25 +217,52 @@ class SignIn extends Component {
 
         </form>
         </Paper>
+
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={isVisibleGraph}
+        autoHideDuration={6000}
+        >
+        <SnackbarContent
+        className={classes.error}
+        message={
+        <span id="client-snackbar" className={classes.message}>
+          <ErrorIcon style={{margin:5}}/>
+          {graphQLError}
+        </span>}
+        action={[
+          <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleGraph:false})}>
+            <CloseIcon className={classes.icon} />
+          </IconButton>,
+        ]}
+      />
+      </Snackbar>
+      <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={isVisibleNet}
+      autoHideDuration={6000}
+      onClose={() => this.setState({isVisibleNet:false})}
+      className={classes.margin}
+      message={
+      <span id="client-snackbar" className={classes.message}>
+        <ErrorIcon />
+        {networkError}
+      </span>}
+      action={[
+        <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleNet:false})}>
+          <CloseIcon className={classes.icon} />
+        </IconButton>,
+      ]}
+    />
+
+
       </main>
-
-        {isVisibleGraph &&
-          <Message negative>
-            <p><b>{graphQLError}</b></p>
-          </Message>
-        }
-
-        {isVisibleNet &&
-          <Message negative>
-            <p><b>{networkError}</b></p>
-          </Message>
-        }
-
-        {loginError &&
-          <Message negative>
-            <p><b>{errorMsg}</b></p>
-          </Message>
-        }
 
       </div>
 

@@ -81,6 +81,7 @@ class App extends Component {
     messaging.getToken().then(function(currentToken) {
       if (currentToken) {
         //console.log('token exists')
+        console.log(currentToken)
       } else {
         Notification.requestPermission().then(function(permission) {
           if (permission === 'granted') {
