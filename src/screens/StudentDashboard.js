@@ -72,7 +72,7 @@ class StudentDashboard extends Component {
 
                 const userToRender = data.user
                 const studentCourses = new Array(userToRender.studentCourses.filter(course => !course.deleted))
-                console.log(userToRender.invitesSentTo)
+
                 return (
                   <Fade in={!loading}>
                     <>
@@ -115,8 +115,6 @@ class StudentDashboard extends Component {
                             )
                           }}
                         </Query>
-
-
 
                     {userToRender.invitesSentTo.length>0 &&
                       <div style={{marginTop:10,marginBottom:10,marginRight:35,marginLeft:35}}>

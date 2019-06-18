@@ -63,6 +63,7 @@ import TeacherTestChallenges from './screens/TeacherTestChallenges'
 import TeacherTestPerfStudent from './screens/TeacherTestPerfStudent'
 import TeacherTestPerfQuestion from './screens/TeacherTestPerfQuestion'
 import StudentJoinCourse from './screens/StudentJoinCourse'
+import StudentNewQuestions from './screens/StudentNewQuestions'
 
 
 import Nav1 from './components/Nav1'
@@ -124,7 +125,6 @@ class App extends Component {
 
     })
 }
-
 
   render() {
 
@@ -190,7 +190,7 @@ class App extends Component {
           <Route path="/teacher_test_students" component={TeacherTestPerfStudent}/>
           <Route path="/teacher_test_questions" component={TeacherTestPerfQuestion}/>
           <Route path="/join_course" component={StudentJoinCourse}/>
-
+          <Route path="/new_questions" component={StudentNewQuestions}/>
 
         </Switch>
 

@@ -51,9 +51,9 @@ class UserQuestionStats extends Component {
             <Divider />
 
             <CardContent >
-            <Grid container justify="center" spacing={24}>
+            <Grid container  >
 
-            <Grid  item xs={4}>
+            <Grid item xs={4}>
             <h5>
             Questions : {totalQuestions}
             </h5>

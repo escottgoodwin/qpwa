@@ -2059,21 +2059,21 @@ query UserQuestions($testId:ID!){
     answers
     questions{
       id
-    question
-    choices{
-      id
-      choice
-      correct
-    }
-    questionAnswers{
-      id
-      answerCorrect
-      answer{
+      question
+      choices{
         id
         choice
         correct
       }
-    }
+      questionAnswers{
+        id
+        answerCorrect
+        answer{
+          id
+          choice
+          correct
+        }
+      }
     }
   }
 }
@@ -2092,7 +2092,6 @@ query UserAnsweredStats($testId:ID!){
 export const USER_ANSWERS_QUERY_OLD = gql`
 query UserAnswers($testId:ID!){
   userAnswers(testId:$testId){
-    id
     answerCorrect
     answer{
       id
@@ -2182,6 +2181,21 @@ query NewQuestions($userId:ID!){
   questions(where:{AND:[{sentTo:{id:$userId}},
   {questionAnswers_every:{id:null}}]}){
     count
+    questions{
+      id
+      question
+      test{
+        id
+        subject
+        testType
+        testNumber
+        course {
+          id
+          name
+          courseNumber
+        }
+      }
+    }
   }
 }
 `

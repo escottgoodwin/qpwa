@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
 import StudentTestHeader from '../components/StudentTestHeader'
+import UserAnswerStats from '../components/UserAnswerStats'
 
 import { Query } from "react-apollo"
 import { USER_ANSWERS_QUERY } from '../ApolloQueries'
@@ -88,29 +89,7 @@ class StudentTestAnswers extends Component {
 
                 <StudentTestHeader classes={classes} test_id={testId} />
 
-                <Paper style={{padding:10}}>
-
-                <h4>
-                Your Answers
-                </h4>
-                <hr />
-
-                <Grid container justify="center" spacing={24}>
-                <Grid  item>
-                <h5>
-                Total: {total}
-                </h5>
-                </Grid>
-
-                <Grid  item>
-                <h5>
-                Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
-                </h5>
-                </Grid>
-
-                </Grid>
-
-                </Paper>
+                <UserAnswerStats classes={classes} testId={testId} />
 
                 {
                   answers.length>0 &&

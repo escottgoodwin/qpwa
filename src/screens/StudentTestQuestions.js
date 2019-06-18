@@ -8,6 +8,7 @@ import Fade from '@material-ui/core/Fade';
 import { withStyles } from '@material-ui/core/styles';
 
 import StudentTestHeader from '../components/StudentTestHeader'
+import UserQuestionStats from '../components/UserQuestionStats'
 import UserQuestionItem from '../components/UserQuestionItem'
 
 import { Query } from "react-apollo"
@@ -86,36 +87,8 @@ class StudentTestQuestions extends Component {
 
           <div style={{marginBottom:50}}>
           <StudentTestHeader classes={classes} test_id={testId} />
-          <Paper style={{padding:15}}>
-          <Typography variant="h" component="h4">
-          Your Questions
-          </Typography>
 
-          <hr />
-
-          <Grid container justify="center" spacing={24}>
-          <Grid  item>
-          <Typography variant="h" component="h5">
-          Questions : {totalQuestions}
-          </Typography>
-          </Grid >
-
-          <Grid  item>
-          <Typography variant="h" component="h5">
-            Answers: {answers}
-          </Typography>
-          </Grid >
-
-          <Grid  item>
-
-          <Typography variant="h" component="h5">
-            Correct: {totalCorrect} ({Math.round(percentCorrect*100)}%)
-          </Typography>
-
-          </Grid >
-
-          </Grid>
-          </Paper>
+          <UserQuestionStats classes={classes} testId={testId}/>
 
           {
             questions.length >0 &&
