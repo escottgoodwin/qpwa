@@ -825,7 +825,7 @@ export const ADD_PANELS_MUTATION = gql`
     `
 
 export const PHOTO_LABEL_MUTATION = gql`
-  mutation SendLink($testId:ID!, $link:String!, $label: String){
+  mutation SendLink($testId:ID!, $link:String!, $label: String!){
     addLabeledPhoto(link:$link, testId:$testId, label: $label){
       link
       id

@@ -4,6 +4,13 @@
   bottom: 90px;
 }
 
+
+#label-input {
+  position: absolute;
+  left: 50%;
+  bottom: 190px;
+}
+
 #outer-circle {
   position: absolute;
   left: -37px;
@@ -28,7 +35,7 @@
   height: 44px;
   width: 44px;
 
-  background: white;
+  background: red;
   border-radius: 50%;
 
   /*

@@ -62,7 +62,7 @@ import TeacherTestPerfStudent from './screens/TeacherTestPerfStudent'
 import TeacherTestPerfQuestion from './screens/TeacherTestPerfQuestion'
 import StudentJoinCourse from './screens/StudentJoinCourse'
 import StudentNewQuestions from './screens/StudentNewQuestions'
-
+import AppCam from './screens/AppSaveToLocalFile'
 
 import Nav1 from './components/Nav1'
 
@@ -80,14 +80,12 @@ class App extends Component {
 
     messaging.getToken().then(function(currentToken) {
       if (currentToken) {
-        //console.log('token exists')
         console.log(currentToken)
       } else {
         Notification.requestPermission().then(function(permission) {
           if (permission === 'granted') {
             console.log('Notification permission granted.');
-            // TODO(developer): Retrieve an Instance ID token for use with FCM.
-            // ...
+
           } else {
             console.log('Unable to get permission to notify.');
           }
@@ -103,7 +101,7 @@ class App extends Component {
       const { data, notification } = payload
       const { title, body } = notification
 
-      const { questionId, testId, } = data
+      const { questionId, testId } = data
 
       const newNotification = {
         body,
@@ -123,7 +121,9 @@ class App extends Component {
 
     return (
       <div className="App">
+
         <Nav1 />
+
         <div style={{marginTop: '65px',backgroundColor:'#e4f1fe'}}>
         <Switch>
           <Route exact path="/" component={SignIn}/>

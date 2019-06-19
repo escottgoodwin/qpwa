@@ -3,6 +3,7 @@ import '../css/App.css';
 
 import * as Cookies from "js-cookie"
 import { withRouter } from 'react-router-dom'
+import { withApollo } from 'react-apollo';
 import { database } from '../firebase'
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,11 +16,13 @@ import green from '@material-ui/core/colors/green';
 import SignInButton from './SignInButton'
 import DashboardButton from './DashboardButton'
 
+import { NEW_QUESTIONS } from '../ApolloQueries'
+
 const collection = database.child('notifications')
 
 class Nav1 extends React.Component {
 
-  state = { open: false, notification:'' }
+  state = { open: false, notification:'', count:0 }
 
   handleChange = event => {
     this.setState({ auth: event.target.checked });
@@ -46,6 +49,19 @@ class Nav1 extends React.Component {
     const userId = Cookies.get('userid')
 
     if (userId){
+
+      this.props.client.query({
+                  query: NEW_QUESTIONS,
+                  variables: { userId }
+                }).then(data => {
+                  const { count } = data.data.questions
+                  this.setState({count})
+
+                }
+                )
+
+
+
       const notifications = collection.child(userId)
 
       notifications.limitToLast(1).on('child_added', snapshot => {
@@ -57,8 +73,8 @@ class Nav1 extends React.Component {
       if (timeAdded >= nowPlusTen){
 
         const notification = snapshot.val()
-
-        this.setState({ notification, open:true })
+        const newCount = this.state.count + 1
+        this.setState({ notification, open:true, count: newCount })
       }
 
       });
@@ -68,7 +84,7 @@ class Nav1 extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { open, notification } = this.state
+    const { open, notification, count } = this.state
     return (
 
 <div className={classes.root}>
@@ -83,7 +99,7 @@ class Nav1 extends React.Component {
         <Grid item >
         <Button onClick={() => this.setState({open:true})} variant="outlined" color="inherit">
 
-            Quandrio
+            Quandrio {count}
 
         </Button>
         </Grid>
@@ -94,7 +110,7 @@ class Nav1 extends React.Component {
         </Grid>
         </Grid>
         </Toolbar>
-        <Drawer  anchor="top" open={open} onClose={() => this.setState({open:false})}>
+        <Drawer  anchor="bottom" open={open} onClose={() => this.setState({open:false})}>
 
             <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
             <center>
@@ -141,4 +157,5 @@ class Nav1 extends React.Component {
     },
   };
 
-export default withStyles(styles)(withRouter(Nav1))
+
+export default withStyles(styles)(withApollo((withRouter(Nav1))))
