@@ -10,6 +10,7 @@ import TestStats from '../components/TestStats'
 import UserQuestionStats from '../components/UserQuestionStats'
 import UserAnswerStats from '../components/UserAnswerStats'
 import StudentTestButtons from '../components/StudentTestButtons'
+import TeacherQuestionButtons from '../components/TeacherQuestionButtons'
 
 import { Query } from "react-apollo";
 import { TEST_QUERY } from '../ApolloQueries';
@@ -92,6 +93,8 @@ class StudentTestDashboard extends Component {
 
             <UserAnswerStats classes={classes} testId={test_id} />
 
+            <TeacherQuestionButtons {...data.test}/>
+            
             </div>
           </Fade>
           )

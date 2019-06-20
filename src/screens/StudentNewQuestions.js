@@ -110,7 +110,7 @@ class StudentNewQuestions extends Component {
 
                 <CardContent style={{height:'100%',padding:10, backgroundColor:green[500],color:green[100]}}>
 
-                  <ContactSupportIcon />
+                  < ContactSupportIcon style={{fontSize:36}}/>
 
                 </CardContent>
 

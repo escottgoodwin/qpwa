@@ -84,7 +84,7 @@ class StudentJoinCourse extends Component {
     return (
 
       <>
-
+    
       <div style={{marginBottom:50}}>
 
       <Query query={COURSE_QUERY} variables={{ courseid: course_id }} fetchPolicy="cache-and-network">
@@ -107,7 +107,7 @@ class StudentJoinCourse extends Component {
               <div >
                 <CardContent style={{height:'100%',padding:10, backgroundColor:blue[500],color:blue[100]}}>
 
-                  <PersonAddIcon />
+                  <PersonAddIcon style={{fontSize:36}} />
 
                 </CardContent>
               </div>
@@ -174,6 +174,7 @@ class StudentJoinCourse extends Component {
     </Query>
 
     </div>
+
     </>
 
     )

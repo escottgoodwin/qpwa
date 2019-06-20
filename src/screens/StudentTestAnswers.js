@@ -3,6 +3,10 @@ import '../css/App.css'
 
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
+
 import { withStyles } from '@material-ui/core/styles';
 
 import StudentTestHeader from '../components/StudentTestHeader'
@@ -66,13 +70,11 @@ class StudentTestAnswers extends Component {
   render() {
 
     const { testId } = this.props.location.state
-    const { classes } = this.props
+    const { classes, history } = this.props
 
       return (
 
-        <main className={classes.main}>
-
-        <div style={{marginBottom:50}}>
+        <div style={{height:'100%',marginBottom:50, marginLeft:30, marginRight:30,backgroundColor:'#e4f1fe'}} >
 
       <Query query={USER_ANSWERS_QUERY} variables={{ testId: testId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
@@ -80,8 +82,7 @@ class StudentTestAnswers extends Component {
               if (error) return <div> {JSON.stringify(error)} </div>
 
               const { answers } = data.userAnswers1
-
-
+              console.log(answers)
               return (
                 <Fade in={!loading}>
                 <div  >
@@ -93,41 +94,44 @@ class StudentTestAnswers extends Component {
                 {
                   answers.length>0 &&
 
-
-                <Paper style={{padding:25,marginTop:10}}>
-                <hr />
-                {
                   answers.map(item =>
-                    <>
+
+                    <div key={item.id} style={{padding:10,marginTop:10}} >
+                    <Card onClick={()=> history.push({
+                      pathname: "/question",
+                      state:
+                        { questionId: item.question.id }
+                      })}
+                    >
+                    <CardActionArea>
+                    <CardContent>
                     <h5  >
                      {item.question.question}
                     </h5>
-
+                    <hr />
                     {item.answerCorrect ?
-                      <h5 style={{color:'green'}} >{item.answer.choice}</h5>
+                      <><h5>Your Answer</h5><h5 style={{color:'green'}} >{item.answer.choice}</h5></>
                       :
                       <>
-                      <h5 style={{color:'red'}} >{item.answer.choice}</h5>
-                      <h5 style={{color:'green'}} >{item.question.choices.filter(choice => choice.correct)[0].choice}</h5>
+                      <><h5>Your Answer</h5><h5 style={{color:'red'}} >{item.answer.choice}</h5></>
+                      <><h5>Correct Answer</h5><h5 style={{color:'green'}} >{item.question.choices.filter(choice => choice.correct)[0].choice}</h5></>
                       </>
                     }
-                    <hr />
-                    </>
+
+                    </CardContent>
+                    </CardActionArea>
+                    </Card>
+                    </div>
                   )
                 }
-                </Paper>
-                }
-                </div>
 
+                </div  >
                 </Fade>
 
             )
           }}
           </Query>
           </div>
-
-          </main>
-
 
             )
       }

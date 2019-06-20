@@ -8,11 +8,15 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
 import BookIcon from '@material-ui/icons/Book';
 import { Microscope } from 'mdi-material-ui'
 import Typography from '@material-ui/core/Typography';
 import teal from '@material-ui/core/colors/teal';
 import cyan from '@material-ui/core/colors/cyan';
+import deepPurple from '@material-ui/core/colors/deepPurple';
+import orange from '@material-ui/core/colors/orange';
 
 var dateFormat = require('dateformat')
 
@@ -101,18 +105,25 @@ const StudentTestRow1 = (props) =>
           <hr/>
 
           <div>
-          <Grid container justify="center" >
+          <Grid container justify="center" spacing={24}>
 
-          <Grid key='release'item xs={6}>
+          <Grid key='Questions' item xs={6}>
 
-          <Button disabled={!props.test.release} variant="outlined">Released</Button>
-
+          {props.test.release ?
+          <Paper style={{margin:10,padding:10,color:deepPurple[800],backgroundColor:deepPurple[100]}} >Released</Paper>
+          :
+          <Paper style={{margin:10,padding:10,color:'grey'}}>Released</Paper>
+          }
           </Grid>
 
-          <Grid key='publish' item xs={6}>
+          <Grid key='Questions' item xs={6}>
 
-          <Button disabled={!props.test.published} variant="outlined">Published</Button>
+          {props.test.published ?
 
+            <Paper style={{margin:10,padding:10,color:orange[800],backgroundColor:orange[100]}} >Published</Paper>
+            :
+            <Paper style={{margin:10,padding:10,color:'grey'}}>Published</Paper>
+          }
           </Grid>
           </Grid>
 

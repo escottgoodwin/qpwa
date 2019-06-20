@@ -87,7 +87,7 @@ class TeacherTestQuestions extends Component {
             <CardActionArea>
             <CardContent style={{ backgroundColor:lightGreen[100]}}>
             <Typography style={{color:lightGreen[800]}} variant="h5" component="h5">
-              Student Performance
+              Question Performance
             </Typography>
 
             </CardContent >

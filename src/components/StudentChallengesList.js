@@ -6,6 +6,12 @@ import moment from 'moment'
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Fade from '@material-ui/core/Fade';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import Avatar from '@material-ui/core/Avatar';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
+import orange from '@material-ui/core/colors/orange';
 
 import { Query } from "react-apollo"
 import { STUDENT_CHALLENGES } from '../ApolloQueries'
@@ -14,7 +20,7 @@ class StudentChallengeList extends React.Component {
 
   render() {
 
-    const { testId, classes } = this.props
+    const { testId, classes, history } = this.props
     const userId = sessionStorage.getItem('userid')
 
     return(
@@ -29,26 +35,44 @@ class StudentChallengeList extends React.Component {
             <Fade in={!loading}>
             <div>
 
-            <Paper style={{padding:15}}>
+            <Card >
+            <CardContent style={{backgroundColor:orange[500]}}>
+            <center >
+            <AnnouncementIcon style={{fontSize:36,color:orange[200]}}/>
+            </center>
+            </CardContent>
+            <CardContent  style={{padding:25}}>
             <div><h3>Your Challenges - {count}</h3></div>
+            </CardContent>
+            </Card>
 
             {challenges.map(item =>
-              <div key={item.id}>
-              <hr />
-              <Link  to={{
-              pathname: `/challenge`,
-              state: { challengeId: item.id }
-              }} >
-              <div style={{marginBottom:5}}>{item.challenge} </div>
-              </Link >
+
+
+
+              <div key={item.id} style={{marginTop:10}} >
+
+              <Card onClick={()=> history.push({
+                pathname: "/challenge",
+                state: { challengeId: item.id }
+                })}
+              >
+              <CardActionArea>
+              <CardContent>
+
+              <div style={{marginBottom:5}}><h5>{item.challenge}</h5> </div>
 
               <Typography className={classes} color="textSecondary" gutterBottom>
                {moment(item.addedDate).format('MMMM Do YYYY, h:mm a')}
               </Typography>
 
+              </CardContent>
+              </CardActionArea>
+              </Card>
+
               </div>
             )}
-            </Paper>
+
             </div>
             </Fade>
 

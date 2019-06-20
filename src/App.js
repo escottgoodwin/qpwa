@@ -62,7 +62,7 @@ import TeacherTestPerfStudent from './screens/TeacherTestPerfStudent'
 import TeacherTestPerfQuestion from './screens/TeacherTestPerfQuestion'
 import StudentJoinCourse from './screens/StudentJoinCourse'
 import StudentNewQuestions from './screens/StudentNewQuestions'
-import AppCam from './screens/AppSaveToLocalFile'
+import Question from './screens/Question'
 
 import Nav1 from './components/Nav1'
 
@@ -124,7 +124,7 @@ class App extends Component {
 
         <Nav1 />
 
-        <div style={{marginTop: '65px',backgroundColor:'#e4f1fe'}}>
+        <div style={{marginTop: '65px'}}>
         <Switch>
           <Route exact path="/" component={SignIn}/>
           <Route path="/sign_in" component={SignIn}/>
@@ -184,6 +184,7 @@ class App extends Component {
           <Route path="/teacher_test_questions" component={TeacherTestPerfQuestion}/>
           <Route path="/join_course" component={StudentJoinCourse}/>
           <Route path="/new_questions" component={StudentNewQuestions}/>
+          <Route path="/question" component={Question}/>
 
         </Switch>
 

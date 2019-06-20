@@ -5,6 +5,9 @@ import moment from 'moment'
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 import { Query } from "react-apollo"
 import { CHALLENGE_QUESTION_QUERY } from '../ApolloQueries'
@@ -12,7 +15,7 @@ import { CHALLENGE_QUESTION_QUERY } from '../ApolloQueries'
 class StudentChallengeList extends React.Component {
 
   render() {
-    const { questionId, classes } = this.props
+    const { questionId, classes, history } = this.props
     return(
       <Query query={CHALLENGE_QUESTION_QUERY} variables={{ questionId: questionId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
@@ -27,20 +30,27 @@ class StudentChallengeList extends React.Component {
             <div>
             <div><h5>Question Challenges </h5></div>
             {challengesToRender.map(item =>
-              <div key={item.id}>
-              <hr />
-              <div >{item.challenge} </div>
+
+              <div key={item.id} style={{padding:10,marginTop:10}} >
+              <Card onClick={()=> history.push({
+                pathname: "/challenge",
+                state: { challengeId: item.id }
+                })}
+              >
+              <CardActionArea>
+              <CardContent>
+              <h5>{item.challenge} </h5>
 
               <Typography className={classes} color="textSecondary" gutterBottom>
               {item.addedBy.firstName} {item.addedBy.lastName} {moment(item.addedDate).calendar()}
               </Typography>
-                <Link  to={{
-                pathname: `/challenge`,
-                state: { challengeId: item.id }
-                }} >
-                more
-              </Link >
+
+              </CardContent>
+              </CardActionArea>
+              </Card>
               </div>
+
+
             )}
             </div>
             </Paper>

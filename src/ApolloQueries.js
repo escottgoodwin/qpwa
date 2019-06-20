@@ -1995,6 +1995,7 @@ export const CHALLENGE_QUESTION_QUERY = gql`
     }
   }
 `
+
 export const EDIT_CHALLENGE_MUTATION = gql`
 mutation EditChallenge($challengeiId:ID!,
   $challenge:String){

@@ -73,8 +73,8 @@ class Nav1 extends React.Component {
       if (timeAdded >= nowPlusTen){
 
         const notification = snapshot.val()
-        const newCount = this.state.count + 1
-        this.setState({ notification, open:true, count: newCount })
+
+        this.setState({ notification, open:true })
       }
 
       });
@@ -99,7 +99,7 @@ class Nav1 extends React.Component {
         <Grid item >
         <Button onClick={() => this.setState({open:true})} variant="outlined" color="inherit">
 
-            Quandrio {count}
+            Quandrio
 
         </Button>
         </Grid>

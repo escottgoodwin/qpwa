@@ -39,8 +39,8 @@ const TeacherQuestionButtons = props =>
 
         <>
         <Card style={{marginTop:20}}>
-        <CardContent style={{ backgroundColor:orange[100]}}>
-        <Typography style={{color:orange[800]}} variant="h5" component="h5">
+        <CardContent style={{ backgroundColor: orange[100]}}>
+        <Typography style={{color: orange[800]}} variant="h5" component="h5">
           Test Published
         </Typography>
         </CardContent>

@@ -27,7 +27,7 @@ class TeacherTestButtons extends Component {
           {
             testId: id }
         }} >
-        <Button style={{marginTop:20}}fullWidth size='large' variant='contained' color="primary" >Challenges</Button>
+        <Button style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Challenges</Button>
       </Link>
 
       <Link  to={{
