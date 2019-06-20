@@ -8,6 +8,8 @@ import Fade from '@material-ui/core/Fade';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
+import orange from '@material-ui/core/colors/orange';
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
 
@@ -91,20 +93,27 @@ class TeacherTestChallenges extends Component {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-                const { challenges } = data.challenges
+                const { challenges, count } = data.challenges
 
               return (
                 <Fade in={!loading}>
                 <>
                 <TeacherTestHeader classes={classes} test_id={testId} />
 
-                <Paper style={{padding:10}}>
-
-                <div style={{margin:10}}><h4>Test Challenges </h4></div>
+                <Card >
+                <CardContent style={{backgroundColor:orange[500]}}>
+                <center >
+                <AnnouncementIcon style={{fontSize:36,color:orange[200]}}/>
+                </center>
+                </CardContent>
+                <CardContent  style={{padding:25}}>
+                <div><h3>Test Challenges - {count}</h3></div>
+                </CardContent>
+                </Card>
 
                 {challenges.map(item =>
 
-                  <Card style={{margin:10}} key={item.id}
+                  <Card style={{marginBottom:10,marginTop:10}} key={item.id}
                   onClick={()=>history.push({
                     pathname: "/challenge",
                     state:
@@ -143,7 +152,7 @@ class TeacherTestChallenges extends Component {
                 </Card>
                 )}
 
-                </Paper>
+
                 </>
                 </Fade>
 

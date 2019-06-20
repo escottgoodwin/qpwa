@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import green from '@material-ui/core/colors/green';
 
 import SignInButton from './SignInButton'
@@ -22,7 +23,7 @@ const collection = database.child('notifications')
 
 class Nav1 extends React.Component {
 
-  state = { open: false, notification:'', count:0 }
+  state = { open: false, notification:'' }
 
   handleChange = event => {
     this.setState({ auth: event.target.checked });
@@ -84,7 +85,7 @@ class Nav1 extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { open, notification, count } = this.state
+    const { open, notification } = this.state
     return (
 
 <div className={classes.root}>
@@ -112,11 +113,17 @@ class Nav1 extends React.Component {
         </Toolbar>
         <Drawer  anchor="bottom" open={open} onClose={() => this.setState({open:false})}>
 
-            <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
+
             <center>
-            <div ><h5>New Question</h5> </div>
-            <div style={{padding:5}}><h5>{notification.body} - {notification.title}</h5></div>
-            <div style={{padding:5}}>
+            <div style={{backgroundColor:green[700],color:green[100],padding:5}}>
+            <div > <ContactSupportIcon /> </div>
+            </div>
+
+            <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
+            <h5>{notification.body} - {notification.title}</h5>
+            </div>
+
+            <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
             <Grid container >
 
             <Grid item xs={6}>
@@ -133,8 +140,8 @@ class Nav1 extends React.Component {
 
             </Grid>
             </div>
+
             </center>
-            </div>
 
           </Drawer>
       </AppBar>

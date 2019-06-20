@@ -40,6 +40,7 @@ class StudentTestHeader  extends Component {
                 state:
                   { course_id: course.id }
                 })}
+                style={{backgroundColor:'#21385b',color:'#e4f1fe',marginBottom:5}}
                 className={classes.card}>
 
               <CardActionArea>

@@ -2,7 +2,6 @@ import React,{Component} from 'react'
 import '../css/App.css'
 
 import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';

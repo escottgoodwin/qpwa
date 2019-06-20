@@ -73,12 +73,7 @@ class TestHeaderTeacher  extends Component {
       <>
   <div style={{paddingTop:20,paddingBottom:20}}>
 
-    <Card style={{
-    opacity:1,
-    backgroundSize: 'cover',
-    overflow: 'hidden',
-    color:'black',
-    backgroundImage:`url(${course.image})`}}
+    <Card style={{backgroundColor:'#21385b',color:'#e4f1fe',marginBottom:5}}
     onClick={()=> history.push({
       pathname: "/course_dashboard",
       state:
@@ -88,7 +83,7 @@ class TestHeaderTeacher  extends Component {
     <CardActionArea>
 
     <CardContent>
-    <div style={{padding:'15px',backgroundColor:'#303030',opacity:.7, color:'white'}}>
+    <div style={{padding:'15px'}}>
     <h4>{course.name} - {course.courseNumber}</h4>
     </div>
     </CardContent>

@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -23,8 +21,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-
-import ChallengeChat from '../components/ChallengeChat';
 
 import { Query } from "react-apollo"
 import { QUESTION_QUERY } from '../ApolloQueries'
@@ -118,10 +114,8 @@ class Question extends Component {
 
     render() {
 
-      const { classes, history } = this.props
+      const { classes } = this.props
       const { questionId } = this.props.location.state
-      const { challenges } = this.state
-      const userId = sessionStorage.getItem('userid')
 
       const selectedColor = green[700]
       const wrong = red[700]

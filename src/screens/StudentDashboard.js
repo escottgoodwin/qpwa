@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import '../css/App.css'
+
 import { Query } from "react-apollo"
 
 import InvitationList from '../components/InvitationList'
@@ -25,20 +26,7 @@ const styles = theme => ({
   },
   content: {
     flex: '1 0 auto',
-  },
-  cover: {
-    width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
+  }
 });
 
 class StudentDashboard extends Component {
@@ -61,7 +49,8 @@ class StudentDashboard extends Component {
                 return (
                   <Fade in={!loading}>
                     <>
-                    <h4 >Welcome {firstName} {lastName}</h4>
+
+                    <div style={{margin:15,color:'#21385b'}}><h4 >Welcome {firstName} {lastName}</h4></div>
 
                     <Query query={NEW_QUESTIONS} variables={{ userId: userid }}>
                           {({ loading, error, data }) => {
@@ -89,6 +78,7 @@ class StudentDashboard extends Component {
                               </CardContent>
                               </CardActionArea>
                             </Card>
+
 
                             }
                             </div>

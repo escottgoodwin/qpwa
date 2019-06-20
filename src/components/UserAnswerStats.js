@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import deepPurple from '@material-ui/core/colors/deepPurple';
+import brown from '@material-ui/core/colors/brown';
 
 import { Query } from "react-apollo"
 import { USER_ANSWERED_QUERY } from '../ApolloQueries'
@@ -38,8 +38,8 @@ class UserAnswerStats extends Component {
               className={classes.card} >
 
             <CardActionArea>
-            <CardContent style={{ backgroundColor:deepPurple[100]}}>
-            <Typography style={{color:deepPurple[800]}} variant="h5" component="h5">
+            <CardContent style={{ backgroundColor:brown[100]}}>
+            <Typography style={{color:brown[800]}} variant="h5" component="h5">
               Your Answers
             </Typography>
 

@@ -23,7 +23,7 @@ class TeacherCourseHeader  extends Component {
               if (loading) return <div style={{height:'25vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const { name, courseNumber, image } = data.course
+              const { name, courseNumber } = data.course
 
           return (
 
@@ -37,17 +37,13 @@ class TeacherCourseHeader  extends Component {
                 state:
                   { course_id:courseid }
                 })}
-                style={{opacity:1,
-                  backgroundSize: 'cover',
-                  overflow: 'hidden',
-                  color:'black',
-                  backgroundImage:`url(${image})`}}
+                style={{backgroundColor:'#21385b',color:'#e4f1fe',marginBottom:5}}
                 >
 
               <CardActionArea>
 
               <CardContent>
-              <div style={{padding:'15px',backgroundColor:'#303030',opacity:.7, color:'white'}}>
+              <div style={{padding:'15px'}}>
               <h4>{name} - {courseNumber}</h4>
               </div>
               </CardContent>

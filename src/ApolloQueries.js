@@ -179,6 +179,7 @@ challenges(where:{AND:[{answer:{question:{test:{id:$testId}}}},{addedBy:{id:$use
 export const CHALLENGE_DASHBOARD2_QUERY = gql`
 query ChallengeTestQuery($testId:ID!){
   challenges(where:{answer:{question:{test:{id:$testId}}}},orderBy:addedDate_DESC){
+    count
     challenges{
       id
       challenge

@@ -7,16 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 const CourseHeader = (props) =>
 <>
 <Card
-
-style={{marginTop:20,marginLeft:30,marginRight:30,marginBottom:5,
-  opacity:1,
-  backgroundSize: 'cover',
-  overflow: 'hidden',
-  color:'black',
-  backgroundImage:`url(${props.image})`}}>
+style={{backgroundColor:'#21385b',color:'#e4f1fe',marginTop:20,marginLeft:30,marginRight:30,marginBottom:5}}>
 
   <CardContent>
-  <div style={{padding:'15px',backgroundColor:'#303030',opacity:.7, color:'white'}}>
+  <div style={{padding:'15px'}}>
 
     <h3>{props.name} - {props.courseNumber}</h3>
 

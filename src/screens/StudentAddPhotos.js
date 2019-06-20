@@ -4,16 +4,12 @@ import axios from 'axios'
 import * as Cookies from "js-cookie"
 import LibCameraPhoto, { FACING_MODES, IMAGE_TYPES } from 'jslib-html5-camera-photo';
 
-import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
-import CircleButton from '../components/CircleButton';
 import WhiteFlash from '../components/WhiteFlash';
 import DisplayError from '../components/DisplayError';
 import { Form, Input } from 'semantic-ui-react'
-import TextField from '@material-ui/core/TextField';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 import {getShowHideStyle,
@@ -207,7 +203,6 @@ class StudentAddPhotos extends Component {
        })
        .then(data => {
          console.log(data)
-         const graphQLresponse = data.data.data.addLabeledPhoto
          this.setState({message:'Uploaded!', completeVisible:true, progress:0, progressVisible:false})
        })
        .catch(err=> {
