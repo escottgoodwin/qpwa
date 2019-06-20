@@ -15,6 +15,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import { Query } from "react-apollo"
@@ -61,8 +63,14 @@ return array.sort(compare)
 
 class TeacherTestQuestions extends Component {
 
+  state = {
+    value:'worst'
+  }
+
   render(){
     const { classes, id, test_id, history } = this.props
+    const { value } = this.state
+
     return (
       <Query query={TEST_QUESTION_STATS_QUERY} variables={{ testId: id }}>
             {({ loading, error, data }) => {
@@ -77,27 +85,33 @@ class TeacherTestQuestions extends Component {
           return (
             <Fade in={!loading}>
             <div style={{paddingTop:20,paddingBottom:20}}>
-            <Card onClick={()=>history.push({
+            <Card
+              className={classes.card}>
+
+            <CardActionArea>
+            <CardContent onClick={()=>history.push({
               pathname: "/teacher_test_questions",
               state:
                 { test_id: test_id }
               })}
-              className={classes.card}>
-
-            <CardActionArea>
-            <CardContent style={{ backgroundColor:lightGreen[100]}}>
+            style={{ backgroundColor:lightGreen[100]}}>
             <Typography style={{color:lightGreen[800]}} variant="h5" component="h5">
               Question Performance
             </Typography>
 
             </CardContent >
-
-            <Divider />
+              </CardActionArea>
 
             <CardContent >
 
-            <h4> Best Performing Questions</h4>
-            <hr />
+            <div className={classes.root}>
+                <Tabs value={value} onChange={this.handleChange}>
+                  <Tab value="worst" label="Worst Performance" />
+                  <Tab value="best" label="Best Performance" />
+
+                </Tabs>
+
+            {value === "worst" &&
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
@@ -119,14 +133,10 @@ class TeacherTestQuestions extends Component {
             )}
             </TableBody>
           </Table>
-          </CardContent >
+        }
 
 
-            <CardContent >
-
-            <h4>Worst Performing Questions</h4>
-
-            <hr />
+        {value === "best" &&
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
@@ -148,10 +158,10 @@ class TeacherTestQuestions extends Component {
             )}
             </TableBody>
           </Table>
-
-
+        }
+            </div>
             </CardContent >
-            </CardActionArea>
+
             </Card>
             </div>
             </Fade>

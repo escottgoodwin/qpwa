@@ -15,6 +15,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import { Query } from "react-apollo"
@@ -58,11 +62,20 @@ return array.sort(compare)
 
 }
 
-
 class TeacherTestStudents extends Component {
+
+  state = {
+    value:'worst'
+  }
+
+
+  handleChange = (event, newValue) => {
+    this.setState({value:newValue});
+  }
 
   render(){
     const { classes, id, course, test_id, history } = this.props
+    const { value } = this.state
     return (
       <Query query={USER_TEST_STATS_QUERY} variables={{ testId: id, courseId: course.id }}>
             {({ loading, error, data }) => {
@@ -77,83 +90,92 @@ class TeacherTestStudents extends Component {
           return (
             <Fade in={!loading}>
             <div style={{paddingTop:20,paddingBottom:20}}>
-            <Card onClick={()=>history.push({
+            <Card
+              className={classes.card}>
+
+            <CardActionArea>
+            <CardContent
+            onClick={()=>history.push({
               pathname: "/teacher_test_students",
               state:
                 { test_id: test_id,
                   courseId: course.id
                 }
               })}
-              className={classes.card}>
-
-            <CardActionArea>
-            <CardContent style={{ backgroundColor:lightGreen[100]}}>
+            style={{ backgroundColor:lightGreen[100]}}>
             <Typography style={{color:lightGreen[800]}} variant="h5" component="h5">
               Student Performance
             </Typography>
 
             </CardContent >
-
-            <Divider />
-
-            <CardContent >
-
-            <h4> Worst Performing Students</h4>
-            <hr />
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-
-                  <TableCell style={{fontSize:14}} align="left">Name</TableCell>
-                  <TableCell style={{fontSize:14}} align="left">Total</TableCell>
-                  <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
-
-                </TableRow>
-              </TableHead>
-              <TableBody>
-
-            {worstStudents.map(student =>
-              <TableRow key={student.id}>
-                <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
-                <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
-                <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
-              </TableRow>
-            )}
-            </TableBody>
-          </Table>
-          </CardContent >
+            </CardActionArea>
 
 
             <CardContent >
 
-            <h4>Best Performing Students</h4>
+            <div className={classes.root}>
+                <Tabs value={value} onChange={this.handleChange}>
+                  <Tab value="worst" label="Worst Performance" />
+                  <Tab value="best" label="Best Performance" />
 
-            <hr />
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
+                </Tabs>
 
-                  <TableCell style={{fontSize:14}} align="left">Name</TableCell>
-                  <TableCell style={{fontSize:14}} align="left">Total</TableCell>
-                  <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+              {value === "worst" &&
 
-                </TableRow>
-              </TableHead>
-              <TableBody>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
 
-            {bestStudents.map(student =>
-              <TableRow key={student.id}>
-                <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
-                <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
-                <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
-              </TableRow>
-            )}
-            </TableBody>
-          </Table>
+                      <TableCell style={{fontSize:14}} align="left">Name</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Total</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
 
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+
+                {worstStudents.map(student =>
+                  <TableRow key={student.id}>
+                    <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
+                  </TableRow>
+                )}
+                </TableBody>
+              </Table>
+
+            }
+
+              {value === "best" &&
+
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+
+                      <TableCell style={{fontSize:14}} align="left">Name</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Total</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+
+                {bestStudents.map(student =>
+                  <TableRow key={student.id}>
+                    <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
+                  </TableRow>
+                )}
+                </TableBody>
+              </Table>
+
+              }
+
+            </div>
 
             </CardContent >
-            </CardActionArea>
+
             </Card>
             </div>
             </Fade>
