@@ -44,7 +44,7 @@ class StudentDashboard extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div> {JSON.stringify(error)} </div>
 
-                const { id, firstName, lastName, invitesSentTo, studentCourses } = data.user
+                const { id, invitesSentTo, studentCourses } = data.user
                 const activeCourses = new Array(studentCourses.filter(course => !course.deleted))
 
                 return (

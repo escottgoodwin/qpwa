@@ -13,7 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import FingerPrintIcon from '@material-ui/icons/Fingerprint';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
@@ -194,25 +193,6 @@ class SignIn extends Component {
 
         <div>
 
-        </div>
-
-        <div style={{margin:10}}>
-      <Mutation
-          mutation={MOBILE_LOGIN_MUTATION}
-          variables={{ email, password, pushToken }}
-          onCompleted={data => this._confirm(data)}
-          onError={error => this._error (error)}
-        >
-
-          {mutation => (
-            <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={mutation}> <FingerPrintIcon /> Touch ID</Button>
-          )}
-        </Mutation>
         </div>
 
         </form>

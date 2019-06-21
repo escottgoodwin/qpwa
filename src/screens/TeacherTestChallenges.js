@@ -3,7 +3,6 @@ import '../css/App.css'
 import moment from 'moment'
 
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Fade from '@material-ui/core/Fade';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -101,13 +100,13 @@ class TeacherTestChallenges extends Component {
                 <TeacherTestHeader classes={classes} test_id={testId} />
 
                 <Card >
-                <CardContent style={{backgroundColor:orange[500]}}>
+                <CardContent style={{backgroundColor:orange[700]}}>
                 <center >
-                <AnnouncementIcon style={{fontSize:36,color:orange[200]}}/>
+                <AnnouncementIcon style={{fontSize:36,color:orange[100]}}/>
                 </center>
                 </CardContent>
                 <CardContent  style={{padding:25}}>
-                <div><h3>Test Challenges - {count}</h3></div>
+                <h3>Test Challenges - {count}</h3>
                 </CardContent>
                 </Card>
 
