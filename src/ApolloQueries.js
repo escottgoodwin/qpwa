@@ -852,6 +852,7 @@ export const USER_TEST_STATS_QUERY = gql`
 query TestStats($testId:ID!, $courseId:ID!){
   userTestStats(testId: $testId,
   courseId: $courseId){
+    id
     name
     totalCorrect
     percentCorrect

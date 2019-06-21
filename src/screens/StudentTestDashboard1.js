@@ -93,8 +93,8 @@ class StudentTestDashboard extends Component {
 
             <UserAnswerStats classes={classes} testId={test_id} />
 
-            <TeacherQuestionButtons {...data.test}/>
-            
+            <TeacherQuestionButtons {...data.test} />
+
             </div>
           </Fade>
           )

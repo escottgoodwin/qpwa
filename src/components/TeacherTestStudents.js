@@ -24,7 +24,7 @@ import lightGreen from '@material-ui/core/colors/lightGreen';
 import { Query } from "react-apollo"
 import { USER_TEST_STATS_QUERY } from '../ApolloQueries'
 
-const styles = {
+const styles = theme => ({
   card: {
     minWidth: 275,
   },
@@ -39,7 +39,54 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
-};
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  card: {
+    minWidth: 275,
+    position: 'relative',
+  },
+});
 
 function listSort1(array, key, direction){
     const dir = direction === 'desc' ? -1 : 1
@@ -83,9 +130,9 @@ class TeacherTestStudents extends Component {
               if (error) return <div>{JSON.stringify(error)}</div>
 
               const { userTestStats } = data
-
-              const bestStudents = listSort1(userTestStats,'percentCorrect','desc').slice(0, 3)
-              const worstStudents = listSort1(userTestStats,'percentCorrect','asc').slice(0, 3)
+              const withAnswers = userTestStats.filter(s => s.total>0)
+              const bestStudents = listSort1(withAnswers,'percentCorrect','desc').slice(0, 3)
+              const worstStudents = listSort1(withAnswers,'percentCorrect','asc').slice(0, 3)
 
           return (
             <Fade in={!loading}>
@@ -114,7 +161,13 @@ class TeacherTestStudents extends Component {
             <CardContent >
 
             <div className={classes.root}>
-                <Tabs value={value} onChange={this.handleChange}>
+                <Tabs
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+                value={value}
+                onChange={this.handleChange}
+                >
                   <Tab value="worst" label="Worst Performance" />
                   <Tab value="best" label="Best Performance" />
 

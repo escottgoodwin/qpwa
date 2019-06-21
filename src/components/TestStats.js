@@ -40,7 +40,7 @@ class TestStats extends Component {
 
             <CardContent >
 
-            <Grid container justify="center" spacing={24}>
+            <Grid container justify="center" >
             <Grid  xs={6} item>
 
             <h5>

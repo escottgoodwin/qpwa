@@ -9,7 +9,7 @@ const TeacherHeader = (props) =>
 
     <h3>{props.firstName} {props.lastName}'s Courses</h3>
 
-  <h5>Total Courses: {props.courses}</h5>
+  <h5>Total: {props.courses}</h5>
   </Paper >
 
 export default TeacherHeader

@@ -22,7 +22,7 @@ import lightGreen from '@material-ui/core/colors/lightGreen';
 import { Query } from "react-apollo"
 import { TEST_QUESTION_STATS_QUERY } from '../ApolloQueries'
 
-const styles = {
+const styles = theme => ({
   card: {
     minWidth: 275,
   },
@@ -36,8 +36,50 @@ const styles = {
   },
   pos: {
     marginBottom: 12,
+  },container: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-};
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+});
 
 function listSort1(array, key, direction){
     const dir = direction === 'desc' ? -1 : 1
@@ -67,6 +109,11 @@ class TeacherTestQuestions extends Component {
     value:'worst'
   }
 
+  handleChange = (event, newValue) => {
+    this.setState({value:newValue});
+  }
+
+
   render(){
     const { classes, id, test_id, history } = this.props
     const { value } = this.state
@@ -78,9 +125,9 @@ class TeacherTestQuestions extends Component {
               if (error) return <div>{JSON.stringify(error)}</div>
 
               const { testQuestionStats } = data
-
-              const bestQuestions = listSort1(testQuestionStats,'percentCorrect','desc').slice(0, 3)
-              const worstQuestions = listSort1(testQuestionStats,'percentCorrect','asc').slice(0, 3)
+              const withAnswers = testQuestionStats.filter(s => s.total>0)
+              const bestQuestions = listSort1(withAnswers,'percentCorrect','desc').slice(0, 3)
+              const worstQuestions = listSort1(withAnswers,'percentCorrect','asc').slice(0, 3)
 
           return (
             <Fade in={!loading}>
@@ -105,7 +152,13 @@ class TeacherTestQuestions extends Component {
             <CardContent >
 
             <div className={classes.root}>
-                <Tabs value={value} onChange={this.handleChange}>
+                <Tabs
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+                value={value}
+                onChange={this.handleChange}
+                >
                   <Tab value="worst" label="Worst Performance" />
                   <Tab value="best" label="Best Performance" />
 
@@ -125,7 +178,7 @@ class TeacherTestQuestions extends Component {
               <TableBody>
 
             {bestQuestions.map(student =>
-              <TableRow key={student.id}>
+              <TableRow key={student.question}>
                 <TableCell style={{fontSize:16}}  align="left">{student.question}</TableCell>
                 <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
                 <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
@@ -150,7 +203,7 @@ class TeacherTestQuestions extends Component {
               <TableBody>
 
             {worstQuestions.map(student =>
-              <TableRow key={student.id}>
+              <TableRow key={student.question}>
                 <TableCell style={{fontSize:16}}  align="left">{student.question}</TableCell>
                 <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
                 <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>

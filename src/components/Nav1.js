@@ -100,7 +100,7 @@ class Nav1 extends React.Component {
         <Grid item >
         <Button onClick={() => this.setState({open:true})} variant="outlined" color="inherit">
 
-            Quandrio
+        <h5>Q</h5>
 
         </Button>
         </Grid>

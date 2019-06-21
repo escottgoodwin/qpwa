@@ -7,7 +7,13 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
 
@@ -87,10 +93,19 @@ return array.sort(compare)
 
 class TeacherTestPerfStudent extends Component {
 
+  state = {
+    value:'worst'
+  }
+
+  handleChange = (event, newValue) => {
+    this.setState({value:newValue});
+  }
+
   render() {
 
     const { test_id, courseId } = this.props.location.state
     const { classes } = this.props
+    const { value } = this.state
 
       return (
 
@@ -104,45 +119,98 @@ class TeacherTestPerfStudent extends Component {
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { userTestStats } = data
+                const withAnswers = userTestStats.filter(s => s.total>0)
 
-                const bestStudents = listSort1(userTestStats,'percentCorrect','desc')
-                
+                const bestStudents = listSort1(withAnswers,'percentCorrect','desc')
+                const worstStudents = listSort1(withAnswers,'percentCorrect','asc')
+
             return (
-
+              <Fade in={!loading}>
               <>
               <TeacherTestHeader classes={classes} test_id={test_id}/>
 
-              <Paper>
+              <Card
+                className={classes.card}>
 
-              <div style={{padding:20}}>
-              <h4 >Student Performance</h4>
-              </div >
-              <hr />
-              <Table className={classes.table}>
-                <TableHead>
-                  <TableRow>
+              <CardContent
+              style={{ backgroundColor:lightGreen[100]}}>
+              <Typography style={{color:lightGreen[800]}} variant="h5" component="h5">
+                Student Performance
+              </Typography>
 
-                    <TableCell style={{fontSize:14}} align="left">Name</TableCell>
-                    <TableCell style={{fontSize:14}} align="left">Total</TableCell>
-                    <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+              </CardContent >
 
-                  </TableRow>
-                </TableHead>
-                <TableBody>
+              <CardContent >
+              <div className={classes.root}>
+                  <Tabs
+                  indicatorColor="primary"
+                  textColor="primary"
+                  variant="fullWidth"
+                  value={value}
+                  onChange={this.handleChange}
+                  >
+                    <Tab value="worst" label="Worst Performance" />
+                    <Tab value="best" label="Best Performance" />
 
-              {bestStudents.map(student =>
-                <TableRow key={student.name}>
-                  <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
-                  <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
-                  <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
-                </TableRow>
-              )}
-              </TableBody>
-            </Table>
+                  </Tabs>
 
-            </Paper >
+                {value === "worst" &&
+
+                  <Table className={classes.table}>
+                    <TableHead>
+                      <TableRow>
+
+                        <TableCell style={{fontSize:14}} align="left">Name</TableCell>
+                        <TableCell style={{fontSize:14}} align="left">Total</TableCell>
+                        <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+
+                  {worstStudents.map(student =>
+                    <TableRow key={student.id}>
+                      <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
+                      <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
+                      <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
+                    </TableRow>
+                  )}
+                  </TableBody>
+                </Table>
+
+              }
+
+                {value === "best" &&
+
+                  <Table className={classes.table}>
+                    <TableHead>
+                      <TableRow>
+
+                        <TableCell style={{fontSize:14}} align="left">Name</TableCell>
+                        <TableCell style={{fontSize:14}} align="left">Total</TableCell>
+                        <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+
+                  {bestStudents.map(student =>
+                    <TableRow key={student.id}>
+                      <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
+                      <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
+                      <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
+                    </TableRow>
+                  )}
+                  </TableBody>
+                </Table>
+
+                }
+
+              </div>
+              </CardContent >
+              </Card >
             </>
-
+            </Fade>
               )
             }}
         </Query>

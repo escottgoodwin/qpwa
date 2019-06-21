@@ -2,8 +2,6 @@ import React,{Component} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import '../css/App.css'
 
-import { Query } from "react-apollo"
-
 import InvitationList from '../components/InvitationList'
 import StudentCourseList from '../components/StudentCourseList'
 import Fade from '@material-ui/core/Fade';
@@ -14,6 +12,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import green from '@material-ui/core/colors/green';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
+import TeacherHeader from '../components/TeacherHeader'
+
+import { Query } from "react-apollo"
 import { STUDENT_COURSE_QUERY, NEW_QUESTIONS } from '../ApolloQueries'
 
 const styles = theme => ({
@@ -50,7 +51,7 @@ class StudentDashboard extends Component {
                   <Fade in={!loading}>
                     <>
 
-                    <div style={{margin:15,color:'#21385b'}}><h4 >Welcome {firstName} {lastName}</h4></div>
+                    <TeacherHeader courses={studentCourses.filter(course => !course.deleted).length} {...data.user}/>
 
                     <Query query={NEW_QUESTIONS} variables={{ userId: userid }}>
                           {({ loading, error, data }) => {
@@ -60,7 +61,7 @@ class StudentDashboard extends Component {
                             const { count } = data.questions
 
                             return (
-                              <div style={{marginRight:35,marginLeft:35}}>
+                              <div style={{marginTop:10,marginRight:30,marginLeft:30}}>
                               {count>0 &&
 
                               <Card onClick={()=>history.push("/new_questions")}
@@ -87,7 +88,7 @@ class StudentDashboard extends Component {
                         </Query>
 
                     {invitesSentTo.length>0 &&
-                      <div style={{marginTop:10,marginBottom:10,marginRight:35,marginLeft:35}}>
+                      <div style={{marginTop:10,marginBottom:10,marginRight:30,marginLeft:30}}>
 
                       <InvitationList userid={id} invites={invitesSentTo}/>
                       </div>
