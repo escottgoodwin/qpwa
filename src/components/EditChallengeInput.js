@@ -28,10 +28,8 @@ componentDidMount(){
 }
 
 render() {
-  const { classes } = this.props
+  const { classes, id } = this.props
   const { challenge, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
-
-  const { id } = this.props
 
   return (
     <div>
@@ -52,7 +50,7 @@ render() {
         mutation={EDIT_CHALLENGE_MUTATION}
         variables={{
           challenge: challenge,
-          challengeId: id
+          challengeiId: id
         }}
         onCompleted={data => this._confirm(data)}
         onError={error => this._error (error)}

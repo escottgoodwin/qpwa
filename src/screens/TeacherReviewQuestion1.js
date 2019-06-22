@@ -86,6 +86,8 @@ const Transition = props =>  <Slide direction="up" {...props} />
 
 class TeacherReviewQuestion extends Component {
 
+      state = { open: false }
+
       handleChange = event => {
           this.setState({ value: event.target.value });
         };
@@ -99,7 +101,7 @@ class TeacherReviewQuestion extends Component {
       };
 
     render() {
-      
+
       const { classes } = this.props
       const { questionId, testId } = this.props.location.state
 

@@ -127,7 +127,7 @@ class StudentNewQuestions extends Component {
               <div key={question.id} style={{padding:10}}>
 
               <Card onClick={()=> history.push({
-                pathname: "/answer_question",
+                pathname: "/create_question",
                 state:
                   { questionId: question.id }
                 })}>

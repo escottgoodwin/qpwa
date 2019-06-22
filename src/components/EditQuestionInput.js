@@ -81,21 +81,23 @@ correctButton = (choiceCorrect1,choiceCorrect2,choiceCorrect3,choiceCorrect4) =>
 componentDidMount(){
   const { question, choices } = this.props
 
+  console.log(choices)
+
   const choice1 = choices[0].choice
   const choiceCorrect1 = choices[0].correct
-  const choice1Id = choices[0].choice1Id
+  const choice1Id = choices[0].id
 
   const choice2 = choices[1].choice
   const choiceCorrect2 = choices[1].correct
-  const choice2Id = choices[1].choice1Id
+  const choice2Id = choices[1].id
 
   const choice3 = choices[2].choice
   const choiceCorrect3 = choices[2].correct
-  const choice3Id = choices[2].choice1Id
+  const choice3Id = choices[2].id
 
   const choice4 = choices[3].choice
   const choiceCorrect4 = choices[3].correct
-  const choice4Id = choices[3].choice1Id
+  const choice4Id = choices[3].id
 
   this.setState({ question, choice1, choiceCorrect1, choice2, choiceCorrect2, choice3, choiceCorrect3, choice4, choiceCorrect4, choice1Id, choice2Id, choice3Id, choice4Id })
 
@@ -123,6 +125,7 @@ render() {
           isVisibleGraph } = this.state
 
           const { id, oldQuestionId, test } = this.props
+            console.log(this.state)
 
   return (
 
@@ -285,6 +288,7 @@ render() {
     <Mutation
         mutation={EDIT_QUESTION_MUTATION}
         variables={{
+          id:id,
           question: question,
           choice1: choice1,
           choice2: choice2,
@@ -348,7 +352,7 @@ _error = async error => {
   _confirm = async data => {
 
     const { oldQuestionId } = this.props
-    const { id, test } = data.editQuestion
+    const { id, test } = data.updateQuestion
 
     this.props.history.push({
       pathname: `/review_question`,

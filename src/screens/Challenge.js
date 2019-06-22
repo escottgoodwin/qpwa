@@ -300,7 +300,7 @@ class Challenge extends Component {
 
                 <CardContent>
 
-                  <h5 style={{color:'white'}}>
+                  <h5 >
                     {choices[0].choice}
                   </h5>
 
@@ -317,7 +317,7 @@ class Challenge extends Component {
 
               <CardContent>
 
-                <h5 style={{color:'white'}}>
+                <h5 >
                   {choices[1].choice}
                 </h5>
 
@@ -334,7 +334,7 @@ class Challenge extends Component {
 
               <CardContent>
 
-              <h5 style={{color:'white'}}>
+              <h5 >
                 {choices[2].choice}
               </h5>
 
@@ -352,7 +352,7 @@ class Challenge extends Component {
 
               <CardContent>
 
-              <h5 style={{color:'white'}}>
+              <h5 >
               {choices[3].choice}
               </h5>
 

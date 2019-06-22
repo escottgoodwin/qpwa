@@ -105,8 +105,8 @@ class QuestionAnswered extends Component {
 
       const { classes } = this.props
       const { answerId } = this.props.location.state
-      const selectedColor = green[200]
-      const wrong = red[200]
+      const selectedColor = green[700]
+      const wrong = red[700]
 
       return (
       <main className={classes.main}>

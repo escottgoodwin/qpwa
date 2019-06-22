@@ -24,6 +24,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Fade from '@material-ui/core/Fade';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import ErrorIcon from '@material-ui/icons/Error';
 
 import StudentChallengeList from '../components/StudentChallengeList';
 
@@ -44,6 +47,16 @@ const styles = theme => ({
   },
   menu: {
     width: 200,
+  },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing(1),
   },
   main: {
     width: 'auto',
@@ -113,8 +126,8 @@ class ChallengeQuestion extends Component {
 
     render() {
 
-      const selectedColor = green[200]
-      const wrong = red[200]
+      const selectedColor = green[700]
+      const wrong = red[700]
 
       const { classes } = this.props
       const { answerId, questionId } = this.props.location.state
@@ -332,17 +345,48 @@ class ChallengeQuestion extends Component {
               </Mutation>
               </Paper>
 
-              {isVisibleGraph &&
-                <Message negative>
-                  <p><b>{graphQLError}</b></p>
-                </Message>
-              }
-
-              {isVisibleNet &&
-                <Message negative>
-                  <p><b>{networkError}</b></p>
-                </Message>
-              }
+              <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={isVisibleGraph}
+              autoHideDuration={6000}
+              >
+              <SnackbarContent
+              className={classes.error}
+              message={
+              <span id="client-snackbar" className={classes.message}>
+                <ErrorIcon style={{margin:5}}/>
+                <h5>{graphQLError}</h5>
+              </span>}
+              action={[
+                <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleGraph:false})}>
+                  <CloseIcon className={classes.icon} />
+                </IconButton>,
+              ]}
+            />
+            </Snackbar>
+            <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            open={isVisibleNet}
+            autoHideDuration={6000}
+            onClose={() => this.setState({isVisibleNet:false})}
+            className={classes.margin}
+            message={
+            <span id="client-snackbar" className={classes.message}>
+              <ErrorIcon />
+              <h5>{networkError}</h5>
+            </span>}
+            action={[
+              <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleNet:false})}>
+                <CloseIcon className={classes.icon} />
+              </IconButton>,
+            ]}
+          />
 
             <div style={{margin:10}}>
             <Button

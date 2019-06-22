@@ -1843,12 +1843,12 @@ mutation EditQuestion(
   	choice2Id:$choice2Id,
   	choice3Id:$choice3Id,
   	choice4Id:$choice4Id,){
-    question
-    choices{
-      choice
+      id
+      test{
+        id
+      }
     }
   }
-}
 `
 
 export const ANSWERED_QUESTION_QUERY = gql`

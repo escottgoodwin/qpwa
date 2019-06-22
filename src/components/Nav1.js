@@ -40,7 +40,7 @@ class Nav1 extends React.Component {
   answerQuestion = (questionId) => {
     this.setState({ open: false });
     this.props.history.push({
-     pathname: "/answer_question",
+     pathname: "/create_question",
      state:
        { questionId }
      })
@@ -119,8 +119,9 @@ class Nav1 extends React.Component {
             <div > <ContactSupportIcon /> </div>
             </div>
 
-            <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
-            <h5>{notification.body} - {notification.title}</h5>
+            <div style={{backgroundColor:green[100],color:green[700],padding:10}}>
+            <div><h5>{notification.body}</h5></div>
+            <div><h5>{notification.title}</h5></div>
             </div>
 
             <div style={{backgroundColor:green[100],color:green[700],padding:5}}>
