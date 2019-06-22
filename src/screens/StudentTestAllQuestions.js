@@ -1,11 +1,12 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Link } from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 import StudentTestHeader from '../components/StudentTestHeader'
 
@@ -77,7 +78,7 @@ class StudentTestAllQuestions extends Component {
   render() {
 
     const { testId } = this.props.location.state
-    const { classes } = this.props
+    const { classes, history } = this.props
 
       return (
 
@@ -97,24 +98,27 @@ class StudentTestAllQuestions extends Component {
 
                 <Button onClick={() => this.answerRandom(questions)} style={{marginTop:20,marginBottom:20}} fullWidth size='large' variant='contained' color="primary" >Random Question</Button>
 
-                <Paper style={{padding:25,marginTop:10}}>
-
                 {
                   questions.map(item =>
-                    <Link  to={{
+                    <div >
+                    <Card onClick={()=>history.push({
                       pathname: "/answer_question",
                       state:
                         { questionId: item.id }
-                      }} >
+                      })}
+                       style={{marginTop:10}}>
 
-                    <h5 key={item.id}>
-                      {item.question}
-                    </h5>
+                      <CardActionArea>
 
-                    </Link>
+                      <CardContent style={{padding:25}}>
+                      <h5>{item.question}</h5>
+                      </CardContent>
+                      </CardActionArea>
+                      </Card>
+                      </div>
                   )
                 }
-                </Paper>
+
                 </div>
                 </main>
                 </div>

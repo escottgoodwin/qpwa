@@ -49,7 +49,7 @@ class UserAnswerStats extends Component {
 
             <CardContent >
 
-            <Grid container justify="center" spacing={24}>
+            <Grid container justify="center" >
 
             <Grid item xs={6}>
             <h5>

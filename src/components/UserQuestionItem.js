@@ -1,32 +1,36 @@
 import React from 'react'
+import Grid from '@material-ui/core/Grid';
 
 const UserQuestionItem = (props) =>
 
     <>
-   <div>{props.question}</div>
-
+   <div style={{margin:10}}><h4>{props.question}</h4></div>
+   <hr/>
+   <div style={{marginLeft:35,marginRight:35}}>
    {props.choices.map(choice => choice.correct ?
-     <div key={choice.id} >{choice.choice}</div>
+     <div style={{textAlign:'left', color:'green',margin:10}} key={choice.id} ><h5>{choice.choice}</h5></div>
      :
-     <div key={choice.id} >{choice.choice}</div>)}
+     <div style={{textAlign:'left', color:'red',margin:10}} key={choice.id} ><h5>{choice.choice}</h5></div>)}
+    </div>
+    <hr/>
+  <div style={{margin:10}}>
+  <Grid container justify="center" >
+
+   <Grid item xs={6}>
+   <h5>Answers: {props.questionAnswers.length}</h5>
+   </Grid>
 
 
-   <div >
-   Number: {props.questionAnswers.length}
-   </div>
-
-   <div>
-   Correct: {props.questionAnswers.filter(answer => answer.answerCorrect).length}
-   </div>
-
-   <div >
-   {
+   <Grid item xs={6}>
+   <h5>Correct: {props.questionAnswers.filter(answer => answer.answerCorrect).length} ({
      props.questionAnswers.filter(answer =>
        answer.answerCorrect).length / props.questionAnswers.length > 0 ?
        Math.round(props.questionAnswers.filter(answer => answer.answerCorrect).length / props.questionAnswers.length*100)
        :
        0
-   }%
+   })%</h5>
+   </Grid>
+   </Grid>
    </div>
 </>
 

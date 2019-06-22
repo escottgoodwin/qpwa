@@ -1,8 +1,6 @@
 import React,{Component} from 'react'
 import '../css/App.css'
 
-import { Message } from 'semantic-ui-react'
-
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
