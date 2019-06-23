@@ -24,6 +24,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import { Mutation } from "react-apollo"
 import {MOBILE_LOGIN_MUTATION} from '../ApolloQueries'
 
+import ErrorSnack from '../components/ErrorSnack'
 
 const styles = theme => ({
   container: {
@@ -197,49 +198,9 @@ class SignIn extends Component {
         </form>
         </Paper>
 
-        <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={isVisibleGraph}
-        autoHideDuration={6000}
-        >
-        <SnackbarContent
-        className={classes.error}
-        message={
-        <span id="client-snackbar" className={classes.message}>
-          <ErrorIcon style={{margin:5}}/>
-          {graphQLError}
-        </span>}
-        action={[
-          <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleGraph:false})}>
-            <CloseIcon className={classes.icon} />
-          </IconButton>,
-        ]}
-      />
-      </Snackbar>
-      <Snackbar
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      open={isVisibleNet}
-      autoHideDuration={6000}
-      onClose={() => this.setState({isVisibleNet:false})}
-      className={classes.margin}
-      message={
-      <span id="client-snackbar" className={classes.message}>
-        <ErrorIcon />
-        {networkError}
-      </span>}
-      action={[
-        <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleNet:false})}>
-          <CloseIcon className={classes.icon} />
-        </IconButton>,
-      ]}
-    />
+        <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
 
+        <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
 
       </main>
 
