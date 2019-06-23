@@ -73,7 +73,7 @@ class TestHeaderTeacher  extends Component {
       <>
   <div style={{paddingTop:20,paddingBottom:20}}>
 
-    <Card style={{backgroundColor:'#21385b',color:'#e4f1fe',marginBottom:5}}
+    <Card style={{backgroundColor:'#334667',color:'#e4f1fe',marginBottom:5}}
     onClick={()=> history.push({
       pathname: "/course_dashboard",
       state:

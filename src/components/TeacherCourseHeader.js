@@ -37,7 +37,7 @@ class TeacherCourseHeader  extends Component {
                 state:
                   { course_id:courseid }
                 })}
-                style={{backgroundColor:'#21385b',color:'#e4f1fe',marginBottom:5}}
+                style={{backgroundColor:'#334667',color:'#e4f1fe',marginBottom:5}}
                 >
 
               <CardActionArea>

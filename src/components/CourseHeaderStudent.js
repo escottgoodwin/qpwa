@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 const CourseHeaderStudent = (props) =>
 
-  <Card style={{backgroundColor:'#21385b',color:'#e4f1fe',marginTop:20,marginLeft:30,marginRight:30,marginBottom:5}}>
+  <Card style={{backgroundColor:'#334667',color:'#e4f1fe',marginTop:20,marginLeft:30,marginRight:30,marginBottom:5}}>
 
   <CardContent>
 
