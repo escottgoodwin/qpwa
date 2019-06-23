@@ -78,13 +78,13 @@ const styles = theme => ({
 class StudentJoinCourse extends Component {
 
   render() {
-
-    const { course_id }= this.props.location.state
+    const userid = sessionStorage.getItem('userid')
+    const { course_id, inviteId }= this.props.location.state
 
     return (
 
       <>
-    
+
       <div style={{marginBottom:50}}>
 
       <Query query={COURSE_QUERY} variables={{ courseid: course_id }} fetchPolicy="cache-and-network">
@@ -149,12 +149,12 @@ class StudentJoinCourse extends Component {
 
               <Mutation
                   mutation={JOIN_MUTATION}
-                  variables={{ courseId: course_id, inviteId: this.props.inviteId }}
-                  onCompleted={data => this._confirm(data)}
+                  variables={{ courseId: course_id, inviteId }}
+                  onCompleted={(data) => this._confirm(data)}
                   refetchQueries={() => {
                      return [{
                         query: STUDENT_COURSE_QUERY,
-                        variables: { userid: this.props.userid }
+                        variables: { userid }
                     }];
                 }}
                    >
@@ -180,7 +180,11 @@ class StudentJoinCourse extends Component {
     )
   }
 
+  _confirm = async data => {
+    this.props.history.push({pathname: `/student_dashboard`})
+  }
 }
+
 
 
 export default withStyles(styles)(StudentJoinCourse)

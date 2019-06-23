@@ -84,6 +84,8 @@ class TeacherTestDashboard extends Component {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
+              const { panels } = data.test
+
           return (
             <Fade in={!loading}>
             <div style={{marginLeft:'5%',marginRight:'5%',marginBottom:20}}>
@@ -97,7 +99,10 @@ class TeacherTestDashboard extends Component {
 
             <TeacherTestQuestions classes={classes} test_id={test_id}  {...data.test} />
 
-            <TeacherQuestionButtons {...data.test}/>
+            {panels.length>0 &&
+              <TeacherQuestionButtons {...data.test}/>
+            }
+
 
             <Link  to={{
               pathname: "/edit_test",
