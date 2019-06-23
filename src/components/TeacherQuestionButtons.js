@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import '../css/App.css'
 import { Link, withRouter } from 'react-router-dom'
 import moment from 'moment'
-import { useMutation } from 'react-apollo-hooks';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -11,31 +10,22 @@ import CardContent from '@material-ui/core/CardContent';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import orange from '@material-ui/core/colors/orange';
 
+import { Mutation } from "react-apollo"
 import { RELEASE_QUESTIONS_MUTATION, TEST_QUERY } from '../ApolloQueries'
 
-function releaseQuestion(id){
+class TeacherQuestionButtons extends Component{
+
+render() {
+
   const now = new Date()
-  const releaseMutation = (id) = useMutation(RELEASE_QUESTIONS_MUTATION,
-    { variables: { test_id: id, releaseDate: now } },
-    { onCompleted: (data) => this._confirm(data) },
-    { refetchQueries: () => {
-         return [{
-            query: TEST_QUERY,
-            variables: { test_id: id }
-        }]}
-      }
-    );
+  const { id, published, publishDate, startTime, endTime, endDate, release, releaseDate, questions } = this.props
 
-    return (<Button onClick={releaseMutation} style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Release Questions</Button>)
-}
-
-
-const TeacherQuestionButtons = props =>
+  return(
 
       <div style={{marginBottom:20}}>
 
       {
-        props.published ?
+        published ?
 
         <>
         <Card style={{marginTop:20}}>
@@ -45,9 +35,9 @@ const TeacherQuestionButtons = props =>
         </Typography>
         </CardContent>
         <CardContent >
-        <h5>Date: {moment(props.publishDate).format('MMMM Do, YYYY')}</h5>
-        <div><h5>Time Frame: {props.startTime} - {props.endTime}</h5></div>
-        <div><h5>End Date: {moment(props.endDate).format('MMMM Do YYYY, h:mm A')}</h5></div>
+        <h5>Date: {moment(publishDate).format('MMMM Do, YYYY')}</h5>
+        <div><h5>Time Frame: {startTime} - {endTime}</h5></div>
+        <div><h5>End Date: {moment(endDate).format('MMMM Do YYYY, h:mm A')}</h5></div>
         </CardContent>
         </Card>
         </>
@@ -58,14 +48,14 @@ const TeacherQuestionButtons = props =>
           pathname: "/publish_test",
           state:
             {
-              test_id: props.id }
+              test_id: id }
           }} >
         <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Publish Test</Button>
 
         </Link>
       }
 
-      {props.release ?
+      {release ?
         <>
         <Card style={{marginTop:20}}>
         <CardContent style={{ backgroundColor:deepPurple[100]}}>
@@ -75,17 +65,43 @@ const TeacherQuestionButtons = props =>
         </CardContent>
 
         <CardContent >
-          <h5>Date: {moment(props.releaseDate).format('MMMM Do, YYYY')}</h5>
-          <h5>Total Questions: {props.questions.length}</h5>
+          <h5>Date: {moment(releaseDate).format('MMMM Do, YYYY')}</h5>
+          <h5>Total Questions: {questions.length}</h5>
         </CardContent>
         </Card>
         </>
         :
 
-        releaseQuestion(props.id)
+        <Mutation
+            mutation={RELEASE_QUESTIONS_MUTATION}
+            variables={{ test_id: id, releaseDate: now }}
+            onCompleted={data => this._confirm(data)}
+            refetchQueries={() => {
+               return [{
+                  query: TEST_QUERY,
+                  variables: { test_id: id }
+              }]}}
+          >
+            {mutation => (
+              <Button  onClick={mutation} style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Release Question</Button>
+          )}
+          </Mutation>
+
       }
 
       </div>
+    )
+  }
 
+  _confirm = async data => {
+
+    const { id } = data.updateTest
+
+    this.props.history.push({
+      pathname: "/teacher_test_dashboard",
+      state: { test_id: id }
+      })
+  }
+}
 
 export default withRouter(TeacherQuestionButtons)

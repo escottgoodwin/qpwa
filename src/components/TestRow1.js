@@ -71,7 +71,7 @@ const TestRow1 = (props) =>
         </Typography>
 
         <div style={{margin:10}}>
-        <Grid container justify="center" spacing={24}>
+        <Grid container justify="center" >
         <Grid key='Questions' item xs={4}>
 
         <h5> Questions: {props.test.questionsCount}</h5>
@@ -94,9 +94,9 @@ const TestRow1 = (props) =>
 
           <div>
 
-          <Grid container justify="center" spacing={24}>
+          <Grid container justify="center" >
 
-          <Grid key='Questions' item xs={6}>
+          <Grid item xs={6}>
 
           {props.test.release ?
           <Paper style={{margin:10,padding:10,color:deepPurple[800],backgroundColor:deepPurple[100]}} >Released</Paper>
@@ -105,7 +105,7 @@ const TestRow1 = (props) =>
           }
           </Grid>
 
-          <Grid key='Questions' item xs={6}>
+          <Grid item xs={6}>
 
           {props.test.published ?
 

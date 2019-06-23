@@ -6,9 +6,6 @@ import { Query } from "react-apollo";
 
 import { withStyles } from '@material-ui/core/styles';
 
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import Paper from '@material-ui/core/Paper';
-import Avatar from '@material-ui/core/Avatar';
 import Fade from '@material-ui/core/Fade';
 
 import TestHeaderTeacher from '../components/TestHeaderTeacher'
@@ -87,17 +84,8 @@ render() {
           <>
           <TestHeaderTeacher classes={classes} {...data.test} />
 
-          <Paper style={{alignItems: 'center',padding:15}}>
-            <center>
-            <Avatar className={classes.avatar}>
-              <ImportContactsIcon />
-            </Avatar>
-            </center>
-          <h2>Edit Test</h2>
+          <EditTestInput {...data.test}/>
 
-            <EditTestInput {...data.test}/>
-
-            </Paper>
           </>
           </Fade>
 

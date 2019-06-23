@@ -421,10 +421,13 @@ export const EDIT_COURSE_MUTATION = gql`
 
 export const TEST_COURSE_MUTATION = gql`
   mutation UpdateTest(
-    $subject: String!,
+    $subject: String,
     $testDate: DateTime,
     $testNumber: String,
-    $testType: String!,
+    $testType: String,
+    $startTime: String,
+    $endTime: String,
+    $endDate: DateTime,
     $id:ID!
   ){
     updateTest(
@@ -432,13 +435,19 @@ export const TEST_COURSE_MUTATION = gql`
       testDate: $testDate,
       testNumber: $testNumber,
       testType: $testType,
+      startTime: $startTime,
+      endTime: $endTime,
+      endDate: $endDate,
       id:$id
     ){
     id
     subject
     testNumber
     testDate
-    testType
+    testType,
+    startTime,
+    endTime,
+    endDate,
   }
 }
 `

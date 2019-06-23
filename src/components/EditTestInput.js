@@ -11,6 +11,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 
 import MomentUtils from '@date-io/moment';
 
@@ -81,6 +84,9 @@ class EditTestInput extends Component {
             testDate:'',
             testNumber:'',
             testType:'',
+            startTime:'',
+            endTime:'',
+            endDate:'',
             graphQLError: '',
             isVisibleGraph:false,
             networkError:'',
@@ -94,21 +100,32 @@ class EditTestInput extends Component {
 }
 
   componentDidMount(){
-    const { subject, testDate, testType, testNumber } = this.props
-    console.log(testType)
+    const { subject, testDate, testType, testNumber, startTime, endTime, endDate } = this.props
+
     this.setState({subject,
     testDate,
     testNumber,
     testType,
+    startTime,
+    endTime,
+    endDate
     })
   }
 
 render() {
   const { id, classes } = this.props
-  const { testNumber, subject, testDate, testType, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
-console.log(this.state)
+  const { testNumber, subject, testDate, testType, startTime, endTime, endDate, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
+  console.log(this.state)
   return (
     <>
+    <Paper style={{alignItems: 'center',padding:15,marginBottom:15}}>
+    <center>
+    <Avatar className={classes.avatar}>
+      <ImportContactsIcon />
+    </Avatar>
+    </center>
+  <h2>Edit Test</h2>
+
     <Paper className={classes.paper}>
     <TextField
         id="outlined-full-width"
@@ -196,6 +213,119 @@ console.log(this.state)
 
   </MuiPickersUtilsProvider>
   </Paper>
+  </Paper>
+
+  <Paper style={{alignItems: 'center',padding:15}}>
+
+    <Typography component="h1" variant="h5">
+      Edit Publish Test
+    </Typography>
+
+      <Paper className={classes.paper}>
+      <InputLabel  htmlFor="startHour">Start Time</InputLabel>
+      <Select
+        fullWidth
+        value={startTime}
+        onChange={e => this.setState({ startTime: e.target.value })}
+        inputProps={{
+          name: 'startTime',
+          id: 'startTime',
+        }}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={"6 AM"}>6 AM</MenuItem>
+        <MenuItem value={"7 AM"}>7 AM</MenuItem>
+        <MenuItem value={"8 AM"}>8 AM</MenuItem>
+        <MenuItem value={"9 AM"}>9 AM</MenuItem>
+        <MenuItem value={"10 AM"}>10 AM</MenuItem>
+        <MenuItem value={"11 AM"}>11 AM</MenuItem>
+        <MenuItem value={"12 PM"}>12 PM</MenuItem>
+        <MenuItem value={"1 PM"}>1 PM</MenuItem>
+        <MenuItem value={"2 PM"}>2 PM</MenuItem>
+        <MenuItem value={"3 PM"}>3 PM</MenuItem>
+        <MenuItem value={"4 PM"}>4 PM</MenuItem>
+        <MenuItem value={"5 PM"}>5 PM</MenuItem>
+        <MenuItem value={"6 PM"}>6 PM</MenuItem>
+        <MenuItem value={"7 PM"}>7 PM</MenuItem>
+        <MenuItem value={"8 PM"}>8 PM</MenuItem>
+        <MenuItem value={"9 PM"}>9 PM</MenuItem>
+        <MenuItem value={"10 PM"}>10 PM</MenuItem>
+        <MenuItem value={"11 PM"}>11 PM</MenuItem>
+      </Select>
+      </Paper>
+
+      <Paper className={classes.paper}>
+      <InputLabel  htmlFor="startHour">End Time</InputLabel>
+      <Select
+        fullWidth
+        value={endTime}
+        onChange={e => this.setState({ endTime: e.target.value })}
+        inputProps={{
+          name: 'endTime',
+          id: 'endTime',
+        }}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={"6 AM"}>6 AM</MenuItem>
+        <MenuItem value={"7 AM"}>7 AM</MenuItem>
+        <MenuItem value={"8 AM"}>8 AM</MenuItem>
+        <MenuItem value={"9 AM"}>9 AM</MenuItem>
+        <MenuItem value={"10 AM"}>10 AM</MenuItem>
+        <MenuItem value={"11 AM"}>11 AM</MenuItem>
+        <MenuItem value={"12 PM"}>12 PM</MenuItem>
+        <MenuItem value={"1 PM"}>1 PM</MenuItem>
+        <MenuItem value={"2 PM"}>2 PM</MenuItem>
+        <MenuItem value={"3 PM"}>3 PM</MenuItem>
+        <MenuItem value={"4 PM"}>4 PM</MenuItem>
+        <MenuItem value={"5 PM"}>5 PM</MenuItem>
+        <MenuItem value={"6 PM"}>6 PM</MenuItem>
+        <MenuItem value={"7 PM"}>7 PM</MenuItem>
+        <MenuItem value={"8 PM"}>8 PM</MenuItem>
+        <MenuItem value={"9 PM"}>9 PM</MenuItem>
+        <MenuItem value={"10 PM"}>10 PM</MenuItem>
+        <MenuItem value={"11 PM"}>11 PM</MenuItem>
+      </Select>
+      </Paper>
+
+
+      <Paper className={classes.paper}>
+      <InputLabel  htmlFor="endDate">End Date</InputLabel>
+      {moment(endDate).format('MMMM Do YYYY, h:mm a')}
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+
+      <KeyboardDatePicker
+      fullWidth
+        margin="normal"
+        id="mui-pickers-date"
+        label="Date picker"
+        value={endDate}
+        onChange={(date) => this.setState({endDate:date})}
+        KeyboardButtonProps={{
+          'aria-label': 'change date',
+        }}
+      />
+
+      <KeyboardTimePicker
+      fullWidth
+        margin="normal"
+        id="mui-pickers-time"
+        label="Time picker"
+        value={endDate}
+        onChange={(date) => this.setState({endDate:date})}
+        KeyboardButtonProps={{
+          'aria-label': 'change time',
+        }}
+      />
+
+      </MuiPickersUtilsProvider>
+      </Paper>
+
+  </Paper>
+
   <Mutation
       mutation={TEST_COURSE_MUTATION}
       variables={{
@@ -203,6 +333,9 @@ console.log(this.state)
         testNumber,
         testDate,
         testType,
+        startTime,
+        endTime,
+        endDate,
         id
        }}
       onCompleted={data => this._confirm(data)}
@@ -212,10 +345,13 @@ console.log(this.state)
         updateTest: {
           id: id,
           __typename: "Test",
-          subject: subject,
-          testNumber: testNumber,
-          testDate: testDate,
-          testType: testType
+          subject,
+          testNumber,
+          testDate,
+          testType,
+          startTime,
+          endTime,
+          endDate
         }
       }}
     >

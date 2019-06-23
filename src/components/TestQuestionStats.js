@@ -14,6 +14,7 @@ const uuidv4 = require('uuid/v4');
 class TestQuestionStats extends Component {
 
   render(){
+    
     return (
 
       <Query query={TEST_QUESTION_STATS_QUERY} variables={{ testId: this.props.test_id }}>
