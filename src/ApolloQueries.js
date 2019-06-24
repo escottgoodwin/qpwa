@@ -1653,6 +1653,35 @@ query CreateQuestionQuery($questionId:ID!){
   question(id:$questionId){
     id
     question
+    questionType
+    sentPanel{
+      link
+      id
+    }
+    test{
+      id
+      subject
+      testDate
+      testNumber
+      course{
+        id
+        name
+        institution{
+          id
+          name
+        }
+      }
+    }
+  }
+}
+`
+
+export const CREATE_SHORT_ANSWER_QUESTION_QUERY = gql`
+query CreateQuestionQuery($questionId:ID!){
+  question(id:$questionId){
+    id
+    question
+    correctShortAnswer
     sentPanel{
       link
       id
@@ -1720,6 +1749,29 @@ export const ANSWER_QUESTION_QUERY = gql`
         choice
         correct
       }
+      test{
+        id
+        subject
+        testNumber
+        course{
+          id
+          name
+          institution{
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
+export const ANSWER_SHORT_QUESTION_QUERY = gql`
+  query AnswerQuestionQuery($questionId:ID!){
+    question(id:$questionId){
+      id
+      question
+
       test{
         id
         subject
@@ -2223,3 +2275,31 @@ export const JOIN_MUTATION = gql`
       }
     }
 `
+
+export const CREATE_SHORT_ANSWER_QUESTION = gql`
+  mutation CreateShortAnswerQuestion(
+    $question:String!,
+    $panelId:ID!,
+    $correctShortAnswer:String!,
+    $testId:ID!,
+  ){
+  createShortAnswerQuestion(
+    question:$question,
+    panelId:$panelId,
+    correctShortAnswer:$correctShortAnswer,
+    testId:$testId){
+      id
+      question
+      correctShortAnswer
+    }
+  }
+  `
+
+export const ADD_SHORT_ANSWER = gql`
+  mutation AddShortAnswer($questionId:ID!,$shortAnswerText:String!){
+    addShortAnswer(questionId:$questionId,
+    shortAnswerText:$shortAnswerText){
+      id
+    }
+  }
+  `

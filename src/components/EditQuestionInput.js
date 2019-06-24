@@ -82,8 +82,6 @@ correctButton = (choiceCorrect1,choiceCorrect2,choiceCorrect3,choiceCorrect4) =>
 componentDidMount(){
   const { question, choices } = this.props
 
-  console.log(choices)
-
   const choice1 = choices[0].choice
   const choiceCorrect1 = choices[0].correct
   const choice1Id = choices[0].id
