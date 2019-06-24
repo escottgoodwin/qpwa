@@ -1,8 +1,6 @@
 import React,{Component} from 'react'
 import '../css/App.css'
 
-import { Message } from 'semantic-ui-react'
-
 import {withRouter} from "react-router-dom"
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 
 import { Mutation } from "react-apollo"
 import {EDIT_CHALLENGE_MUTATION} from '../ApolloQueries'
+
+import ErrorSnack from '../components/ErrorSnack'
 
 class EditQuestionInput extends Component {
 
@@ -72,17 +72,11 @@ render() {
       </Mutation>
       </Paper>
 
-      {isVisibleGraph &&
-        <Message negative>
-          <p><b>{graphQLError}</b></p>
-        </Message>
-      }
 
-      {isVisibleNet &&
-        <Message negative>
-          <p><b>{networkError}</b></p>
-        </Message>
-      }
+      <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+      <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
       </div>
 
 )

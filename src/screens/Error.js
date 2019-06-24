@@ -1,24 +1,20 @@
-import React from 'react'
-import '../css/App.css'
-import { Message,Icon } from 'semantic-ui-react'
+import React from 'react';
+import '../css/App.css';
 
 const Error = props =>
 
-<div className="main">
-{console.log(props)}
-<div className="coursecontainer">
+        <div className="dashboard">
 
+          <div className="signin">
 
-      <Message negative>
-      <div><Icon name='warning sign'  /></div>
+          <h2>Error</h2>
 
-      Error
-      </Message>
+          <h4>
+          {props !== null && props.message}
+          </h4>
 
+          </div>
 
+        </div>
 
-      </div>
-    </div>
-
-
-export default Error
+export default Error;

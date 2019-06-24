@@ -1,8 +1,6 @@
 import React,{Component} from 'react'
 import * as Cookies from "js-cookie"
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
-import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
@@ -31,6 +29,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 import { Mutation, Query } from "react-apollo"
 import {ANSWER_QUESTION_QUERY, ANSWER_QUESTION_MUTATION} from '../ApolloQueries'
+
+import ErrorSnack from '../components/ErrorSnack'
 
 const styles = theme => ({
   container: {
@@ -205,17 +205,9 @@ class AnswerQuestion extends Component {
         </div>
       </main>
 
-        {isVisibleGraph &&
-          <Message negative>
-            <p><b>{graphQLError}</b></p>
-          </Message>
-        }
+      <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
 
-        {isVisibleNet &&
-          <Message negative>
-            <p><b>{networkError}</b></p>
-          </Message>
-        }
+      <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
 
       </div>
 

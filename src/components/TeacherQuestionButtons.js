@@ -3,6 +3,7 @@ import '../css/App.css'
 import { Link, withRouter } from 'react-router-dom'
 import moment from 'moment'
 
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -13,12 +14,72 @@ import orange from '@material-ui/core/colors/orange';
 import { Mutation } from "react-apollo"
 import { RELEASE_QUESTIONS_MUTATION, TEST_QUERY } from '../ApolloQueries'
 
+import ErrorSnack from '../components/ErrorSnack'
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  card: {
+    minWidth: 275,
+    position: 'relative',
+  },
+});
+
 class TeacherQuestionButtons extends Component{
+
+  state = {
+        graphQLError: '',
+        isVisibleGraph:false,
+        networkError:false,
+        isVisibleNet:false,
+      }
 
 render() {
 
   const now = new Date()
-  const { id, published, publishDate, startTime, endTime, endDate, release, releaseDate, questions } = this.props
+  const { classes, id, published, publishDate, startTime, endTime, endDate, release, releaseDate, questions } = this.props
+  const { graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
   return(
 
@@ -76,6 +137,7 @@ render() {
             mutation={RELEASE_QUESTIONS_MUTATION}
             variables={{ test_id: id, releaseDate: now }}
             onCompleted={data => this._confirm(data)}
+            onError={error => this._error (error)}
             refetchQueries={() => {
                return [{
                   query: TEST_QUERY,
@@ -89,9 +151,25 @@ render() {
 
       }
 
+      <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+      <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
       </div>
+
     )
   }
+
+  _error = async error => {
+
+      const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
+      this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
+
+      error.networkError &&
+        this.setState({ isVisibleNet: true, networkError: error.networkError.message})
+
+  }
+
 
   _confirm = async data => {
 
@@ -104,4 +182,4 @@ render() {
   }
 }
 
-export default withRouter(TeacherQuestionButtons)
+export default withStyles(styles)(withRouter(TeacherQuestionButtons))

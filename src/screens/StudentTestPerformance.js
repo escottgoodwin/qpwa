@@ -47,7 +47,7 @@ class StudentTestPerformance extends Component {
 
       <div className="coursecontainer">
 
-        <TestQuestionStats test_id={test_id} />
+      <TestQuestionStats test_id={test_id} />
 
       </div>
     </div>

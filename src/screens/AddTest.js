@@ -25,6 +25,7 @@ import { Mutation } from "react-apollo";
 
 import { ADD_TEST_MUTATION } from '../ApolloQueries'
 
+import ErrorSnack from '../components/ErrorSnack'
 import TeacherCourseHeader from '../components/TeacherCourseHeader'
 
 const styles = theme => ({
@@ -210,6 +211,7 @@ class AddTest extends Component {
               testType
             }}
             onCompleted={data => this._confirm(data)}
+            onError={error => this._error (error)}
           >
             {mutation => (
 
@@ -226,17 +228,10 @@ class AddTest extends Component {
             )}
           </Mutation>
 
-          {isVisibleGraph &&
-            <div>
-              <p><b>{graphQLError}</b></p>
-            </div>
-          }
+          <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
 
-          {isVisibleNet &&
-            <div>
-              <p><b>{networkError}</b></p>
-            </div>
-          }
+          <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
 
           </Paper>
       </div>

@@ -14,6 +14,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Query, Mutation } from "react-apollo"
 import { COURSE_QUERY,STUDENT_COURSE_QUERY, JOIN_MUTATION } from '../ApolloQueries'
 
+import ErrorSnack from '../components/ErrorSnack'
+
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -77,9 +80,19 @@ const styles = theme => ({
 
 class StudentJoinCourse extends Component {
 
+  state = {
+          graphQLError: '',
+          isVisibleGraph:false,
+          networkError:'',
+          isVisibleNet:false,
+      }
+
   render() {
+
+    const { classes } = this.props
     const userid = sessionStorage.getItem('userid')
     const { course_id, inviteId }= this.props.location.state
+    const { graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
     return (
 
@@ -151,6 +164,7 @@ class StudentJoinCourse extends Component {
                   mutation={JOIN_MUTATION}
                   variables={{ courseId: course_id, inviteId }}
                   onCompleted={(data) => this._confirm(data)}
+                  onError={error => this._error (error)}
                   refetchQueries={() => {
                      return [{
                         query: STUDENT_COURSE_QUERY,
@@ -167,6 +181,14 @@ class StudentJoinCourse extends Component {
 
             </div>
             </div>
+
+            <div>
+
+            <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+            <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
+            </div>
             </>
             </Fade >
         )
@@ -178,6 +200,16 @@ class StudentJoinCourse extends Component {
     </>
 
     )
+  }
+
+  _error = async error => {
+
+      const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
+      this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
+
+      error.networkError &&
+        this.setState({ isVisibleNet: true, networkError: error.networkError.message})
+
   }
 
   _confirm = async data => {

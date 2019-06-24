@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../css/App.css';
-import { withRouter } from "react-router";
 
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
@@ -71,52 +68,33 @@ const styles = theme => ({
   },
 });
 
-class ErrorSnack extends Component{
-
-  state={
-    open:false
-  }
-
- componentDidMount(){
-   const { open } = this.props
-   this.setState({open})
- }
-
-render() {
-
-  const { classes, errorMsg } = this.props
-  const { open } = this.state
-
-  return (
+const ErrorSnack = props =>
 
     <Snackbar
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'left',
     }}
-    onClose={this.props.handleClose}
-    open={this.props.open}
+    onClose={props.handleClose}
+    open={props.open}
     autoHideDuration={6000}
     >
 
     <SnackbarContent
-    className={classes.error}
+    className={props.classes.error}
     message={
-    <span id="client-snackbar" className={classes.message}>
+    <span id="client-snackbar" className={props.classes.message}>
       <ErrorIcon style={{margin:5}}/>
-      {errorMsg}
+      {props.errorMsg}
     </span>}
     action={[
-      <IconButton key="close" aria-label="Close" color="inherit" onClick={this.props.handleClose}>
-        <CloseIcon className={classes.icon} />
+      <IconButton key="close" aria-label="Close" color="inherit" onClick={props.handleClose}>
+        <CloseIcon className={props.classes.icon} />
       </IconButton>,
     ]}
     />
 
     </Snackbar>
 
-    )
-  }
-}
 
 export default withStyles(styles)(ErrorSnack)

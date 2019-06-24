@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,6 +23,8 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import { Mutation, Query } from "react-apollo"
 import { QUESTION_QUERY, SEND_QUESTION_MUTATION } from '../ApolloQueries'
+
+import ErrorSnack from '../components/ErrorSnack'
 
 const styles = theme => ({
   container: {
@@ -298,17 +299,10 @@ class ReviewQuestion extends Component {
           }}
           </Query>
 
-          {isVisibleGraph &&
-            <Message negative>
-              <p><b>{graphQLError}</b></p>
-            </Message>
-          }
+          <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
 
-          {isVisibleNet &&
-            <Message negative>
-              <p><b>{networkError}</b></p>
-            </Message>
-          }
+          <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
         </div>
       </main>
 

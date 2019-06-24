@@ -26,6 +26,8 @@ import {
 
 import { TEST_COURSE_MUTATION } from '../ApolloQueries'
 
+import ErrorSnack from '../components/ErrorSnack'
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -370,17 +372,11 @@ render() {
       )}
     </Mutation>
 
-    {isVisibleGraph &&
-      <div>
-        <p><b>{graphQLError}</b></p>
-      </div>
-    }
 
-    {isVisibleNet &&
-      <div>
-        <p><b>{networkError}</b></p>
-      </div>
-    }
+    <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+    <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
     </>
     )
   }

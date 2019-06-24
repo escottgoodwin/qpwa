@@ -1,7 +1,5 @@
 import React,{Component} from 'react'
 import '../css/App.css'
-//import { Button, Form, FormGroup, Label, Input,} from 'reactstrap'
-import { Message } from 'semantic-ui-react'
 
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,6 +22,8 @@ import Slide from '@material-ui/core/Slide';
 
 import { Mutation, Query } from "react-apollo"
 import {CREATE_QUESTION_QUERY,CREATE_QUESTION_MUTATION} from '../ApolloQueries'
+
+import ErrorSnack from '../components/ErrorSnack'
 
 const styles = theme => ({
   container: {
@@ -380,17 +380,11 @@ class CreateQuestion extends Component {
           }}
           </Query>
           <div>
-          {isVisibleGraph &&
-            <Message negative>
-              <p><b>{graphQLError}</b></p>
-            </Message>
-          }
 
-          {isVisibleNet &&
-            <Message negative>
-              <p><b>{networkError}</b></p>
-            </Message>
-          }
+          <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+          <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
           </div>
         </div>
       </main>

@@ -40,6 +40,7 @@ import Loading from './Loading'
 import {NEW_PUBLISH_TEST_MUTATION, TEST_QUERY, PUBLISH_TEST_REFETCH_QUERY}  from '../ApolloQueries'
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
+import ErrorSnack from '../components/ErrorSnack'
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -115,7 +116,11 @@ class PublishTest extends Component {
           choice4:'',
           choiceCorrect4:false,
           button4:'outlined',
-          open: false
+          open: false,
+          graphQLError:'',
+          isVisibleGraph:false,
+          networkError:'',
+          isVisibleNet:false,
         }
 
         handleChange = name => event => {
@@ -149,6 +154,7 @@ class PublishTest extends Component {
               button2,
               button3,
               button4,
+              graphQLError, networkError, isVisibleNet, isVisibleGraph
              } = this.state
 
       return (
@@ -506,6 +512,13 @@ class PublishTest extends Component {
           )}
         </Mutation>
 
+        <div>
+
+        <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+        <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
+
+        </div>
       </>
       </Fade>
     )

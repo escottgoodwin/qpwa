@@ -22,11 +22,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Fade from '@material-ui/core/Fade';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import ErrorIcon from '@material-ui/icons/Error';
 
 import StudentChallengeList from '../components/StudentChallengeList';
+import ErrorSnack from '../components/ErrorSnack'
 
 import { Mutation, Query } from "react-apollo"
 import { ANSWERED_QUESTION_QUERY, CREATE_CHALLENGE_MUTATION } from '../ApolloQueries'
@@ -343,49 +341,6 @@ class ChallengeQuestion extends Component {
               </Mutation>
               </Paper>
 
-              <Snackbar
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              open={isVisibleGraph}
-              autoHideDuration={6000}
-              >
-              <SnackbarContent
-              className={classes.error}
-              message={
-              <span id="client-snackbar" className={classes.message}>
-                <ErrorIcon style={{margin:5}}/>
-                <h5>{graphQLError}</h5>
-              </span>}
-              action={[
-                <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleGraph:false})}>
-                  <CloseIcon className={classes.icon} />
-                </IconButton>,
-              ]}
-            />
-            </Snackbar>
-            <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={isVisibleNet}
-            autoHideDuration={6000}
-            onClose={() => this.setState({isVisibleNet:false})}
-            className={classes.margin}
-            message={
-            <span id="client-snackbar" className={classes.message}>
-              <ErrorIcon />
-              <h5>{networkError}</h5>
-            </span>}
-            action={[
-              <IconButton key="close" aria-label="Close" color="inherit" onClick={() => this.setState({isVisibleNet:false})}>
-                <CloseIcon className={classes.icon} />
-              </IconButton>,
-            ]}
-          />
-
             <div style={{margin:10}}>
             <Button
             fullWidth
@@ -398,6 +353,9 @@ class ChallengeQuestion extends Component {
               state: { test_id: question.test.id }
             })}>Test Dashboard</Button>
             </div>
+            <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
+
+            <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
 
             </div>
             </Paper>
