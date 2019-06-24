@@ -1681,6 +1681,7 @@ query CreateQuestionQuery($questionId:ID!){
   question(id:$questionId){
     id
     question
+    questionType
     correctShortAnswer
     sentPanel{
       link
@@ -1744,6 +1745,10 @@ export const ANSWER_QUESTION_QUERY = gql`
     question(id:$questionId){
       id
       question
+      panel{
+        id
+        link 
+      }
       choices {
         id
         choice
@@ -1771,7 +1776,9 @@ export const ANSWER_SHORT_QUESTION_QUERY = gql`
     question(id:$questionId){
       id
       question
-
+      panel{
+        link
+      }
       test{
         id
         subject
@@ -1796,6 +1803,19 @@ export const ANSWER_QUESTION_MUTATION = gql`
     addAnswer(
       questionId:$questionId,
       answerChoiceId:$answerChoiceId
+    ){
+      id
+    }
+  }
+`
+
+export const ANSWER_SHORT_ANSWER_QUESTION_MUTATION = gql`
+  mutation AnswerShortQuestionMutation(
+      $questionId:ID!,
+  	  $shortAnswerText:String!){
+    addShortAnswer(
+      questionId:$questionId,
+      shortAnswerText:$shortAnswerText
     ){
       id
     }

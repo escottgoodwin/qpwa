@@ -13,10 +13,12 @@ import Fade from '@material-ui/core/Fade';
 import CardActionArea from '@material-ui/core/CardActionArea'
 import blueGrey from '@material-ui/core/colors/blueGrey';
 
-import { Mutation, Query } from "react-apollo"
-import {ANSWER_QUESTION_QUERY, ANSWER_QUESTION_MUTATION} from '../ApolloQueries'
+import { Query } from "react-apollo"
+import {ANSWER_QUESTION_QUERY} from '../ApolloQueries'
 
 import ErrorSnack from '../components/ErrorSnack'
+import AnswerMultipleChoiceQuestion from '../components/AnswerMultipleChoiceQuestion'
+import AnswerShortAnswerQuestion from '../components/AnswerShortAnswerQuestion'
 
 const styles = theme => ({
   container: {
@@ -77,38 +79,11 @@ const styles = theme => ({
 
 class AnswerQuestion extends Component {
 
-      state = {
-            answerChoiceId:'',
-            button1:'white',
-            button2:'white',
-            button3:'white',
-            button4:'white',
-            graphQLError:'',
-            isVisibleGraph:false,
-            networkError:'',
-            isVisibleNet:false,
-          }
-
-      handleChange = event => {
-          this.setState({ value: event.target.value });
-        };
-
 
     render() {
 
-      const { answerChoiceId,
-              button1,
-              button2,
-              button3,
-              button4,
-              graphQLError,
-              networkError,
-              isVisibleNet,
-              isVisibleGraph } = this.state
-
       const { classes } = this.props
       const { questionId } = this.props.location.state
-      const selectedColor = blueGrey[200]
 
       return (
       <div style={{height:'100vh',backgroundColor:'#e4f1fe'}}>
@@ -122,8 +97,8 @@ class AnswerQuestion extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { question, choices } = data.question
-
+                const { id, question, choices, questionType, } = data.question
+                console.log(data.question)
             return (
               <Fade in={!loading}>
               <Paper className={classes.paper}>
@@ -134,140 +109,11 @@ class AnswerQuestion extends Component {
 
         <div style={{marginTop:20}}>
 
-          <h3>
-            {question}
-          </h3>
-
-          <div style={{marginTop:20}}>
-        <Card style={{backgroundColor:button1,
-          minWidth: 275,
-          position: 'relative',
-        }} onClick={() => this.setState({
-          answerChoiceId: choices[0].id,
-          choiceCorrect1:true,
-          choiceCorrect2:false,
-          choiceCorrect3:false,
-          choiceCorrect4:false,
-          button1:selectedColor ,
-          button2:'white',
-          button3:'white',
-          button4:'white'
-        })} >
-          <CardActionArea>
-          <CardContent>
-
-            <h5>
-              {choices[0].choice}
-            </h5>
-
-            </CardContent>
-          </CardActionArea>
-        </Card>
-        </div>
-
-      <div style={{marginTop:20}}>
-      <Card style={{backgroundColor:button2,
-        minWidth: 275,
-        position: 'relative',
-      }} onClick={() => this.setState({
-        answerChoiceId: choices[1].id,
-        choiceCorrect1:false,
-        choiceCorrect2:true,
-        choiceCorrect3:false,
-        choiceCorrect4:false,
-        button1:'white',
-        button2:selectedColor,
-        button3:'white',
-        button4:'white'
-      })} >
-        <CardActionArea>
-        <CardContent>
-
-          <h5>
-            {choices[1].choice}
-          </h5>
-
-          </CardContent>
-        </CardActionArea>
-      </Card>
-      </div>
-
-    <div style={{marginTop:20}}>
-    <Card style={{backgroundColor:button3,
-      minWidth: 275,
-      position: 'relative',
-    }} onClick={() => this.setState({
-      answerChoiceId: choices[2].id,
-      choiceCorrect1:true,
-      choiceCorrect2:false,
-      choiceCorrect3:false,
-      choiceCorrect4:false,
-      button1:'white',
-      button2:'white',
-      button3:selectedColor,
-      button4:'white'
-    })} >
-      <CardActionArea>
-      <CardContent>
-
-        <h5>
-          {choices[2].choice}
-        </h5>
-
-        </CardContent>
-      </CardActionArea>
-    </Card>
-    </div>
-
-    <div style={{marginTop:20}}>
-  <Card style={{backgroundColor:button4,
-    minWidth: 275,
-    position: 'relative',
-  }} onClick={() => this.setState({
-    answerChoiceId: choices[3].id,
-    choiceCorrect1:true,
-    choiceCorrect2:false,
-    choiceCorrect3:false,
-    choiceCorrect4:false,
-    button1:'white',
-    button2:'white',
-    button3:'white',
-    button4:selectedColor
-  })} >
-    <CardActionArea>
-    <CardContent>
-
-      <h5>
-        {choices[3].choice}
-      </h5>
-
-      </CardContent>
-    </CardActionArea>
-  </Card>
-  </div>
-
-        <div style={{margin:10}}>
-        <Mutation
-            mutation={ANSWER_QUESTION_MUTATION}
-            variables={{
-              questionId,
-              answerChoiceId
-            }}
-            onCompleted={data => this._confirm(data)}
-            onError={error => this._error (error)}
-          >
-            {mutation => (
-              <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              size='large'
-              className={classes.submit}
-              onClick={mutation}>Submit Answer</Button>
-            )}
-        </Mutation>
-        </div>
-
+          {questionType!=='SHORT_ANSWER' ?
+            <AnswerShortAnswerQuestion classes={classes} {...data.question} />
+            :
+            <AnswerMultipleChoiceQuestion  classes={classes} {...data.question} />
+          }
         </div>
         </Paper>
         </Fade>
@@ -279,35 +125,11 @@ class AnswerQuestion extends Component {
         </div>
       </main>
 
-      <ErrorSnack handleClose={() => this.setState({isVisibleGraph:false})} classes={classes} open={isVisibleGraph} errorMsg={graphQLError} />
-
-      <ErrorSnack handleClose={() => this.setState({isVisibleNet:false})} classes={classes} open={isVisibleNet} errorMsg={networkError.message} />
-
-
       </div>
 
   )
 }
 
-_error = async error => {
-
-    const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
-    this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
-
-    error.networkError &&
-      this.setState({ isVisibleNet: true, networkError: error.networkError.message})
-
 }
-  _confirm = async data => {
-
-    const { id } = data.addAnswer
-
-    this.props.history.push({
-      pathname: `/question_answered`,
-      state: { answerId: id }
-      })
-    }
-
-  }
 
 export default withStyles(styles)(AnswerQuestion)
