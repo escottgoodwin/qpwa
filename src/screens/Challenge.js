@@ -165,10 +165,8 @@ class Challenge extends Component {
 
                 const { challenge, addedBy } = data.challenge
 
-
                 const { answer, question, shortAnswerText, answerCorrect } = data.challenge.answer
-                console.log(data.challenge.answer)
-
+              
             return (
 
               <Fade in={!loading}>

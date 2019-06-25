@@ -98,7 +98,7 @@ class AnswerQuestion extends Component {
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { id, question, choices, questionType } = data.question
-                console.log(data.question)
+              
             return (
               <Fade in={!loading}>
               <Paper className={classes.paper}>

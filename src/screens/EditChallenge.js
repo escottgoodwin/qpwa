@@ -23,6 +23,9 @@ import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
 import EditChallengeInput from '../components/EditChallengeInput';
+import ChallengeQuestionMulti from '../components/ChallengeQuestionMulti';
+import ChallengeQuestionShort from '../components/ChallengeQuestionShort';
+
 
 import {Query } from "react-apollo"
 
@@ -126,16 +129,9 @@ class EditChallenge extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { answer } = data.challenge
+                const { challenge, addedBy } = data.challenge
 
-                const question  = answer.answer.question
-
-                const { choices } = question
-
-                const button1 = choices[0].correct ? selectedColor : wrong
-                const button2 = choices[1].correct ? selectedColor : wrong
-                const button3 = choices[2].correct ? selectedColor : wrong
-                const button4 = choices[3].correct ? selectedColor : wrong
+                const { answer, question, shortAnswerText, answerCorrect } = data.challenge.answer
 
             return (
 
@@ -144,7 +140,7 @@ class EditChallenge extends Component {
               <Paper className={classes.paper}>
             <div style={{marginTop:20}}>
             <div style={{marginBottom:20}}>
-            {answer.correct ?
+            {answerCorrect ?
               <div >
               <center>
 
@@ -156,7 +152,7 @@ class EditChallenge extends Component {
               </Typography>
               <div style={{margin:10}} >
               <Typography  component="h5" variant="h5">
-                {answer.choice}
+              {shortAnswerText !== null ? shortAnswerText : answer.choice }
               </Typography>
               </div>
               </div>
@@ -172,7 +168,7 @@ class EditChallenge extends Component {
               </Typography>
               <div style={{margin:10}} >
               <Typography  component="h5" variant="h5">
-                {answer.choice}
+              {shortAnswerText !== null ? shortAnswerText : answer.choice }
               </Typography>
               </div>
               </div>
@@ -218,73 +214,13 @@ class EditChallenge extends Component {
                 {question.question}
               </Typography>
 
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button1,
-                minWidth: 275,
-                position: 'relative',
-              }} >
+              {
+                question.questionType==='SHORT_ANSWER' ?
 
-                <CardContent>
-
-                  <h5>
-                    {choices[0].choice}
-                  </h5>
-
-                  </CardContent>
-
-              </Card>
-              </div>
-
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button2,
-              minWidth: 275,
-              position: 'relative',
-              }}  >
-
-              <CardContent>
-
-                <h5>
-                  {choices[1].choice}
-                </h5>
-
-                </CardContent>
-
-              </Card>
-              </div>
-
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button3,
-              minWidth: 275,
-              position: 'relative',
-              }} >
-
-              <CardContent>
-
-              <h5>
-                {choices[2].choice}
-              </h5>
-
-              </CardContent>
-
-              </Card>
-              </div>
-
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button4,
-              minWidth: 275,
-              position: 'relative',
-              }} >
-
-              <CardContent>
-
-              <h5>
-              {choices[3].choice}
-              </h5>
-
-              </CardContent>
-
-              </Card>
-              </div>
+                <ChallengeQuestionShort {...data.challenge.answer}/>
+                :
+                <ChallengeQuestionMulti {...data.challenge.answer}/>
+              }
 
             <EditChallengeInput classes={classes} {...data.challenge}/>
 
