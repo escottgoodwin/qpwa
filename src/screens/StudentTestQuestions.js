@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import StudentTestHeader from '../components/StudentTestHeader'
 import UserQuestionStats from '../components/UserQuestionStats'
-import UserQuestionItem from '../components/UserQuestionItem'
+import UserQuestionItem from '../components/UserQuestionItem1'
 
 import { Query } from "react-apollo"
 import { USER_QUESTIONS_QUERY } from '../ApolloQueries'
@@ -67,9 +67,10 @@ class StudentTestQuestions extends Component {
   render() {
 
     const { testId } = this.props.location.state
-    const { classes } = this.props
+    const { classes, history } = this.props
 
       return (
+        <main className={classes.main}>
 
     <Query query={USER_QUESTIONS_QUERY} variables={{ testId }} fetchPolicy="cache-and-network">
           {({ loading, error, data }) => {
@@ -78,11 +79,10 @@ class StudentTestQuestions extends Component {
 
             const { questions } = data.userQuestions1
             console.log(questions)
-
         return (
           <Fade in={!loading}>
-          <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} >
-          <main className={classes.main}>
+
+
 
           <div style={{marginBottom:50}}>
           <StudentTestHeader classes={classes} test_id={testId} />
@@ -91,19 +91,20 @@ class StudentTestQuestions extends Component {
 
           {
             questions.length >0 &&
-            <Paper style={{padding:10,marginTop:10}}>
+            <div>
             {
-              questions.map(uq => <UserQuestionItem {...uq} />)
+              questions.map(uq => <UserQuestionItem history={history} {...uq} />)
             }
-            </Paper>
+            </div>
           }
-          </div>
-          </main>
+
           </div>
           </Fade>
           )
         }}
         </Query>
+
+        </main>
         )
       }
     }

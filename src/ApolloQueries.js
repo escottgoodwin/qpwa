@@ -2148,6 +2148,10 @@ query UserQuestions($testId:ID!){
     id
     question
     questionType
+    panel {
+      id
+      link
+    }
     correctShortAnswer
     choices{
       id
@@ -2177,6 +2181,8 @@ query UserQuestions($testId:ID!){
     questions{
       id
       question
+      questionType
+      correctShortAnswer
       choices{
         id
         choice
