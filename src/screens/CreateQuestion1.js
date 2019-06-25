@@ -166,7 +166,7 @@ class CreateQuestion extends Component {
 
         {
           questionType==='SHORT_ANSWER' ?
-          <CreateShortAnswerQuestion history={history} testId={test.id} panelId={sentPanel.id} classes={classes} />
+          <CreateShortAnswerQuestion history={history} testId={test.id} questionId={questionId} panelId={sentPanel.id} classes={classes} />
           :
           <CreateMultipleChoiceQuestion history={history} testId={test.id} questionId={questionId} panelId={sentPanel.id} classes={classes} />
         }

@@ -85,7 +85,7 @@ class StudentTestAnswers extends Component {
               if (error) return <div> {JSON.stringify(error)} </div>
 
               const { answers } = data.userAnswers1
-              console.log(answers)
+
               return (
                 <Fade in={!loading}>
                 <div  >
@@ -114,10 +114,11 @@ class StudentTestAnswers extends Component {
                     <hr />
 
                     {
-                      item.answer!==null ?
-                       <UserAnswerRowMulti {...item} />
-                       :
+                      item.question.questionType=='SHORT_ANSWER' ?
+
                        <UserAnswerRowShort {...item} />
+                       :
+                       <UserAnswerRowMulti {...item} />
                     }
 
 

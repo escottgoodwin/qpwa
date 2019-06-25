@@ -21,7 +21,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import { Mutation } from "react-apollo"
-import {CREATE_QUESTION_MUTATION} from '../ApolloQueries'
+import {CREATE_SHORT_ANSWER_QUESTION_MUTATION} from '../ApolloQueries'
 
 import ErrorSnack from '../components/ErrorSnack'
 
@@ -95,7 +95,7 @@ class CreateShortAnswerQuestion extends Component {
               isVisibleNet,
               isVisibleGraph } = this.state
 
-      const { classes, panelId, testId, } = this.props
+      const { classes, panelId, testId, questionId } = this.props
 
       return (
         <>
@@ -132,7 +132,7 @@ class CreateShortAnswerQuestion extends Component {
 
         <div style={{margin:10}}>
         <Mutation
-            mutation={CREATE_QUESTION_MUTATION}
+            mutation={CREATE_SHORT_ANSWER_QUESTION_MUTATION}
             variables={{
               testId,
               panelId,
@@ -175,9 +175,10 @@ _error = async error => {
 }
   _confirm = async data => {
 
-    const { questionId } = this.props.location.state
+    const { questionId } = this.props
 
-    const { id, test } = data.createQuestion
+    const { id, test } = data.createShortAnswerQuestion
+      console.log(id)
     this.props.history.push({
       pathname: `/review_question`,
       state: { newQuestionId: id, oldQuestionId: questionId, testId: test.id }

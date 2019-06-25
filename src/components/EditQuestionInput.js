@@ -124,7 +124,6 @@ render() {
           isVisibleGraph } = this.state
 
           const { id, oldQuestionId, test } = this.props
-            console.log(this.state)
 
   return (
 

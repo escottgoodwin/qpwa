@@ -18,6 +18,8 @@ import Slide from '@material-ui/core/Slide';
 import CardActionArea from '@material-ui/core/CardActionArea'
 
 import EditQuestionInput from '../components/EditQuestionInput'
+import EditQuestionShortInput from '../components/EditQuestionShortInput'
+
 
 import { Query } from "react-apollo"
 import {EDIT_QUESTION_QUERY} from '../ApolloQueries'
@@ -110,8 +112,8 @@ class EditQuestion extends Component {
                 if (loading) return <div>Loading...</div>
                 if (error) return <div> {JSON.stringify(error)} </div>
 
-                const { panel } = data.question
-
+                const { panel, questionType } = data.question
+                console.log(data.question)
             return (
 
         <div>
@@ -151,9 +153,13 @@ class EditQuestion extends Component {
 
         </Dialog>
 
-      <EditQuestionInput classes={classes} oldQuestionId={oldQuestionId} testId={testId} {...data.question}/>
+        { questionType==='SHORT_ANSWER' ?
+          <EditQuestionShortInput classes={classes} oldQuestionId={oldQuestionId} testId={testId} {...data.question}/>
+          :
+          <EditQuestionInput classes={classes} oldQuestionId={oldQuestionId} testId={testId} {...data.question}/>
 
-        </div>
+        }
+      </div>
           )
           }}
           </Query>

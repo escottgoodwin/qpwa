@@ -1705,6 +1705,7 @@ query CreateQuestionQuery($questionId:ID!){
 }
 `
 
+
 export const CREATE_QUESTION_MUTATION = gql`
 mutation CreateQuestion(
   $question: String!,
@@ -1828,6 +1829,8 @@ export const QUESTION_QUERY = gql`
     question(id:$questionId){
       id
       question
+      questionType
+      correctShortAnswer
       choices {
         id
         choice
@@ -1867,6 +1870,8 @@ query EditQuestionQuery($questionId:ID!){
   question(id:$questionId){
     id
     question
+    questionType
+    correctShortAnswer
     choices{
       id
       choice
@@ -1925,6 +1930,23 @@ mutation EditQuestion(
   	choice2Id:$choice2Id,
   	choice3Id:$choice3Id,
   	choice4Id:$choice4Id,){
+      id
+      test{
+        id
+      }
+    }
+  }
+`
+
+export const EDIT_SHORT_QUESTION_MUTATION = gql`
+mutation EditQuestion(
+    $id:ID!,
+    $question:String,
+    $correctShortAnswer:String){
+  updateShortQuestion(
+    id:$id,
+    question:$question,
+    correctShortAnswer:$correctShortAnswer){
       id
       test{
         id
@@ -2125,6 +2147,8 @@ query UserQuestions($testId:ID!){
   userQuestions(testId:$testId){
     id
     question
+    questionType
+    correctShortAnswer
     choices{
       id
       choice
@@ -2190,9 +2214,11 @@ query UserAnswers($testId:ID!){
       id
       choice
     }
+    correctShortAnswer
     question{
       id
       question
+      questionType
       choices{
         id
         choice
@@ -2308,7 +2334,7 @@ export const JOIN_MUTATION = gql`
     }
 `
 
-export const CREATE_SHORT_ANSWER_QUESTION = gql`
+export const CREATE_SHORT_ANSWER_QUESTION_MUTATION = gql`
   mutation CreateShortAnswerQuestion(
     $question:String!,
     $panelId:ID!,
@@ -2323,6 +2349,9 @@ export const CREATE_SHORT_ANSWER_QUESTION = gql`
       id
       question
       correctShortAnswer
+      test{
+        id
+      }
     }
   }
   `

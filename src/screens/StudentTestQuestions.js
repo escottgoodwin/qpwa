@@ -77,6 +77,7 @@ class StudentTestQuestions extends Component {
             if (error) return <div>{JSON.stringify(error)}</div>
 
             const { questions } = data.userQuestions1
+            console.log(questions)
 
         return (
           <Fade in={!loading}>
