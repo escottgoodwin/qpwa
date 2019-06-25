@@ -1947,6 +1947,7 @@ query AnswerQuery($answerId:ID!){
     question{
       id
       question
+      questionType
       correctShortAnswer
       panel{
         id

@@ -104,7 +104,7 @@ class ShortAnswerQuestionAnswered extends Component {
     render() {
 
       const { classes, answer, question, answerCorrect, shortAnswerText } = this.props
-      console.log(this.props)
+    
       const { choices } = question
 
       const selectedColor = green[700]

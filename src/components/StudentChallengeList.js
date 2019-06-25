@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Fade from '@material-ui/core/Fade';
 
 import { Query } from "react-apollo"
 import { CHALLENGE_QUESTION_QUERY } from '../ApolloQueries'
@@ -18,13 +19,17 @@ class StudentChallengeList extends React.Component {
     return(
       <Query query={CHALLENGE_QUESTION_QUERY} variables={{ questionId: questionId }} fetchPolicy="cache-and-network">
             {({ loading, error, data }) => {
-              if (loading) return <div>Loading...</div>
+              if (loading) return <div style={{height:'30vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div>{JSON.stringify(error)}</div>
 
               const challengesToRender = data.challenges.challenges
-
+            
           return (
-
+            <>
+            {challengesToRender.length>0 &&
+            <Fade in={!loading}>
+            <>
+            <div style={{marginTop:20}}>
             <Paper style={{padding:10}}>
             <div>
             <div><h5>Question Challenges </h5></div>
@@ -48,13 +53,15 @@ class StudentChallengeList extends React.Component {
               </CardActionArea>
               </Card>
               </div>
-
-
             )}
             </div>
             </Paper>
+            </div>
 
-
+            </>
+            </Fade>
+          }
+          </>
     )
   }}
   </Query>

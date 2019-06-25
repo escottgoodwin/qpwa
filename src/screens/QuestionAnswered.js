@@ -123,14 +123,14 @@ class QuestionAnswered extends Component {
                 if (error) return <div>{JSON.stringify(error)}</div>
 
                 const { answer, question, answerCorrect } = data.answer
-
+                console.log(data.answer)
 
             return (
               <Fade in={!loading}>
               <Paper className={classes.paper}>
               <div style={{marginTop:20}}>
 
-              { question.testType!=='SHORT_ANSWER' ?
+              { question.questionType==='SHORT_ANSWER' ?
                 <ShortAnswerQuestionAnswered {...data.answer}/>
                 :
                 <MultipleChoiceQuestionAnswered {...data.answer}/>
