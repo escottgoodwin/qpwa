@@ -2042,12 +2042,12 @@ query ChallengeQuery($challengeId:ID!){
       }
     	answer{
       	id
-    		answer{
-          id
-          choice
-          correct
-          question{
+        answerCorrect
+        shortAnswerText
+        question{
             question
+            questionType
+            correctShortAnswer
             panel{
               id
               link
@@ -2061,6 +2061,10 @@ query ChallengeQuery($challengeId:ID!){
               correct
             }
           }
+    		answer{
+          id
+          choice
+          correct
         }
       }
     }

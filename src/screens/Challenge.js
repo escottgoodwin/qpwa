@@ -25,6 +25,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import ChallengeChat from '../components/ChallengeChat';
+import ChallengeQuestionMulti from '../components/ChallengeQuestionMulti';
+import ChallengeQuestionShort from '../components/ChallengeQuestionShort';
+
 
 import { Query } from "react-apollo"
 import { CHALLENGE_QUERY } from '../ApolloQueries'
@@ -160,16 +163,11 @@ class Challenge extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { challenge, addedBy, answer } = data.challenge
+                const { challenge, addedBy } = data.challenge
 
-                const question  = answer.answer.question
 
-                const { choices } = question
-
-                const button1 = choices[0].correct ? selectedColor : wrong
-                const button2 = choices[1].correct ? selectedColor : wrong
-                const button3 = choices[2].correct ? selectedColor : wrong
-                const button4 = choices[3].correct ? selectedColor : wrong
+                const { answer, question, shortAnswerText, answerCorrect } = data.challenge.answer
+                console.log(data.challenge.answer)
 
             return (
 
@@ -219,7 +217,7 @@ class Challenge extends Component {
 
             </div>
             <hr />
-            {answer.correct ?
+            {answerCorrect ?
               <div >
               <center>
 
@@ -231,7 +229,7 @@ class Challenge extends Component {
               </Typography>
               <div style={{margin:10}} >
               <Typography  component="h5" variant="h5">
-                {answer.choice}
+              {shortAnswerText !== null ? shortAnswerText : answer.choice }
               </Typography>
               </div>
               </div>
@@ -247,7 +245,7 @@ class Challenge extends Component {
               </Typography>
               <div style={{margin:10}} >
               <Typography  component="h5" variant="h5">
-                {answer.choice}
+              {shortAnswerText !== null ? shortAnswerText : answer.choice }
               </Typography>
               </div>
               </div>
@@ -292,74 +290,15 @@ class Challenge extends Component {
                 {question.question}
               </Typography>
 
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button1,
-                minWidth: 275,
-                position: 'relative',
-              }} >
 
-                <CardContent>
+              {
+                question.questionType==='SHORT_ANSWER' ?
 
-                  <h5 >
-                    {choices[0].choice}
-                  </h5>
+                <ChallengeQuestionShort {...data.challenge.answer}/>
+                :
+                <ChallengeQuestionMulti {...data.challenge.answer}/>
+              }
 
-                  </CardContent>
-
-              </Card>
-              </div>
-
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button2,
-              minWidth: 275,
-              position: 'relative',
-              }}  >
-
-              <CardContent>
-
-                <h5 >
-                  {choices[1].choice}
-                </h5>
-
-                </CardContent>
-
-              </Card>
-              </div>
-
-              <div style={{marginTop:20}}>
-              <Card style={{backgroundColor:button3,
-              minWidth: 275,
-              position: 'relative',
-              }} >
-
-              <CardContent>
-
-              <h5 >
-                {choices[2].choice}
-              </h5>
-
-              </CardContent>
-
-              </Card>
-              </div>
-
-              <div style={{marginTop:20}}>
-              <Card style={{
-              backgroundColor:button4,
-              minWidth: 275,
-              position: 'relative',
-              }} >
-
-              <CardContent>
-
-              <h5 >
-              {choices[3].choice}
-              </h5>
-
-              </CardContent>
-
-              </Card>
-              </div>
 
           { userId === addedBy.id &&
             <div style={{margin:10}}>
