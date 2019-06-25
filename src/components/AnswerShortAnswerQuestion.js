@@ -216,7 +216,7 @@ _error = async error => {
 }
   _confirm = async data => {
 
-    const { id } = data.addAnswer
+    const { id } = data.addShortAnswer
 
     this.props.history.push({
       pathname: `/question_answered`,

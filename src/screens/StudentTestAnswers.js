@@ -10,9 +10,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 import StudentTestHeader from '../components/StudentTestHeader'
 import UserAnswerStats from '../components/UserAnswerStats'
+import UserAnswerRowShort from '../components/UserAnswerRowShort'
+import UserAnswerRowMulti from '../components/UserAnswerRowMulti'
 
 import { Query } from "react-apollo"
 import { USER_ANSWERS_QUERY } from '../ApolloQueries'
+
 
 const styles = theme => ({
   container: {
@@ -64,6 +67,7 @@ const styles = theme => ({
   },
 });
 
+
 class StudentTestAnswers extends Component {
 
   render() {
@@ -108,14 +112,14 @@ class StudentTestAnswers extends Component {
                      {item.question.question}
                     </h5>
                     <hr />
-                    {item.answerCorrect ?
-                      <><h5>Your Answer</h5><h5 style={{color:'green'}} >{item.answer.choice}</h5></>
-                      :
-                      <>
-                      <><h5>Your Answer</h5><h5 style={{color:'red'}} >{item.answer.choice}</h5></>
-                      <><h5>Correct Answer</h5><h5 style={{color:'green'}} >{item.question.choices.filter(choice => choice.correct)[0].choice}</h5></>
-                      </>
+
+                    {
+                      item.answer!==null ?
+                       <UserAnswerRowMulti {...item} />
+                       :
+                       <UserAnswerRowShort {...item} />
                     }
+
 
                     </CardContent>
                     </CardActionArea>

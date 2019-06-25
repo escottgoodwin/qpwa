@@ -97,7 +97,7 @@ class CreateQuestion extends Component {
 
     render() {
 
-      const { classes } = this.props
+      const { classes, history } = this.props
       const { questionId } = this.props.location.state
 
       return (
@@ -166,9 +166,9 @@ class CreateQuestion extends Component {
 
         {
           questionType==='SHORT_ANSWER' ?
-          <CreateShortAnswerQuestion testId={test.id} panelId={sentPanel.id} classes={classes} />
+          <CreateShortAnswerQuestion history={history} testId={test.id} panelId={sentPanel.id} classes={classes} />
           :
-          <CreateMultipleChoiceQuestion testId={test.id} panelId={sentPanel.id} classes={classes} />
+          <CreateMultipleChoiceQuestion history={history} testId={test.id} questionId={questionId} panelId={sentPanel.id} classes={classes} />
         }
 
         </div>

@@ -17,6 +17,10 @@ import green from '@material-ui/core/colors/green';
 import { Query } from "react-apollo"
 import { ANSWERED_QUESTION_QUERY } from '../ApolloQueries'
 
+import MultipleChoiceQuestionAnswered from '../components/MultipleChoiceQuestionAnswered'
+import ShortAnswerQuestionAnswered from '../components/ShortAnswerQuestionAnswered'
+
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -113,147 +117,26 @@ class QuestionAnswered extends Component {
       <CssBaseline />
       <div style={{marginBottom:50}}>
 
-        <Query query={ANSWERED_QUESTION_QUERY} variables={{ answerId: answerId }} fetchPolicy="cache-and-network">
+        <Query query={ANSWERED_QUESTION_QUERY} variables={{ answerId }} fetchPolicy="cache-and-network">
               {({ loading, error, data }) => {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { answer, question } = data.answer
+                const { answer, question, answerCorrect } = data.answer
 
-                const { choices } = question
-
-                const button1 = choices[0].correct ? selectedColor : wrong
-                const button2 = choices[1].correct ? selectedColor : wrong
-                const button3 = choices[2].correct ? selectedColor : wrong
-                const button4 = choices[3].correct ? selectedColor : wrong
 
             return (
               <Fade in={!loading}>
               <Paper className={classes.paper}>
               <div style={{marginTop:20}}>
-              <div style={{marginBottom:20}}>
-              {answer.correct ?
-              <div >
 
-              <center>
+              { question.testType!=='SHORT_ANSWER' ?
+                <ShortAnswerQuestionAnswered {...data.answer}/>
+                :
+                <MultipleChoiceQuestionAnswered {...data.answer}/>
+              }
 
-                <ThumbUpAltIcon fontSize='large' style={{color:green[400]}}/>
-
-              </center>
-
-              <Typography style={{color:green[400]}} component="h4" variant="h4">
-                You got it right!
-              </Typography>
-
-              <div style={{margin:10}} >
-
-              <h4>
-                {answer.choice}
-              </h4>
-
-              </div>
-
-              </div>
-              :
-              <div >
-              <center>
-
-                <ThumbDownAltIcon fontSize='large' style={{color:red[400]}}/>
-
-              </center>
-
-              <Typography style={{color:red[400]}} component="h4" variant="h4">
-                You got it wrong!
-              </Typography>
-
-              <div style={{margin:10}} >
-
-              <h4>
-                {answer.choice}
-              </h4>
-
-              </div>
-
-              </div>
-            }
-
-            </div>
-
-            <hr />
-
-            <h3>
-              {question.question}
-            </h3>
-
-            <div style={{marginTop:20}}>
-            <Card style={{backgroundColor:button1,
-              minWidth: 275,
-              position: 'relative',
-            }} >
-
-              <CardContent>
-
-                <h5>
-                  {choices[0].choice}
-                </h5>
-
-                </CardContent>
-
-            </Card>
-            </div>
-
-            <div style={{marginTop:20}}>
-            <Card style={{backgroundColor:button2,
-            minWidth: 275,
-            position: 'relative',
-            }}  >
-
-            <CardContent>
-
-              <h5>
-                {choices[1].choice}
-              </h5>
-
-              </CardContent>
-
-            </Card>
-            </div>
-
-            <div style={{marginTop:20}}>
-            <Card style={{backgroundColor:button3,
-            minWidth: 275,
-            position: 'relative',
-            }} >
-
-            <CardContent>
-
-            <h5>
-              {choices[2].choice}
-            </h5>
-
-            </CardContent>
-
-            </Card>
-            </div>
-
-            <div style={{marginTop:20}}>
-            <Card style={{backgroundColor:button4,
-            minWidth: 275,
-            position: 'relative',
-            }} >
-
-            <CardContent>
-
-            <h5>
-            {choices[3].choice}
-            </h5>
-
-            </CardContent>
-
-            </Card>
-            </div>
-
-            <div style={{margin:10}}>
+              <div style={{margin:10}}>
             <Button
             fullWidth
             variant="contained"

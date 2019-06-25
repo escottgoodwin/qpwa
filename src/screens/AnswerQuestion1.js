@@ -82,7 +82,7 @@ class AnswerQuestion extends Component {
 
     render() {
 
-      const { classes } = this.props
+      const { classes, history } = this.props
       const { questionId } = this.props.location.state
 
       return (
@@ -97,7 +97,7 @@ class AnswerQuestion extends Component {
                 if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
                 if (error) return <div>{JSON.stringify(error)}</div>
 
-                const { id, question, choices, questionType, } = data.question
+                const { id, question, choices, questionType } = data.question
                 console.log(data.question)
             return (
               <Fade in={!loading}>
@@ -109,10 +109,10 @@ class AnswerQuestion extends Component {
 
         <div style={{marginTop:20}}>
 
-          {questionType!=='SHORT_ANSWER' ?
-            <AnswerShortAnswerQuestion classes={classes} {...data.question} />
+          {questionType==='SHORT_ANSWER' ?
+            <AnswerShortAnswerQuestion history={history} classes={classes} {...data.question} />
             :
-            <AnswerMultipleChoiceQuestion  classes={classes} {...data.question} />
+            <AnswerMultipleChoiceQuestion history={history} classes={classes} {...data.question} />
           }
         </div>
         </Paper>

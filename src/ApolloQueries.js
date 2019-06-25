@@ -1745,9 +1745,10 @@ export const ANSWER_QUESTION_QUERY = gql`
     question(id:$questionId){
       id
       question
+      questionType
       panel{
         id
-        link 
+        link
       }
       choices {
         id
@@ -1936,6 +1937,8 @@ export const ANSWERED_QUESTION_QUERY = gql`
 query AnswerQuery($answerId:ID!){
   answer(id:$answerId){
     id
+    answerCorrect
+    shortAnswerText
     answer{
       id
       choice
@@ -1944,6 +1947,7 @@ query AnswerQuery($answerId:ID!){
     question{
       id
       question
+      correctShortAnswer
       panel{
         id
         link
@@ -2202,14 +2206,17 @@ query UserAnswers($testId:ID!){
     percentCorrect
     answers{
       id
-    answerCorrect
-    answer{
-      id
-      choice
-    }
+      answerCorrect
+      shortAnswerText
+      answer{
+        id
+        choice
+      }
     question{
       id
       question
+      questionType
+      correctShortAnswer
       choices{
         id
         choice

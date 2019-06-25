@@ -78,6 +78,7 @@ const styles = theme => ({
 class CreateMultipleChoiceQuestion extends Component {
 
   state = {
+        questionId: this.props.questionId,
         question:'',
         choice1:'',
         choiceCorrect1:false,
@@ -310,9 +311,10 @@ _error = async error => {
 }
   _confirm = async data => {
 
-    const { questionId } = this.props.location.state
+    const { questionId } = this.props
 
     const { id, test } = data.createQuestion
+    
     this.props.history.push({
       pathname: `/review_question`,
       state: { newQuestionId: id, oldQuestionId: questionId, testId: test.id }
