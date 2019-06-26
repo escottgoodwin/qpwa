@@ -47,7 +47,7 @@ import StudentChallenges from './screens/StudentChallenges'
 import StudentAddPhotos from './screens/StudentAddPhotos'
 import StudentJoinCourse from './screens/StudentJoinCourse'
 import StudentNewQuestions from './screens/StudentNewQuestions'
-import Question from './screens/Question'
+import Question from './screens/Question1'
 
 const styles = (theme) => ({
   toolbar: theme.mixins.toolbar,
