@@ -533,6 +533,7 @@ query UserQuery($userid: ID!) {
       tests{
         id
         testType
+        deleted
         panels{
           id
         }
@@ -872,8 +873,9 @@ query TestStats($testId:ID!, $courseId:ID!){
 
 export const TEST_STATS_PERFORMANCE_QUERY = gql`
 query TestStats($testId:ID!){
-  testStats(testId:$testId){
-    total
+  testStats1(testId:$testId){
+    totalQuestions
+    totalAnswers
     totalCorrect
     percentCorrect
   }

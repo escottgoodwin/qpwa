@@ -23,7 +23,7 @@ class TestStats extends Component {
               if (loading) return <div style={{height:'25vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div>{JSON.stringify(error)}</div>
 
-              const stats = data.testStats
+              const { totalQuestions, totalAnswers, totalCorrect, percentCorrect } = data.testStats1
 
           return (
             <Fade in={!loading}>
@@ -41,18 +41,28 @@ class TestStats extends Component {
             <CardContent >
 
             <Grid container justify="center" >
-            <Grid  xs={6} item>
+
+            <Grid  xs={4} item>
 
             <h5>
-              Answers: {stats.total}
+              Questions: {totalQuestions}
             </h5>
 
             </Grid>
 
-            <Grid xs={6} item>
+
+            <Grid  xs={4} item>
 
             <h5>
-            Correct: {stats.totalCorrect} ({ stats.totalCorrect/stats.total >0 ? Math.round(stats.totalCorrect/stats.total*100) : 0 }%)
+              Answers: {totalAnswers}
+            </h5>
+
+            </Grid>
+
+            <Grid xs={4} item>
+
+            <h5>
+            Correct: {totalCorrect} ({ Math.round(percentCorrect*100) }%)
             </h5>
 
             </Grid>

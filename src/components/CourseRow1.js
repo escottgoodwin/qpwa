@@ -65,24 +65,24 @@ const CourseRow1 = props => {
               {time}
             </Typography>
             <h3>
-                {name}
+              {name}
             </h3>
             <Typography className={classes.pos} color="textSecondary">
-                {institution.name}
+              {institution.name}
             </Typography>
             <hr/>
 
             <Grid container>
             <Grid item xs={6}>
             <h5>
-              Tests: {tests.filter(test => !test.deleted).length}
+              Tests: { tests.filter(test => test.deleted!==true).length }
             </h5>
             </Grid>
 
             <Grid item xs={6}>
-            <Typography  variant="h6">
+            <h5>
                Students: {students.length}
-            </Typography>
+            </h5>
             </Grid>
             </Grid>
 

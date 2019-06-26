@@ -77,7 +77,7 @@ const styles = theme => ({
   },
 });
 
-const AddTest = props  =>{
+const AddTest = props  => {
 
   const now = new Date()
 
@@ -94,7 +94,7 @@ const AddTest = props  =>{
 
   const addTestMutation = useMutation(ADD_TEST_MUTATION, {
     variables: { subject,
-    testDate:now,
+    testDate:null,
     testNumber,
     published: false,
     release:false,
@@ -115,7 +115,7 @@ const AddTest = props  =>{
 
  const closeSnack = () => setErrorOpen(false)
 
-  async function _error(error){
+  function _error(error){
 
       const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
       setGraphQLError(gerrorMessage)
@@ -126,7 +126,7 @@ const AddTest = props  =>{
         setErrorOpen(true)
   }
 
-  async function _confirm(data) {
+  function _confirm(data) {
     const { id } = data.addTest
 
     history.push({
