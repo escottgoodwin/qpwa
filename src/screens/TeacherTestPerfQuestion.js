@@ -70,26 +70,6 @@ const styles = theme => ({
   },
 });
 
-function listSort1(array, key, direction){
-    const dir = direction === 'desc' ? -1 : 1
-
-    function compare(a, b) {
-  // Use toUpperCase() to ignore character casing
-  const genreA = a[key];
-  const genreB = b[key];
-
-  let comparison = 0;
-  if (genreA > genreB) {
-    comparison = 1;
-  } else if (genreA < genreB) {
-    comparison = -1;
-  }
-  return comparison * dir;
-}
-
-return array.sort(compare)
-
-}
 
 class TeacherTestPerfQuestion extends Component {
 
@@ -106,7 +86,7 @@ class TeacherTestPerfQuestion extends Component {
     const { test_id } = this.props.location.state
     const { classes } = this.props
     const { value } = this.state
-    
+
       return (
 
         <main className={classes.main}>
@@ -120,9 +100,9 @@ class TeacherTestPerfQuestion extends Component {
 
                 const { testQuestionStats } = data
                 const withAnswers = testQuestionStats.filter(s => s.total>0)
-
-                const bestQuestions = listSort1(withAnswers ,'percentCorrect','desc')
-                const worstQuestions = listSort1(withAnswers ,'percentCorrect','asc')
+                const slice = withAnswers.length+1
+                const newSortAsc = withAnswers.sort((a, b) => (a.percentCorrect > b.percentCorrect) ? 1 : (a.percentCorrect === b.percentCorrect) ? ((a.total > b.total) ? 1 : -1) : -1 ).slice(0,slice)
+                const newSortDesc = withAnswers.sort((a, b) => (a.percentCorrect < b.percentCorrect) ? 1 : (a.percentCorrect === b.percentCorrect) ? ((a.total > b.total) ? 1 : -1) : -1 ).slice(0,slice)
 
             return (
               <Fade in={!loading}>
@@ -156,54 +136,52 @@ class TeacherTestPerfQuestion extends Component {
 
                 {value === "worst" &&
 
-                  <Table className={classes.table}>
-                    <TableHead>
-                      <TableRow>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
 
-                        <TableCell style={{fontSize:14}} align="left">Name</TableCell>
-                        <TableCell style={{fontSize:14}} align="left">Total</TableCell>
-                        <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Question</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Total</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
 
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-
-                  {worstQuestions.map(student =>
-                    <TableRow key={student.id}>
-                      <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
-                      <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
-                      <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
                     </TableRow>
-                  )}
-                  </TableBody>
-                </Table>
+                  </TableHead>
+                  <TableBody>
 
+                {newSortAsc.map(question =>
+                  <TableRow key={question.question}>
+                    <TableCell style={{fontSize:16}}  align="left">{question.question}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{question.total}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{question.totalCorrect} ({Math.round(question.percentCorrect*100)}%)</TableCell>
+                  </TableRow>
+                )}
+                </TableBody>
+              </Table>
               }
 
                 {value === "best" &&
 
-                  <Table className={classes.table}>
-                    <TableHead>
-                      <TableRow>
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
 
-                        <TableCell style={{fontSize:14}} align="left">Name</TableCell>
-                        <TableCell style={{fontSize:14}} align="left">Total</TableCell>
-                        <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Question</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Total</TableCell>
+                      <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
 
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-
-                  {bestQuestions.map(student =>
-                    <TableRow key={student.id}>
-                      <TableCell style={{fontSize:16}}  align="left">{student.name}</TableCell>
-                      <TableCell style={{fontSize:16}} align="left">{student.total}</TableCell>
-                      <TableCell style={{fontSize:16}} align="left">{student.totalCorrect} ({Math.round(student.percentCorrect*100)}%)</TableCell>
                     </TableRow>
-                  )}
-                  </TableBody>
-                </Table>
+                  </TableHead>
+                  <TableBody>
 
+                {newSortDesc.map(question =>
+                  <TableRow key={question.question}>
+                    <TableCell style={{fontSize:16}}  align="left">{question.question}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{question.total}</TableCell>
+                    <TableCell style={{fontSize:16}} align="left">{question.totalCorrect} ({Math.round(question.percentCorrect*100)}%)</TableCell>
+                  </TableRow>
+                )}
+                </TableBody>
+              </Table>
                 }
 
               </div>

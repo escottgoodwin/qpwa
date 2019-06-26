@@ -92,8 +92,9 @@ class AddTest extends Component {
         }
 
     render() {
-      const { course_id } = this.props.location.state
-      const { classes } = this.props
+
+      const { classes, location } = this.props
+      const { course_id } = location.state
       const { testNumber, subject, testDate, testType, graphQLError, networkError, isVisibleNet, isVisibleGraph } = this.state
 
       return (

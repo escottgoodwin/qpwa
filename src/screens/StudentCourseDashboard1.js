@@ -1,9 +1,12 @@
 import React,{Component} from 'react'
 import '../css/App.css'
+import { Link } from 'react-router-dom'
 
 import Fade from '@material-ui/core/Fade';
+import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
+
 import CourseHeaderStudent from '../components/CourseHeaderStudent'
 import StudentTestList from '../components/StudentTestList'
 
@@ -72,7 +75,7 @@ class StudentCourseDashboard extends Component {
 
   render() {
 
-    const { course_id }= this.props.location.state
+    const { course_id } = this.props.location.state
 
     return (
 
@@ -85,13 +88,25 @@ class StudentCourseDashboard extends Component {
               if (loading) return <div style={{height:'100vh',backgroundColor:'#e4f1fe'}} > </div>
               if (error) return <div> {JSON.stringify(error)} </div>
 
-              const courseToRender = data.course
-              const tests1 = courseToRender.tests.filter(test => !test.deleted && test.published)
+              const { course } = data
+              const tests1 = course.tests.filter(test => !test.deleted && test.published)
 
           return (
             <Fade in={!loading}>
               <div >
-              <CourseHeaderStudent {...courseToRender} />
+              <CourseHeaderStudent {...course} />
+
+              <div style={{marginTop:20, marginRight:30, marginLeft:30}}>
+              <Link  to={{
+                pathname: "/add_test",
+                state:
+                  {
+                    course_id }
+                }} >
+                <Button  fullWidth size='large' variant='contained' color="primary" >Add Test</Button>
+              </Link>
+              </div>
+
               <StudentTestList tests={tests1} courseId={course_id} />
             </div>
             </Fade >

@@ -38,59 +38,60 @@ const styles = {
    }
 };
 
-const CourseRow1 = (props) =>
+const CourseRow1 = props => {
 
-<div style={{margin:15}}>
+  const { classes, history, id, image, time, name, institution, tests, students } = props
 
-<Card onClick={()=>props.history.push({
-  pathname: "/course_dashboard",
-  state:
-    { course_id: props.id }
-  })}
-  className={props.classes.card} >
+    return(
+    <div style={{margin:15}}>
 
-  <CardActionArea>
+    <Card onClick={()=>history.push({
+      pathname: "/course_dashboard",
+      state:
+        { course_id: id }
+      })}
+      className={classes.card} >
 
-      <CardMedia
-          height="140"
-          src={props.image}
+      <CardActionArea>
 
-          component="img"
+          <CardMedia
+              height="140"
+              src={image}
+              component="img"
+          />
 
-      />
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              {time}
+            </Typography>
+            <h3>
+                {name}
+            </h3>
+            <Typography className={classes.pos} color="textSecondary">
+                {institution.name}
+            </Typography>
+            <hr/>
 
+            <Grid container>
+            <Grid item xs={6}>
+            <h5>
+              Tests: {tests.filter(test => !test.deleted).length}
+            </h5>
+            </Grid>
 
-      <CardContent>
-        <Typography className={props.classes.title} color="textSecondary" gutterBottom>
-          {props.time}
-        </Typography>
-        <h3>
-            {props.name}
-        </h3>
-        <Typography className={props.classes.pos} color="textSecondary">
-            {props.institution.name}
-        </Typography>
-        <hr/>
+            <Grid item xs={6}>
+            <Typography  variant="h6">
+               Students: {students.length}
+            </Typography>
+            </Grid>
+            </Grid>
 
-        <Grid container>
-        <Grid item xs={6}>
-        <h5>
-          Tests: {props.tests.filter(test => !test.deleted).length}
-        </h5>
-        </Grid>
-
-        <Grid item xs={6}>
-        <Typography  variant="h6">
-           Students: {props.students.length}
-        </Typography>
-        </Grid>
-        </Grid>
-
-      </CardContent>
-      </CardActionArea>
-    </Card>
-    </div>
-
+          </CardContent>
+          </CardActionArea>
+        </Card>
+        </div>
+    )
+}
 
 
 export default withStyles(styles)(withRouter(CourseRow1))

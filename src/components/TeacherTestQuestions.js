@@ -168,7 +168,7 @@ class TeacherTestQuestions extends Component {
               <TableHead>
                 <TableRow>
 
-                  <TableCell style={{fontSize:14}} align="left">Name</TableCell>
+                  <TableCell style={{fontSize:14}} align="left">Question</TableCell>
                   <TableCell style={{fontSize:14}} align="left">Total</TableCell>
                   <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
 
@@ -193,7 +193,7 @@ class TeacherTestQuestions extends Component {
               <TableHead>
                 <TableRow>
 
-                  <TableCell style={{fontSize:14}} align="left">Name</TableCell>
+                  <TableCell style={{fontSize:14}} align="left">Question</TableCell>
                   <TableCell style={{fontSize:14}} align="left">Total</TableCell>
                   <TableCell style={{fontSize:14}} align="left">Correct</TableCell>
 
