@@ -26,6 +26,7 @@ import TeacherCourseStudents from './screens/TeacherCourseStudents'
 import TeacherTestChallenges from './screens/TeacherTestChallenges'
 import TeacherTestPerfStudent from './screens/TeacherTestPerfStudent'
 import TeacherTestPerfQuestion from './screens/TeacherTestPerfQuestion'
+import TeacherQuestion from './screens/TeacherQuestion'
 
 import StudentDashboard from './screens/StudentDashboard'
 import StudentCourseDashboard from './screens/StudentCourseDashboard1'
@@ -48,6 +49,7 @@ import StudentAddPhotos from './screens/StudentAddPhotos'
 import StudentJoinCourse from './screens/StudentJoinCourse'
 import StudentNewQuestions from './screens/StudentNewQuestions'
 import Question from './screens/Question1'
+
 
 const styles = (theme) => ({
   toolbar: theme.mixins.toolbar,
@@ -141,7 +143,7 @@ class App extends Component {
           <Route path="/teacher_test_dashboard" component={TeacherTestDashboard}/>
           <Route path="/teacher_test_panels" component={TeacherTestPanels}/>
           <Route path="/teacher_questions" component={TeacherTestAllQuestions}/>
-          <Route path="/teacher_question" component={TeacherReviewQuestion}/>
+          <Route path="/teacher_question" component={TeacherQuestion}/>
           <Route path="/course_students" component={TeacherCourseStudents}/>
           <Route path="/teacher_challenges" component={TeacherTestChallenges}/>
           <Route path="/teacher_test_students" component={TeacherTestPerfStudent}/>

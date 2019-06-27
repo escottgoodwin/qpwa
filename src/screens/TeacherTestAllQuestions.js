@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Fade from '@material-ui/core/Fade';
-
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 
 import TeacherTestHeader from '../components/TeacherTestHeader'
 
@@ -77,7 +79,7 @@ class TeacherTestAllQuestions extends Component {
   render() {
 
     const { testId } = this.props.location.state
-    const { classes } = this.props
+    const { classes, history } = this.props
 
       return (
 
@@ -96,22 +98,27 @@ class TeacherTestAllQuestions extends Component {
                 <TeacherTestHeader classes={classes} test_id={testId} />
 
                 <Paper style={{padding:25,marginTop:10}}>
+                <div style={{padding:10}}><h4>All Test Questions</h4></div>
 
                 {
                   questions.map(item =>
 
-                    <Link  to={{
+                    <div >
+                    <Card onClick={()=>history.push({
                       pathname: "/teacher_question",
                       state:
-                        { questionId: item.id,
-                          testId }
-                      }} >
+                      { questionId: item.id, testId }
+                      })}
+                       style={{marginTop:10}}>
 
-                    <h5 key={item.id}>
-                      {item.question}
-                    </h5>
+                      <CardActionArea>
 
-                    </Link>
+                      <CardContent style={{padding:25}}>
+                      <h5>{item.question}</h5>
+                      </CardContent>
+                      </CardActionArea>
+                      </Card>
+                      </div>
 
                   )
                 }
