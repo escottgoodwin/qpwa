@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "build",
+    "target": "quandrio-mobile-student",
     "ignore": [
       "firebase.json",
       "**/.*",

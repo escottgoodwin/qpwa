@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { messaging, database } from './firebase'
 import firebase from 'firebase'
 
-
 import Nav1 from './components/Nav1'
 import SignIn from './screens/SignIn'
 import SignOut from './screens/SignOut'
@@ -17,7 +16,7 @@ import EditCourse from './screens/EditCourse'
 import TestPanels from './screens/TestPanels'
 import AddTest from './screens/AddTest1'
 import EditTest from './screens/EditTest'
-import PublishTest from './screens/PublishTest'
+import PublishTest from './screens/PublishTest1'
 import TeacherTestDashboard from './screens/TeacherTestDashboard'
 import TeacherTestPanels from './screens/TeacherTestPanels'
 import TeacherTestAllQuestions from './screens/TeacherTestAllQuestions'

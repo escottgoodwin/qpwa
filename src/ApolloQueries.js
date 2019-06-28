@@ -1287,6 +1287,28 @@ mutation PublishTest(
 }
 `
 
+export const SHORT_PUBLISH_TEST_MUTATION = gql`
+mutation PublishTestShort(
+  $testId:ID!,
+  $startTime:String!,
+  $endTime:String!,
+  $endDate:DateTime!,
+  $panelId:ID!,
+  $question:String!,
+  $correctShortAnswer:String!){
+    publishTestShort(
+      testId:$testId,
+      startTime:$startTime,
+      endTime:$endTime,
+      endDate:$endDate,
+      panelId:$panelId,
+      question:$question,
+      correctShortAnswer:$correctShortAnswer){
+        id
+      }
+}
+`
+
 export const PUBLISH_TEST_REFETCH_QUERY = gql`
 query TestQuery($test_id:ID!){
   test(id:$test_id){

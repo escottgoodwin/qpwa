@@ -94,7 +94,7 @@ const AddTest = props  => {
 
   const addTestMutation = useMutation(ADD_TEST_MUTATION, {
     variables: { subject,
-    testDate:null,
+    testDate,
     testNumber,
     published: false,
     release:false,
@@ -208,6 +208,7 @@ const AddTest = props  => {
         <Paper className={classes.paper}>
         <InputLabel  htmlFor="testType">Test Date</InputLabel>
         {moment(testDate).format('MMMM Do YYYY, h:mm a')}
+
         <MuiPickersUtilsProvider utils={MomentUtils}>
 
         <KeyboardDatePicker
@@ -236,6 +237,7 @@ const AddTest = props  => {
 
 
         </MuiPickersUtilsProvider>
+
         </Paper>
               <Button
               fullWidth
