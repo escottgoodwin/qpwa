@@ -87,23 +87,31 @@ class Nav1 extends React.Component {
     return (
 
 <div className={classes.root}>
+
       <AppBar style={{backgroundColor:'#21385b',color:'#2185d0'}} position="fixed" >
         <Toolbar>
-        <Grid container justify="space-between">
+        <Grid
+        container
+        direction="row"
+        justify="space-around">
 
-        <Grid item >
+        <Grid item xs={5}>
+        <div style={{textAlign:'left'}}>
         <DashboardButton />
+        </div>
         </Grid>
 
-        <Grid item >
+        <Grid item xs={2}>
 
+        <Button variant="outlined"  color="inherit">
         <h5>Q</h5>
-
+        </Button>
         </Grid>
 
-        <Grid item >
+        <Grid item xs={5}>
+        <div style={{textAlign:'right'}}>
         <SignInButton />
-
+        </div>
         </Grid>
         </Grid>
         </Toolbar>
