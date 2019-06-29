@@ -96,10 +96,9 @@ class Nav1 extends React.Component {
         </Grid>
 
         <Grid item >
-        
+
         <h5>Q</h5>
 
-        </Button>
         </Grid>
 
         <Grid item >
