@@ -61,8 +61,6 @@ class Nav1 extends React.Component {
                 }
                 )
 
-
-
       const notifications = collection.child(userId)
 
       notifications.limitToLast(1).on('child_added', snapshot => {
@@ -98,8 +96,7 @@ class Nav1 extends React.Component {
         </Grid>
 
         <Grid item >
-        <Button onClick={() => this.setState({open:true})} variant="outlined" color="inherit">
-
+        
         <h5>Q</h5>
 
         </Button>
