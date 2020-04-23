@@ -33,7 +33,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -81,7 +80,7 @@ class StudentChallenges extends Component {
 
       <main className={classes.main}>
       <CssBaseline />
-      <div style={{marginBottom:50}}>
+      <div style={{marginBottom:100}}>
 
       <Query query={TEST_QUERY} variables={{ test_id: testId }}>
             {({ loading, error, data }) => {

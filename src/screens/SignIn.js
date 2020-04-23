@@ -206,7 +206,7 @@ class SignIn extends Component {
 }
 
 _error = async error => {
-
+    console.log(error)
     const gerrorMessage = error.graphQLErrors.map((err,i) => err.message)
     this.setState({ isVisibleGraph: true, graphQLError: gerrorMessage})
 

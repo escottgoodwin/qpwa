@@ -54,7 +54,7 @@ const styles = (theme) => ({
   toolbar: theme.mixins.toolbar,
 });
 
-const collection = database.child('notifications')
+const collection = database.collection('notifications')
 
 class App extends Component {
 
@@ -107,8 +107,8 @@ class App extends Component {
       <div className="App">
 
         <Nav1 />
-
-        <div style={{marginTop: '65px'}}>
+        <center>
+        <div style={{marginTop: '6%', width:'60%'}}>
         <Switch>
           <Route exact path="/" component={SignIn}/>
           <Route path="/sign_in" component={SignIn}/>
@@ -154,6 +154,7 @@ class App extends Component {
         </Switch>
 
         </div>
+        </center>
       </div>
       )
     }

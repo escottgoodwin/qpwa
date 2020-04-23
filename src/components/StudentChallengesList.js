@@ -45,8 +45,6 @@ class StudentChallengeList extends React.Component {
 
             {challenges.map(item =>
 
-
-
               <div key={item.id} style={{marginTop:10}} >
 
               <Card onClick={()=> history.push({

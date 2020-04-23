@@ -32,7 +32,7 @@ import ChallengeQuestionShort from '../components/ChallengeQuestionShort';
 import { Query } from "react-apollo"
 import { CHALLENGE_QUERY } from '../ApolloQueries'
 
-const collection = database.child('challenges')
+const collection = database.collection('challenges')
 
 const styles = theme => ({
   container: {

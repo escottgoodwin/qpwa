@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './App'
 
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_SERVER,
+  uri: 'https://qbe1.herokuapp.com/',
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)

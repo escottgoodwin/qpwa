@@ -34,7 +34,7 @@ class CourseDashboard extends Component {
 
         return (
           <Fade in={!loading}>
-          <>
+          <div style={{width:'60%'}}>
 
           <CourseHeader {...courseToRender} />
 
@@ -70,11 +70,13 @@ class CourseDashboard extends Component {
                 }} >
 
               <div style={{marginLeft:30,marginRight:30}}>
-              <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Edit Course</Button>
+                <Button  style={{marginTop:20}} fullWidth size='large' variant='contained' color="primary" >Edit Course</Button>
               </div>
               </Link>
-              </>
+              </div>
+              
             </Fade>
+            
         )
       }}
     </Query>

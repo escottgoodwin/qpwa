@@ -49,7 +49,8 @@ class StudentDashboard extends Component {
 
                 return (
                   <Fade in={!loading}>
-                    <>
+            
+                    <div >
 
                     <TeacherHeader courses={studentCourses.filter(course => !course.deleted).length} {...data.user}/>
 
@@ -96,7 +97,8 @@ class StudentDashboard extends Component {
 
                       <StudentCourseList  {...activeCourses} />
 
-                    </>
+                    </div>
+                 
                     </Fade>
               )
             }}

@@ -12,7 +12,7 @@ import SendIcon from '@material-ui/icons/Send';
 
 import ChatItem from '../components/ChatItem';
 
-const challenges = database.child('challenges')
+const challenges = database.collection('challenges')
 
 const styles = theme => ({
   chat: {

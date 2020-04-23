@@ -19,7 +19,7 @@ import DashboardButton from './DashboardButton'
 
 import { NEW_QUESTIONS } from '../ApolloQueries'
 
-const collection = database.child('notifications')
+const collection = database.collection('notifications')
 
 class Nav1 extends React.Component {
 
@@ -61,22 +61,6 @@ class Nav1 extends React.Component {
                 }
                 )
 
-      const notifications = collection.child(userId)
-
-      notifications.limitToLast(1).on('child_added', snapshot => {
-
-      const timeAdded = new Date(snapshot.val().added)
-      const now = new Date()
-      const nowPlusTen = now.setSeconds(now.getSeconds() - 5);
-
-      if (timeAdded >= nowPlusTen){
-
-        const notification = snapshot.val()
-
-        this.setState({ notification, open:true })
-      }
-
-      });
     }
 
   }
